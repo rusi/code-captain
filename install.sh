@@ -14,8 +14,12 @@ NC='\033[0m' # No Color
 
 # Configuration
 REPO_URL="https://github.com/devobsessed/code-captain"
+BASE_URL="https://raw.githubusercontent.com/devobsessed/code-captain/main"
 LOCAL_SOURCE=""  # Set this for local testing
 VERSION="main"
+
+# Initialize overwrite flags (Agent OS style)
+OVERWRITE_FILES=false
 
 # Detect environment
 detect_environment() {
@@ -39,6 +43,39 @@ detect_environment() {
     echo "$env"
 }
 
+# Check Windows compatibility and warn users
+check_windows_compatibility() {
+    # Detect if we're on Windows (but not WSL)
+    if [[ "$OSTYPE" == "msys" || "$OSTYPE" == "cygwin" ]]; then
+        # Running in Git Bash or Cygwin - good!
+        print_success "Detected Git Bash/Cygwin - compatible environment ✓"
+        return 0
+    elif [[ -n "$WSL_DISTRO_NAME" ]] || [[ -f /proc/version ]] && grep -q Microsoft /proc/version 2>/dev/null; then
+        # Running in WSL - good!
+        print_success "Detected WSL environment - compatible ✓"
+        return 0
+    elif [[ "$OS" == "Windows_NT" ]]; then
+        # Native Windows without bash compatibility
+        print_error "❌ Incompatible Windows environment detected!"
+        echo ""
+        echo "This script requires a bash environment. Please use:"
+        echo ""
+        echo "✅ RECOMMENDED: Git Bash"
+        echo "   Download from: https://git-scm.com/download/win"
+        echo "   Then run this script in Git Bash"
+        echo ""
+        echo "✅ ALTERNATIVE: Windows Subsystem for Linux (WSL)"
+        echo "   Enable WSL, then run this script in your Linux distribution"
+        echo ""
+        echo "❌ PowerShell and Command Prompt are not supported"
+        echo ""
+        echo "For help, see: ./install.sh --help"
+        exit 1
+    fi
+    # macOS/Linux - no warnings needed
+    return 0
+}
+
 # Print colored output
 print_step() {
     echo -e "${BLUE}[Step]${NC} $1"
@@ -60,10 +97,22 @@ print_error() {
 create_directories() {
     print_step "Creating Code Captain directory structure..."
     
-    # Create main .code-captain directory with simple structure
+    # Create main .code-captain directory with complete structure
     mkdir -p .code-captain/commands
+    mkdir -p .code-captain/integrations/github
+    mkdir -p .code-captain/integrations/azure-devops
+    mkdir -p .code-captain/specs
+    mkdir -p .code-captain/research
+    mkdir -p .code-captain/decision-records
+    mkdir -p .code-captain/docs
+    mkdir -p .code-captain/reports
     
-    print_success "Directory structure created"
+    # Create GitHub sync infrastructure
+    mkdir -p .code-captain/state/specs
+    mkdir -p .code-captain/state/sync-logs
+    mkdir -p .code-captain/work-context
+    
+    print_success "Enhanced directory structure created with GitHub sync support"
 }
 
 # Setup Code Captain command file
@@ -73,81 +122,99 @@ setup_cursor_command() {
     # Create .cursor/rules directory
     mkdir -p .cursor/rules
     
-    # Copy cc.mdc to .cursor/rules/ (small reference file) 
-    if [ -n "$LOCAL_SOURCE" ] && [ -f "$LOCAL_SOURCE/cc.mdc" ]; then
-        cp "$LOCAL_SOURCE/cc.mdc" .cursor/rules/cc.mdc
-        print_success "Code Captain command file installed to .cursor/rules/cc.mdc"
-    elif [ -f ".code-captain/cc.mdc" ]; then
-        cp .code-captain/cc.mdc .cursor/rules/cc.mdc
-        rm .code-captain/cc.mdc  # Remove from .code-captain since it should only be in .cursor/rules
-        print_success "Code Captain command file installed to .cursor/rules/cc.mdc"
-    else
-        print_warning "cc.mdc not found"
-    fi
+    # Download cc.mdc to .cursor/rules/ (small reference file)
+    download_file "cc.mdc" ".cursor/rules/cc.mdc" "Cursor command file"
     
-    # Ensure cc.md (complete reference) stays in .code-captain/
-    if [ -f ".code-captain/cc.md" ]; then
-        print_success "Code Captain complete reference available at .code-captain/cc.md"
-    else
-        print_warning "cc.md not found in .code-captain directory"
-    fi
+    print_success "Code Captain command file installed to .cursor/rules/cc.mdc"
 }
 
 # Setup Claude Code compatibility
 setup_claude_code_rules() {
     print_step "Setting up Claude Code compatibility..."
     
-    cat > .code-captain/config/claude-code.md << 'EOF'
+    # Create config directory if it doesn't exist
+    mkdir -p .code-captain/docs
+    
+    cat > .code-captain/docs/claude-code-integration.md << 'EOF'
 # Claude Code Integration Guide
 
-## Code Captain (@cc) Commands
+## Code Captain (cc:) Commands
 
 Code Captain provides unified AI development capabilities for Claude Code environments.
 
 ### Command Structure
-All commands follow the pattern: `@cc [command] "description"`
+All commands follow the pattern: `cc: [command] "description"`
 
 ### Available Commands
 
-#### Analysis & Requirements
-- `@cc analyze-requirements "description"` - Requirements analysis
-- `@cc create-user-story "feature"` - User story generation
-- `@cc research "topic"` - Technical research
-- `@cc investigate-issue "problem"` - Bug investigation
+#### Project Setup
+- `cc: initialize` - Project analysis and setup
 
-#### Architecture & Design
-- `@cc design-system "architecture"` - System design
-- `@cc create-adr "decision"` - Architecture decisions
-- `@cc review-architecture` - Architecture analysis
-- `@cc select-technology "options"` - Technology recommendations
+#### Analysis & Requirements  
+- `cc: create-spec "feature"` - Comprehensive feature specifications
+- `cc: create-adr "decision"` - Architecture Decision Records
+- `cc: research "topic"` - Systematic technical research
+- `cc: explain-code [target]` - Code explanation and documentation
 
-#### Development & Implementation
-- `@cc implement-feature "feature"` - Feature implementation
-- `@cc refactor-code "target"` - Code refactoring
-- `@cc create-tests "target"` - Test generation
-- `@cc debug-code "issue"` - Debugging assistance
+#### Implementation
+- `cc: execute-task` - TDD implementation from specifications
 
-#### Quality & Testing
-- `@cc create-test-strategy "target"` - Testing strategies
-- `@cc review-code "location"` - Code reviews
-- `@cc validate-implementation "requirements"` - Validation
-- `@cc performance-review "target"` - Performance optimization
+#### Enhanced GitHub Workflow
+- `cc: generate-tasks` - Generate implementation tasks from specs
+- `cc: create-github-issues` - Create GitHub issues from tasks
+- `cc: sync` - Advanced bidirectional GitHub sync
+- `cc: next-task` - Find best next task to work on
+- `cc: start-work <issue>` - Claim task and generate LLM context
+- `cc: my-tasks` - Show your current GitHub assignments
+- `cc: available-tasks` - Browse unassigned tasks
+- `cc: complete-task <issue>` - Mark task complete
+- `cc: team-status` - Team coordination overview
+- `cc: resolve-conflicts` - Handle sync conflicts
 
-#### Documentation & Planning
-- `@cc create-prd "product"` - Product requirements
-- `@cc status-update` - Project status reports
-- `@cc create-commit` - Commit message generation
-- `@cc workflow-plan "type" "description"` - Complex workflows
+#### Azure DevOps Integration
+- `cc: create-azure-work-items` - Create Azure DevOps work items
+- `cc: sync-azure-work-items` - Sync with Azure DevOps status
 
 ### File Organization
-- Commands: `.code-captain/commands/` - All available @cc commands
-- Specs: `.code-captain/specs/` - Requirements, user stories, ADRs  
+- Commands: `.code-captain/commands/` - Core command documentation
+- Integrations: `.code-captain/integrations/` - Platform-specific commands  
+- Specs: `.code-captain/specs/` - Requirements, user stories, specifications, tasks
 - Research: `.code-captain/research/` - Technical research and analysis
+- Decision Records: `.code-captain/decision-records/` - Architecture decisions
 - Docs: `.code-captain/docs/` - Generated documentation and guides
+- State: `.code-captain/state/` - GitHub sync cache (assignments, available tasks)
+- Work Context: `.code-captain/work-context/` - Generated LLM context for active tasks
+
+For complete documentation, see `.code-captain/cc.md`
 
 EOF
 
     print_success "Claude Code compatibility configured"
+}
+
+# Check GitHub CLI availability
+check_github_cli() {
+    if [ "$PM_SYSTEM" = "github" ]; then
+        print_step "Checking GitHub CLI availability..."
+        
+        if command -v gh >/dev/null 2>&1; then
+            print_success "GitHub CLI (gh) found - enhanced workflow available"
+            
+            # Check if authenticated
+            if gh auth status >/dev/null 2>&1; then
+                print_success "GitHub CLI is authenticated and ready"
+            else
+                print_warning "GitHub CLI found but not authenticated"
+                echo "💡 Run 'gh auth login' to enable sync operations"
+            fi
+        else
+            print_warning "GitHub CLI (gh) not found - basic integration only"
+            echo "💡 Install GitHub CLI for enhanced workflow:"
+            echo "   macOS: brew install gh"
+            echo "   Linux: See https://cli.github.com/"
+            echo "   Windows: winget install GitHub.cli"
+        fi
+    fi
 }
 
 # Select project management system
@@ -165,6 +232,17 @@ select_project_management_system() {
                 exit 1
                 ;;
         esac
+    fi
+    
+    # Check if running non-interactively (like curl | bash)
+    if [ ! -t 0 ]; then
+        print_warning "Non-interactive installation detected (piped from curl)"
+        print_step "Defaulting to GitHub Issues & Projects integration"
+        print_warning "To specify a different system, use: PM_SYSTEM=azure-devops curl ... | bash"
+        PM_SYSTEM="github"
+        print_success "Selected: GitHub Issues & Projects (default)"
+        echo ""
+        return 0
     fi
     
     echo ""
@@ -207,60 +285,123 @@ select_project_management_system() {
     echo ""
 }
 
-# Download source files
-download_files() {
-    print_step "Downloading Code Captain system files..."
+# Download a single file with existence checking (Agent OS style)
+download_file() {
+    local source_path="$1"
+    local dest_path="$2"
+    local description="$3"
+    local file_existed=false
+    
+    # Check if file already exists
+    if [ -f "$dest_path" ]; then
+        file_existed=true
+        if [ "$OVERWRITE_FILES" = false ]; then
+            echo "  ⚠️  $dest_path already exists - skipping"
+            return
+        fi
+    fi
     
     if [ -n "$LOCAL_SOURCE" ]; then
-        print_warning "Using local source: $LOCAL_SOURCE"
-        if [ -d "$LOCAL_SOURCE" ]; then
-            # Copy common files (excluding cc.mdc which goes only to .cursor/rules)
-            rsync -av --exclude='cc.mdc' --exclude='platforms/' --ignore-existing "$LOCAL_SOURCE/" .code-captain/
-            
-            # Copy core commands
-            if [ -d "$LOCAL_SOURCE/commands" ]; then
-                rsync -av --ignore-existing "$LOCAL_SOURCE/commands/" .code-captain/commands/
-            fi
-            
-            if [ -d "$LOCAL_SOURCE/platforms/$PM_SYSTEM" ]; then
-                rsync -av --ignore-existing "$LOCAL_SOURCE/platforms/$PM_SYSTEM/" .code-captain/commands/
-                print_success "Installed $PM_SYSTEM-specific commands"
+        # Local source mode
+        if [ -f "$LOCAL_SOURCE/$source_path" ]; then
+            cp "$LOCAL_SOURCE/$source_path" "$dest_path"
+            if [ "$file_existed" = true ]; then
+                echo "  ✓ $dest_path (overwritten)"
             else
-                print_warning "Platform-specific commands not found for: $PM_SYSTEM"
+                echo "  ✓ $dest_path"
             fi
         else
+            print_warning "Local file not found: $LOCAL_SOURCE/$source_path"
+        fi
+    else
+        # Remote download mode
+        if command -v curl >/dev/null 2>&1; then
+            curl -s -o "$dest_path" "${BASE_URL}/$source_path"
+            if [ -f "$dest_path" ]; then
+                if [ "$file_existed" = true ]; then
+                    echo "  ✓ $dest_path (overwritten)"
+                else
+                    echo "  ✓ $dest_path"
+                fi
+            else
+                print_error "Failed to download: $source_path"
+            fi
+        else
+            print_error "curl not found. Please install curl."
+            exit 1
+        fi
+    fi
+}
+
+# Download core files
+download_core_files() {
+    print_step "Downloading core Code Captain files..."
+    
+    # Download main reference file
+    download_file "cc.md" ".code-captain/cc.md" "Main reference"
+    
+    # Download docs
+    download_file "docs/best-practices.md" ".code-captain/docs/best-practices.md" "Best practices"
+    
+    print_success "Core files downloaded"
+}
+
+# Download command files
+download_command_files() {
+    print_step "Downloading command files..."
+    
+    # Core commands
+    download_file "commands/create-adr.md" ".code-captain/commands/create-adr.md" "Create ADR command"
+    download_file "commands/create-spec.md" ".code-captain/commands/create-spec.md" "Create spec command"
+    download_file "commands/execute-task.md" ".code-captain/commands/execute-task.md" "Execute task command"
+    download_file "commands/explain-code.md" ".code-captain/commands/explain-code.md" "Explain code command"
+    download_file "commands/initialize.md" ".code-captain/commands/initialize.md" "Initialize command"
+    download_file "commands/research.md" ".code-captain/commands/research.md" "Research command"
+    
+    print_success "Command files downloaded"
+}
+
+# Download platform-specific files
+download_platform_files() {
+    print_step "Downloading $PM_SYSTEM integration files..."
+    
+    # Create integrations directory structure
+    mkdir -p .code-captain/integrations
+    
+    case $PM_SYSTEM in
+        "github")
+            mkdir -p .code-captain/integrations/github
+            download_file "integrations/github/create-github-issues.md" ".code-captain/integrations/github/create-github-issues.md" "GitHub issues command"
+            download_file "integrations/github/sync-github-issues.md" ".code-captain/integrations/github/sync-github-issues.md" "GitHub sync command (legacy)"
+            download_file "integrations/github/sync.md" ".code-captain/integrations/github/sync.md" "Enhanced GitHub sync"
+            download_file "integrations/github/generate-tasks.md" ".code-captain/integrations/github/generate-tasks.md" "Task generation command"
+            download_file "integrations/github/workflow-commands.md" ".code-captain/integrations/github/workflow-commands.md" "GitHub workflow commands"
+            download_file "integrations/github/resolve-conflicts.md" ".code-captain/integrations/github/resolve-conflicts.md" "Conflict resolution command"
+            ;;
+        "azure-devops")
+            mkdir -p .code-captain/integrations/azure-devops
+            download_file "integrations/azure-devops/create-azure-work-items.md" ".code-captain/integrations/azure-devops/create-azure-work-items.md" "Azure DevOps work items command"
+            download_file "integrations/azure-devops/sync-azure-work-items.md" ".code-captain/integrations/azure-devops/sync-azure-work-items.md" "Azure DevOps sync command"
+            ;;
+    esac
+    
+    print_success "Installed $PM_SYSTEM-specific commands"
+}
+
+# Main download function
+download_files() {
+    if [ -n "$LOCAL_SOURCE" ]; then
+        print_warning "Using local source: $LOCAL_SOURCE"
+        if [ ! -d "$LOCAL_SOURCE" ]; then
             print_error "Local source directory not found: $LOCAL_SOURCE"
             exit 1
         fi
-    else
-        # Download from remote repository to temp location first
-        TEMP_DIR=$(mktemp -d)
-        if command -v curl >/dev/null 2>&1; then
-            curl -sL "$REPO_URL/archive/$VERSION.tar.gz" | tar xz --strip-components=1 -C "$TEMP_DIR"
-        elif command -v wget >/dev/null 2>&1; then
-            wget -qO- "$REPO_URL/archive/$VERSION.tar.gz" | tar xz --strip-components=1 -C "$TEMP_DIR"
-        else
-            print_error "Neither curl nor wget found. Please install one of them."
-            exit 1
-        fi
-        
-        # Copy common files (excluding cc.mdc which goes only to .cursor/rules)
-        rsync -av --exclude='cc.mdc' --exclude='platforms/' --ignore-existing "$TEMP_DIR/source-files/" .code-captain/
-        
-        # Copy core commands
-        if [ -d "$TEMP_DIR/source-files/commands" ]; then
-            rsync -av --ignore-existing "$TEMP_DIR/source-files/commands/" .code-captain/commands/
-        fi
-        
-        if [ -d "$TEMP_DIR/source-files/platforms/$PM_SYSTEM" ]; then
-            rsync -av --ignore-existing "$TEMP_DIR/source-files/platforms/$PM_SYSTEM/" .code-captain/commands/
-            print_success "Installed $PM_SYSTEM-specific commands"
-        else
-            print_warning "Platform-specific commands not found for: $PM_SYSTEM"
-        fi
-        
-        rm -rf "$TEMP_DIR"
     fi
+    
+    # Download all file categories
+    download_core_files
+    download_command_files
+    download_platform_files
     
     print_success "Code Captain system files installed for $PM_SYSTEM"
 }
@@ -282,12 +423,18 @@ main() {
     echo "╚══════════════════════════════════════════════════════════════╝"
     echo -e "${NC}"
     
+    # Check Windows compatibility first
+    check_windows_compatibility
+    
     # Detect environment
     ENV=$(detect_environment)
     print_step "Detected environment: $ENV"
     
     # Select project management system
     select_project_management_system
+    
+    # Check GitHub CLI if using GitHub integration
+    check_github_cli
     
     # Check if already installed
     if [ -d ".code-captain" ]; then
@@ -322,29 +469,31 @@ main() {
     print_success "Code Captain 2.0 installed successfully with $PM_SYSTEM integration!"
     echo ""
     echo -e "${BLUE}Quick Start:${NC}"
-    echo "@cc analyze-requirements \"your project description\""
-    echo "@cc workflow-plan feature-development \"your feature\""
-    echo "@cc implement-feature \"specific functionality\""
-    echo "@cc create-test-strategy \"testing target\""
+    echo "cc: initialize"
+    echo "cc: create-spec \"your feature description\""
+    echo "cc: execute-task"
+    echo "cc: research \"topic to investigate\""
     echo ""
-    echo -e "${YELLOW}Command Categories:${NC}"
-    echo "📋 Analysis: analyze-requirements, create-user-story, research"
-    echo "🏗️ Architecture: design-system, create-adr, review-architecture"  
-    echo "💻 Development: implement-feature, refactor-code, create-tests"
-    echo "🔍 Quality: create-test-strategy, review-code, validate-implementation"
-    echo "📚 Documentation: create-prd, status-update, create-commit"
-    echo ""
-    echo -e "${BLUE}Workflow Types:${NC}"
-    echo "feature-development, bug-investigation, architecture-review"
+    echo -e "${YELLOW}Available Commands:${NC}"
+    echo "🚀 Project Setup: initialize"
+    echo "📋 Analysis: create-spec, create-adr, research, explain-code"  
+    echo "💻 Implementation: execute-task"
     echo ""
     echo -e "${BLUE}$PM_SYSTEM Integration:${NC}"
     case $PM_SYSTEM in
         "github")
-            echo "📋 GitHub: @cc create-github-issues, @cc sync-github-issues"
-            echo "🔗 GitHub repository integration enabled"
+            echo "📋 Enhanced GitHub Workflow Available:"
+            echo "   • cc: generate-tasks - Generate tasks from specs"
+            echo "   • cc: sync - Advanced bidirectional sync with cache"
+            echo "   • cc: next-task - Find best task to work on"
+            echo "   • cc: start-work <issue> - Claim task with LLM context"
+            echo "   • cc: my-tasks - Your GitHub assignments"
+            echo "   • cc: available-tasks - Browse unassigned work"
+            echo "   • cc: team-status - Team coordination overview"
+            echo "🔗 GitHub CLI required for sync operations (install with: brew install gh)"
             ;;
         "azure-devops")
-            echo "📋 Azure DevOps: @cc create-azure-work-items, @cc sync-azure-work-items"
+            echo "📋 Azure DevOps: cc: create-azure-work-items, cc: sync-azure-work-items"
             echo "🔗 Azure DevOps project integration enabled"
             ;;
     esac
@@ -352,54 +501,80 @@ main() {
     echo "Check .code-captain/ directory for all configurations and outputs."
 }
 
-# Handle command line arguments
-case "${1:-}" in
-    --local)
-        LOCAL_SOURCE="$2"
-        shift 2
-        # Check for additional parameters
-        case "${1:-}" in
-            --pm)
-                PM_SYSTEM="$2"
-                ;;
-        esac
-        main
-        ;;
-    --pm)
-        PM_SYSTEM="$2"
-        shift 2
-        # Check for additional parameters
-        case "${1:-}" in
-            --local)
-                LOCAL_SOURCE="$2"
-                ;;
-        esac
-        main
-        ;;
-    --version)
-        echo "Code Captain 2.0 Installer v2.0.0"
-        ;;
-    --help)
-        echo "Usage: $0 [options]"
-        echo ""
-        echo "Options:"
-        echo "  --local PATH       Use local source directory for testing"
-        echo "  --pm SYSTEM        Set project management system (github|azure-devops)"
-        echo "  --version          Show version information"
-        echo "  --help             Show this help message"
-        echo ""
-        echo "Project Management Systems:"
-        echo "  github            GitHub Issues & Projects integration"
-        echo "  azure-devops      Azure DevOps Work Items & Boards integration"
-        echo ""
-        echo "Examples:"
-        echo "  $0                           # Interactive installation"
-        echo "  $0 --pm github               # Install with GitHub integration"
-        echo "  $0 --pm azure-devops         # Install with Azure DevOps integration"
-        echo "  $0 --local ./source --pm github  # Local testing with GitHub"
-        echo ""
-        ;;
-    *)
-        main
-        ;;
-esac 
+# Parse command line arguments
+while [[ $# -gt 0 ]]; do
+    case $1 in
+        --local)
+            LOCAL_SOURCE="$2"
+            shift 2
+            ;;
+        --pm)
+            PM_SYSTEM="$2"
+            shift 2
+            ;;
+        --overwrite)
+            OVERWRITE_FILES=true
+            shift
+            ;;
+        --version)
+            echo "Code Captain 2.0 Installer v2.0.0"
+            exit 0
+            ;;
+        --help)
+            echo "Usage: $0 [options]"
+            echo ""
+            echo "Options:"
+            echo "  --local PATH       Use local source directory for testing"
+            echo "  --pm SYSTEM        Set project management system (github|azure-devops)"
+            echo "  --overwrite        Overwrite existing files"
+            echo "  --version          Show version information"
+            echo "  --help             Show this help message"
+            echo ""
+            echo "Environment Variables:"
+            echo "  PM_SYSTEM          Set project management system for non-interactive installs"
+            echo "                     (github|azure-devops, defaults to github for curl | bash)"
+            echo ""
+            echo "Project Management Systems:"
+            echo "  github            GitHub Issues & Projects integration"
+            echo "  azure-devops      Azure DevOps Work Items & Boards integration"
+            echo ""
+            echo "Platform-Specific Instructions:"
+            echo ""
+            echo "Windows Users:"
+            echo "  ⚠️  IMPORTANT: This script requires a bash environment"
+            echo "  ✅ Recommended: Use Git Bash (comes with Git for Windows)"
+            echo "  ✅ Alternative: Use WSL (Windows Subsystem for Linux)"
+            echo "  ❌ Won't work: PowerShell or Command Prompt"
+            echo ""
+            echo "  Install Git for Windows (includes Git Bash):"
+            echo "    https://git-scm.com/download/win"
+            echo ""
+            echo "  Then run in Git Bash:"
+            echo "    curl -sSL https://raw.githubusercontent.com/devobsessed/code-captain/main/install.sh | bash"
+            echo ""
+            echo "macOS/Linux Users:"
+            echo "  ✅ Works in Terminal, iTerm2, or any bash-compatible shell"
+            echo ""
+            echo "Examples:"
+            echo "  $0                           # Interactive installation"
+            echo "  $0 --pm github               # Install with GitHub integration"
+            echo "  $0 --pm azure-devops         # Install with Azure DevOps integration"
+            echo "  $0 --local ./source --pm github  # Local testing with GitHub"
+            echo "  $0 --local ./source --overwrite  # Overwrite existing files"
+            echo ""
+            echo "One-liner installations:"
+            echo "  curl -sSL https://raw.githubusercontent.com/devobsessed/code-captain/main/install.sh | bash"
+            echo "  PM_SYSTEM=azure-devops curl -sSL https://...../install.sh | bash"
+            echo ""
+            exit 0
+            ;;
+        *)
+            echo "Unknown option: $1"
+            echo "Use --help for usage information"
+            exit 1
+            ;;
+    esac
+done
+
+# Run main installation
+main 

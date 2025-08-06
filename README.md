@@ -22,27 +22,97 @@ Code Captain is an intelligent development workflow system that guides you throu
 
 ## 🚀 Quick Installation
 
-### One-Command Setup
+### Windows Users ⚠️
+
+**IMPORTANT**: This script requires a bash environment. Choose one of these options:
+
+#### Option 1: Git Bash (Recommended) ✅
+1. **Install Git for Windows**: https://git-scm.com/download/win
+2. **Open Git Bash** (comes with Git installation)
+3. **Run the installer**:
+```bash
+curl -sSL https://raw.githubusercontent.com/devobsessed/code-captain/main/install.sh | bash
+```
+
+#### Option 2: WSL (Windows Subsystem for Linux) ✅
+1. **Enable WSL** in Windows features
+2. **Install a Linux distribution** from Microsoft Store
+3. **Run in your WSL terminal**:
+```bash
+curl -sSL https://raw.githubusercontent.com/devobsessed/code-captain/main/install.sh | bash
+```
+
+#### What WON'T Work ❌
+- **PowerShell** - Not compatible
+- **Command Prompt** - Not compatible
+
+### macOS/Linux Users
+
+#### One-Command Setup
 
 ```bash
 curl -sSL https://raw.githubusercontent.com/devobsessed/code-captain/main/install.sh | bash
 ```
 
-### Local Testing (Development)
+#### Local Testing (Development)
 
 ```bash
 git clone https://github.com/devobsessed/code-captain.git
 cd code-captain
-./install.sh --local .
+./install.sh --local . --pm github
 ```
 
-### Manual Installation
+#### Manual Installation
 
 ```bash
 git clone https://github.com/devobsessed/code-captain.git
 cd code-captain
 chmod +x install.sh
 ./install.sh
+```
+
+#### Advanced Options
+
+```bash
+# Install with specific platform
+PM_SYSTEM=azure-devops curl -sSL https://raw.githubusercontent.com/devobsessed/code-captain/main/install.sh | bash
+
+# Local install with overwrite
+./install.sh --local . --pm github --overwrite
+
+# Get help
+./install.sh --help
+```
+
+### Troubleshooting
+
+#### Windows Installation Issues
+
+**Problem**: "bash: command not found" or similar bash errors  
+**Solution**: You're likely in PowerShell or Command Prompt. Switch to Git Bash or WSL.
+
+**Problem**: Files install to WSL but you want them in Windows filesystem  
+**Solution**: Run the installation **in Git Bash** rather than WSL if you want files in your Windows project directory.
+
+**Problem**: Cursor can't find the installed commands  
+**Solution**: Code Captain installs locally to your project directory (`.code-captain/`), not globally. This ensures Cursor can access all files.
+
+**Problem**: Installation seems to hang  
+**Solution**: Use environment variables for non-interactive installation:
+```bash
+PM_SYSTEM=github curl -sSL https://raw.githubusercontent.com/devobsessed/code-captain/main/install.sh | bash
+```
+
+#### General Issues
+
+**Need to reinstall or update?**
+```bash
+./install.sh --local . --pm github --overwrite
+```
+
+**Want help with all options?**
+```bash
+./install.sh --help
 ```
 
 ## 🚀 Available Commands
@@ -65,10 +135,26 @@ chmod +x install.sh
 
 ### 🔗 Platform Integration
 
-#### GitHub
+#### Enhanced GitHub Integration
 
-- **`create-github-issues [spec-path]`** - Create GitHub issues from specifications with full traceability
-- **`sync-github-issues [options]`** - Sync with GitHub issues and generate status reports
+**Spec to GitHub Workflow:**
+- **`generate-tasks [spec-path]`** - Generate detailed implementation tasks from specifications using LLM analysis
+- **`create-github-issues [spec-path]`** - Create GitHub issues from generated tasks with full traceability
+
+**Advanced Sync & Cache:**
+- **`sync [--full|--my-work-only|--spec]`** - Intelligent bidirectional sync with partitioned cache for optimal performance
+
+**Daily Development Workflow:**
+- **`next-task [--priority|--spec]`** - Find the best next task to work on based on priorities and dependencies
+- **`start-work <issue-number>`** - Claim task and generate rich LLM context for implementation
+- **`claim-task <issue-number>`** - Reserve GitHub issues for future work
+- **`my-tasks [--sync-first]`** - Show your current GitHub assignments organized by status
+- **`complete-task <issue-number>`** - Mark tasks complete and suggest next work
+
+**Team Coordination:**
+- **`available-tasks [--priority|--spec]`** - Browse unassigned tasks ready to be claimed
+- **`team-status [--spec]`** - See what the entire team is working on with progress visualization
+- **`resolve-conflicts [--auto|--interactive]`** - Handle sync conflicts between local cache and GitHub
 
 #### Azure DevOps
 
@@ -77,23 +163,34 @@ chmod +x install.sh
 
 ## 🔄 Workflow Examples
 
-### Complete Feature Development
+### Enhanced GitHub Development Workflow
 
 ```bash
 # 1. Create comprehensive specification
 cc: create-spec "user profile dashboard with real-time notifications"
 
-# 2. Document architectural decisions
-cc: create-adr "real-time notification system architecture"
+# 2. Generate detailed implementation tasks
+cc: generate-tasks
 
-# 3. Implement using TDD workflow
-cc: execute-task
-
-# 4. Create GitHub issues for project management
+# 3. Create GitHub issues from tasks
 cc: create-github-issues
 
-# 5. Track progress
-cc: sync-github-issues --status open --update-docs
+# 4. Initial sync to build cache
+cc: sync
+
+# 5. Daily development workflow
+cc: next-task                    # Find best task to work on
+cc: start-work 125 --with-context  # Claim task and generate LLM context
+cc: my-tasks                     # Check your assignments
+cc: complete-task 125 --pr-link https://github.com/owner/repo/pull/456
+
+# 6. Team coordination
+cc: available-tasks --priority high  # See available high-priority work
+cc: team-status --spec user-dashboard  # Check team progress on feature
+
+# 7. Sync and conflict management
+cc: sync --my-work-only          # Quick sync of your work
+cc: resolve-conflicts --interactive  # Handle any conflicts
 ```
 
 ### Research & Planning
@@ -146,7 +243,7 @@ cc: create-spec "API rate limiting with Redis"
 ### Source Structure (Repository)
 
 ```
-source-files/
+code-captain/
 ├── cc.md                    # Complete Code Captain reference
 ├── cc.mdc                   # Cursor IDE integration file
 ├── commands/                # Core development commands
@@ -156,13 +253,16 @@ source-files/
 │   ├── explain-code.md     # Code explanation with diagrams
 │   ├── initialize.md       # Project setup and analysis
 │   └── research.md         # Systematic research methodology
-└── platforms/              # Platform-specific integrations
-    ├── github/             # GitHub Issues & Projects
-    │   ├── create-github-issues.md
-    │   └── sync-github-issues.md
-    └── azure-devops/       # Azure DevOps Work Items
-        ├── create-azure-work-items.md
-        └── sync-azure-work-items.md
+├── integrations/           # Platform-specific integrations
+│   ├── github/             # GitHub Issues & Projects
+│   │   ├── create-github-issues.md
+│   │   └── sync-github-issues.md
+│   └── azure-devops/       # Azure DevOps Work Items
+│       ├── create-azure-work-items.md
+│       └── sync-azure-work-items.md
+├── docs/                   # Documentation and best practices
+├── install.sh              # Installation script
+└── README.md               # This file
 ```
 
 ### Installed Structure (Target Project)
@@ -350,7 +450,7 @@ Each command follows a documented structure:
 
 To add a new platform (e.g., Jira, Linear):
 
-1. Create `source-files/platforms/your-platform/`
+1. Create `integrations/your-platform/`
 2. Add platform-specific commands following existing patterns
 3. Update install script platform selection
 4. Test integration and documentation
