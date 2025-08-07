@@ -4,14 +4,6 @@
 
 Conduct systematic research on a topic using structured phases that build upon each other, creating actionable todos and leveraging web search capabilities.
 
-### Agent Routing
-
-Run research via the `code-captain` agent for standardized phase tracking and artifacts:
-
-```bash
-> Use the code-captain agent to research "topic"
-```
-
 ## When to Use
 
 - Investigating new technologies, frameworks, or tools

@@ -10,14 +10,6 @@ Generate comprehensive feature specifications using a contract-first approach th
 cc: create-spec "rough feature description"
 ```
 
-### Agent Routing
-
-Execute via the `code-captain` agent, which handles the clarification loop and then launches sub-agents in parallel post-contract lock:
-
-```bash
-> Use the code-captain agent to create-spec "rough feature description"
-```
-
 ## Command Process
 
 ### Phase 1: Contract Establishment (No File Creation)

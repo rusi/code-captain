@@ -10,14 +10,6 @@ A deck-cleaning agent that makes one small, focused improvement to the codebase,
 cc: swab
 ```
 
-### Agent Routing
-
-Invoke via the `code-captain` agent to ensure consistent scanning heuristics and approvals:
-
-```bash
-> Use the code-captain agent to swab
-```
-
 **Note:** No options, no flags, no complexity. Just simple deck cleaning.
 
 ## Command Process

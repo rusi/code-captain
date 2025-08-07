@@ -128,14 +128,6 @@ cc: create-adr "decision" - Document architectural decisions
 Ready to define your product strategy and start building!
 ```
 
-### Agent Routing
-
-Prefer invoking via the `code-captain` agent so initialization is orchestrated consistently:
-
-```bash
-> Use the code-captain agent to initialize
-```
-
 ---
 
 ## Brownfield Workflow

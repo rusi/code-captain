@@ -2,15 +2,6 @@
 
 ## Command: `initialize`
 
-### Agent Routing
-
-All initialize requests should be executed by the `code-captain` agent. Example invocations:
-
-```bash
-> Use the code-captain agent to initialize this project
-> Have code-captain analyze this existing codebase
-```
-
 ### Purpose
 
 Set up technical foundation and development infrastructure by detecting if this is a greenfield (new) or brownfield (existing) project and executing the appropriate technical setup workflow.

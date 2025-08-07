@@ -10,14 +10,6 @@ Modify existing feature specifications using a contract-first approach that ensu
 cc: edit-spec [spec-identifier] "proposed changes description"
 ```
 
-### Agent Routing
-
-Run the edit flow through the `code-captain` agent so it can coordinate impact analysis and safe updates:
-
-```bash
-> Use the code-captain agent to edit-spec "user-authentication" "add social login options"
-```
-
 **Examples:**
 ```bash
 cc: edit-spec "user-authentication" "add social login options"

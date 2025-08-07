@@ -10,14 +10,6 @@ Generate comprehensive product planning documentation using a contract-first app
 cc: plan-product "product idea description"
 ```
 
-### Agent Routing
-
-Execute via the `code-captain` agent to orchestrate discovery and planning consistently:
-
-```bash
-> Use the code-captain agent to plan-product "product idea description"
-```
-
 ## Command Process
 
 ### Phase 1: Product Discovery & Contract Establishment (No File Creation)

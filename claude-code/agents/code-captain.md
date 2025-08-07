@@ -119,14 +119,3 @@ Invoke me for:
 - **Status reporting and project health assessment**
 
 I proactively suggest improvements, question assumptions, and ensure we're building the right thing in the right way. Ready to coordinate your development workflow! 
-
-## Global Agent Routing Policy
-
-- Code Captain is the default orchestrator for ALL commands. Always route command invocations through the `code-captain` agent; it will delegate to specialized sub-agents when appropriate.
-- Examples:
-  - Use the code-captain agent to create-spec "feature"
-  - Use the code-captain agent to execute-task
-  - Use the code-captain agent to create-adr "decision"
-  - Use the code-captain agent to plan-product "idea"
-
-This ensures consistent context handling, parallel sub-agent execution when beneficial, and uniform quality standards across the workflow.
