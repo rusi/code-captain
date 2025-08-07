@@ -1,14 +1,12 @@
-# Plan Product Command (cc: plan-product)
+---
+mode: agent
+---
+
+# Plan Product Command
 
 ## Overview
 
 Generate comprehensive product planning documentation using a contract-first approach that establishes clear product vision, mission, and roadmap before creating any supporting files. This command eliminates assumptions by gathering complete product context through structured discovery, then creates a complete product planning package for AI-assisted development.
-
-## Usage
-
-```bash
-cc: plan-product "product idea description"
-```
 
 ## Command Process
 
@@ -20,9 +18,9 @@ cc: plan-product "product idea description"
 #### Step 1.1: Initial Context Scan
 
 - Scan existing `.code-captain/product/` for any existing product documentation
-- Analyze current codebase (if any) using `codebase_search` to understand existing technical foundation
-- Load project context files (`.code-captain/docs/tech-stack.md`, `.code-captain/docs/objective.md`)
-- **Output:** Context summary and technical foundation assessment
+- Load available project context from `.code-captain/docs/` (tech-stack.md if available)
+- Review any existing product mission or objectives
+- **Output:** Product context summary and foundation assessment
 
 #### Step 1.2: Gap Analysis & Silent Enumeration
 
@@ -98,10 +96,10 @@ When confident, present a product contract proposal with any concerns surfaced:
 - Core Features: [3-5 essential features for first version]
 - Success Metrics: [Key performance indicators]
 
-**Technical Foundation:**
+**Product Architecture:**
 - Complexity Level: [Simple/Moderate/Complex based on features]
-- Architecture Needs: [Technical requirements and constraints]
-- Integration Points: [How this fits with existing systems]
+- Integration Needs: [How this fits with existing business systems]
+- Scale Requirements: [Expected user growth and feature expansion]
 
 **⚠️ Product Risks (if any):**
 - [Market risk, technical risk, or business model concerns]
@@ -129,27 +127,13 @@ Options:
 
 **Triggered only after user confirms contract with 'yes'**
 
-#### Step 2.1: Initialize Tracking
-
-```bash
-# Use todo_write to track creation process
-1. Create product planning folder structure
-2. Generate core product mission document
-3. Create technical architecture plan
-4. Develop product roadmap with phases
-5. Create decision log and rationale
-6. Generate lite mission for AI context
-7. Present package for user review and validation
-```
-
-#### Step 2.2: Create Directory Structure
+#### Step 2.1: Create Directory Structure
 
 **Generated folder:**
 ```
 .code-captain/product/
 ├── mission.md                 # Complete product vision and strategy
 ├── mission-lite.md           # Condensed version for AI context
-├── tech-stack.md             # Technical architecture plan
 ├── roadmap.md                # Development phases and timeline
 ├── decisions.md              # Decision log with rationale
 └── research/                 # Supporting research and analysis
@@ -158,7 +142,7 @@ Options:
     └── feature-specs/        # Individual feature specifications (if needed)
 ```
 
-#### Step 2.3: Generate Core Product Documents
+#### Step 2.2: Generate Core Product Documents
 
 **mission.md** - Built directly from the locked contract:
 ```markdown
@@ -201,44 +185,6 @@ Unlike [EXISTING_ALTERNATIVES], we provide [SPECIFIC_ADVANTAGE]. This results in
 
 ### Scale Features (Phase 3)
 - **[FEATURE_NAME]:** [Advanced capabilities]
-```
-
-**tech-stack.md** - Technical architecture aligned with product needs:
-```markdown
-# Technical Architecture Plan
-
-> Aligned with Product Mission: [DATE]
-
-## Application Framework
-- **Primary:** [Framework + version]
-- **Rationale:** [Why this choice supports product goals]
-
-## Database Strategy
-- **Database System:** [Choice based on data needs]
-- **Hosting:** [Platform decision]
-- **Rationale:** [Why this supports scale and features]
-
-## Frontend Architecture
-- **JavaScript Framework:** [Choice]
-- **CSS Framework:** [Choice + version]
-- **UI Component Library:** [Choice]
-- **Rationale:** [How this enables user experience goals]
-
-## Infrastructure & Deployment
-- **Application Hosting:** [Platform]
-- **Asset Hosting:** [CDN/storage]
-- **Deployment Solution:** [CI/CD approach]
-- **Monitoring:** [Analytics and error tracking]
-
-## Scalability Considerations
-- **Expected Load:** [Based on user projections]
-- **Performance Targets:** [Response time, throughput goals]
-- **Growth Planning:** [How architecture supports scaling]
-
-## Security Requirements
-- **Data Protection:** [User data, privacy considerations]
-- **Authentication:** [User management approach]
-- **Compliance:** [Regulatory requirements if any]
 ```
 
 **roadmap.md** - Phased development plan:
@@ -310,7 +256,7 @@ Unlike [EXISTING_ALTERNATIVES], we provide [SPECIFIC_ADVANTAGE]. This results in
 - **XL:** 1+ months
 ```
 
-#### Step 2.4: Generate Decision Log
+#### Step 2.3: Generate Decision Log
 
 **decisions.md** - Key product and technical decisions with rationale:
 ```markdown
@@ -370,7 +316,7 @@ Unlike [EXISTING_ALTERNATIVES], we provide [SPECIFIC_ADVANTAGE]. This results in
 [When/how to revisit these technical decisions]
 ```
 
-#### Step 2.5: Create Mission-Lite for AI Context
+#### Step 2.4: Create Mission-Lite for AI Context
 
 **mission-lite.md** - Condensed product context for efficient AI usage:
 ```markdown
@@ -400,7 +346,7 @@ Unlike [EXISTING_ALTERNATIVES], we provide [SPECIFIC_ADVANTAGE]. This results in
 TaskMaster is a project management tool that helps remote software teams coordinate work efficiently through automated workflow integration and intelligent task prioritization. TaskMaster serves distributed development teams who struggle with task coordination across time zones and development tools. Unlike traditional project management tools, TaskMaster automatically syncs with Git workflows and provides AI-powered task prioritization based on team capacity and code dependencies.
 ```
 
-#### Step 2.6: Final Package Review & User Validation
+#### Step 2.5: Final Package Review & User Validation
 
 Present complete package with file references:
 ```
@@ -409,26 +355,39 @@ Present complete package with file references:
 📁 .code-captain/product/
 ├── 📋 mission.md - Complete product vision and strategy
 ├── 📝 mission-lite.md - AI context summary
-├── 🔧 tech-stack.md - Technical architecture plan
 ├── 🗺️ roadmap.md - Phased development plan
 └── 📊 decisions.md - Decision log and rationale
 
 The product plan captures everything we discussed, including:
 - [Brief summary of product vision]
-- [Key technical decisions or constraints]
+- [Key market positioning and user value]
 - [Roadmap approach or notable phases]
 
 Please review the planning documents and let me know:
 - Does this accurately capture your product vision?
 - Are there any missing requirements or incorrect assumptions?
-- Should any technical decisions be reconsidered?
+- Should any product decisions be reconsidered?
 - Does the roadmap timeline align with your expectations?
 
 Once you're satisfied with the product plan, you can use:
-- `cc: create-spec` to detail specific features from the roadmap
-- `cc: execute-task` to begin implementing planned features
-- `cc: research` to investigate any technical unknowns
+- `/create-spec` to detail specific features from the roadmap
+- `/execute-task` to begin implementing planned features
+- `/research` to investigate any market or product unknowns
 ```
+
+## Tool Integration
+
+**Primary tools:**
+- `codebase` - Analyzing existing project context and architecture
+- `search` - Finding existing product documentation
+- `editFiles` - Creating product planning documents
+- `runCommands` - Directory creation and date operations
+- `fetch` - Market research and competitive analysis (if needed)
+
+**Documentation organization:**
+- Product plans stored in `.code-captain/product/`
+- Cross-references with existing project documentation
+- Integration with feature specification workflow
 
 ## Key Improvements Over Basic Product Planning
 
@@ -437,10 +396,10 @@ Once you're satisfied with the product plan, you can use:
 - **Structured discovery** - One question at a time, building complete understanding
 - **Critical analysis** - Challenges assumptions and surfaces risks early
 
-### 2. Codebase-Aware Planning
-- **Technical feasibility assessment** - Plans align with existing architecture
-- **Integration considerations** - Product features consider current technical foundation
-- **Realistic scoping** - Development effort estimates based on actual codebase
+### 2. Context-Aware Planning
+- **Product continuity** - Plans build on existing product foundation if present
+- **Integration considerations** - Product features consider current business context
+- **Realistic scoping** - Development effort estimates based on team capabilities
 
 ### 3. User Control & Risk Assessment
 - **Clear decision points** - User explicitly approves before file creation
@@ -453,31 +412,17 @@ Once you're satisfied with the product plan, you can use:
 - **Decision tracking** - Clear rationale for AI to follow in future work
 - **Integration with specs** - Seamless flow to detailed feature specification
 
-## Tool Integration
-
-**Primary Code Captain tools:**
-- `todo_write` - Progress tracking throughout discovery and creation
-- `codebase_search` - Understanding existing technical foundation
-- `file_search` - Locating existing product documentation
-- `read_file` - Loading project context and existing plans
-- `write` - Creating product planning documents
-
-**Parallel execution opportunities:**
-- Context gathering (existing docs, codebase analysis)
-- Product research (market analysis, competitive landscape)
-- Technical feasibility assessment (architecture review, constraint analysis)
-
 ## Integration with Code Captain Ecosystem
 
 **Project foundation dependency:**
-- Works with existing `.code-captain/docs/` context files
-- Integrates with technical stack decisions
-- Builds on project objectives if present
+- Works with existing `.code-captain/docs/` context files for technical awareness
+- Builds on any existing product documentation
+- Integrates with established project patterns if present
 
 **Cross-command integration:**
-- Feeds into `cc: create-spec` for detailed feature planning
-- Supports `cc: execute-task` with clear product context
-- Can trigger `cc: research` for market or technical investigation
+- Feeds into `/create-spec` for detailed feature planning
+- Supports `/execute-task` with clear product context
+- Can trigger `/research` for market or technical investigation
 
 **Output integration:**
 - Product documents provide context for all future development

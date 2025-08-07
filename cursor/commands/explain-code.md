@@ -10,6 +10,14 @@ The `explain-code` command provides comprehensive, AI-powered explanations of co
 cc: explain-code [target]
 ```
 
+### Agent Routing
+
+Run through the `code-captain` agent for consistent context loading and artifact saving:
+
+```bash
+> Use the code-captain agent to explain-code src/auth/AuthService.js
+```
+
 ## Parameters
 
 ### Target (Required)

@@ -16,10 +16,12 @@ I **always organize my work** into your `.code-captain/` folder structure to kee
 
 ### 🚀 Project Setup
 
-- **`initialize`** - I'll analyze if this is a greenfield (new) or brownfield (existing) project and set up accordingly. For greenfield: I'll ask discovery questions to understand what you're building. For brownfield: I'll scan the codebase and generate foundational docs like tech-stack.md, code-style.md, and objective.md → Uses `todo_write` for progress tracking
+- **`initialize`** - I'll analyze if this is a greenfield (new) or brownfield (existing) project and set up the technical foundation. I'll scan the codebase and generate foundational docs like tech-stack.md, code-style.md, and architecture.md, then recommend next steps including plan-product for product strategy → Uses `todo_write` for progress tracking
+- **`new-command "name" "description"`** - I'll create new Code Captain commands following established patterns and conventions, automatically generating command files and updating all documentation
 
 ### 📋 Analysis & Requirements
 
+- **`plan-product "product idea"`** - I'll transform a rough product idea into a comprehensive product plan through structured discovery, contract negotiation, and strategic documentation → `.code-captain/product/`
 - **`create-spec "feature description"`** - I'll create comprehensive feature specifications with technical details, task breakdown, and implementation roadmap → `.code-captain/specs/{date}-{feature-name}/`
 - **`create-adr "architectural decision"`** - I'll create comprehensive Architecture Decision Records (ADRs) with systematic research, alternatives analysis, and decision rationale. **AUTOMATICALLY EXECUTES RESEARCH FIRST** if no relevant research exists → `.code-captain/decision-records/NNNN-decision-title.md`
 - **`research "topic"`** - I'll conduct systematic 4-phase research using web search, creating structured findings with todo tracking → `.code-captain/research/{date}-{topic}-research.md`
@@ -27,21 +29,15 @@ I **always organize my work** into your `.code-captain/` folder structure to kee
 ### ⚙️ Implementation
 
 - **`execute-task`** - I'll systematically execute tasks from specifications using Test-Driven Development (TDD) workflow, implementing features step-by-step with comprehensive testing and progress tracking → Works with specs from `create-spec` command
+- **`swab`** - I'll make one small, focused improvement to the codebase following the "Boy Scout Rule" - finding the single best cleanup opportunity (unclear variable names, magic numbers, missing error handling) and applying it with your approval
+- **`status`** - I'll provide a comprehensive status report when starting work or switching context, analyzing current git state, active work, and project health to orient developers and suggest next actions
 
 ### 🎯 Platform Integrations
 
-**Enhanced GitHub Integration:**
-- **`generate-tasks [spec-folder-path]`** - I'll analyze comprehensive specifications and generate detailed implementation tasks with estimates, priorities, and dependencies → Creates tasks.md with LLM-powered task breakdown
-- **`create-github-issues [spec-folder-path]`** - I'll automatically create GitHub issues from generated tasks, establishing traceability and updating source documents with issue numbers → Links specs to GitHub project management
+**GitHub Integration:**
+- **`create-github-issues [spec-folder-path]`** - I'll automatically create GitHub issues from specifications, establishing traceability and updating source documents with issue numbers → Links specs to GitHub project management
 - **`sync [--full|--my-work-only|--spec]`** - I'll perform intelligent bidirectional sync with GitHub using partitioned cache for optimal performance → Advanced sync with conflict resolution
-- **`next-task [--priority|--spec]`** - I'll recommend the best next task based on priorities, dependencies, and your current work context → Intelligent task discovery
-- **`start-work <issue-number>`** - I'll claim a task on GitHub and generate rich LLM context for implementation → Seamless work initiation with context
-- **`claim-task <issue-number>`** - I'll assign a GitHub issue to you for future work → Reserve tasks without starting immediately  
-- **`my-tasks [--sync-first]`** - I'll show your current GitHub assignments organized by status and progress → Personal work dashboard
-- **`available-tasks [--priority|--spec]`** - I'll show unassigned tasks ready to be claimed, filtered by your preferences → Team task discovery
-- **`complete-task <issue-number>`** - I'll mark tasks complete on GitHub and suggest next work → Efficient task completion workflow
-- **`team-status [--spec]`** - I'll show what the entire team is working on with progress visualization → Team coordination overview
-- **`resolve-conflicts [--auto|--interactive]`** - I'll detect and resolve sync conflicts between local cache and GitHub state → Intelligent conflict resolution
+- **`sync-github-issues`** - I'll retrieve and sync with current GitHub issues, providing organized reports and updating local spec documents → Basic GitHub sync functionality
 
 **Azure DevOps Integration:**
 - **`create-azure-work-items [spec-folder-path]`** - I'll automatically create Azure DevOps work items from existing user stories and tasks, establishing parent-child relationships and updating source documents with work item numbers for full traceability → Uses Azure DevOps REST API to link specs to Azure project management
@@ -53,20 +49,12 @@ I keep everything organized in your `.code-captain/` directory:
 
 ```
 .code-captain/
-├── commands/           # Reference docs for all my capabilities
-├── integrations/       # Platform integration commands (GitHub, Azure DevOps)
-├── specs/              # Requirements, user stories, system designs, tasks
+├── commands/           # All command documentation (core + platform-specific)
+├── docs/               # Generated documentation, test strategies, reviews, PRDs
 ├── research/           # Technical research, competitive analysis, evaluations
 ├── decision-records/   # Architecture Decision Records (ADRs)
-├── docs/               # Generated documentation, test strategies, reviews, PRDs
-├── reports/            # Platform sync reports, project status updates
-├── state/              # GitHub sync cache and work context
-│   ├── index.json      # Project overview and sync status
-│   ├── my-assignments.json  # Your current GitHub tasks
-│   ├── available-tasks.json # Unassigned tasks ready to claim
-│   ├── specs/          # Per-spec GitHub state cache
-│   └── sync-logs/      # Sync history and conflict resolution
-├── work-context/       # Generated LLM context for active tasks
+├── explanations/       # Code explanations with diagrams (created when needed)
+├── specs/              # Requirements, user stories, system designs, tasks  
 └── cc.md               # This complete reference document
 ```
 
@@ -78,13 +66,15 @@ I keep everything organized in your `.code-captain/` directory:
 
 **Docs folder** gets generated documentation - test strategies, code reviews, PRDs, performance analyses. This is where I put actionable outputs and reports.
 
-**Reports folder** gets platform sync reports (GitHub, Azure DevOps), project status updates, and tracking summaries. This is where I store regular sync results and progress analysis.
+**Reports** are generated as needed in the docs/ folder for platform sync reports (GitHub, Azure DevOps), project status updates, and tracking summaries.
 
 **State folder** gets GitHub sync cache with partitioned data for optimal performance - your assignments, available tasks, and per-spec GitHub state. This enables fast task discovery and team coordination.
 
 **Work-context folder** gets generated LLM context when you start working on tasks - comprehensive context files with spec details, codebase analysis, and implementation guidance for efficient development.
 
 ## How I Work
+
+**For ALL requests**, I ALWAYS read `.code-captain/state.json` FIRST to understand your platform and shell environment. This ensures I provide platform-appropriate commands and file paths.
 
 **For simple requests**, I execute immediately with appropriate tools and generate the right outputs.
 
@@ -97,18 +87,21 @@ I keep everything organized in your `.code-captain/` directory:
 - **`create-adr`** → Read `.code-captain/commands/create-adr.md` for Architecture Decision Record creation with research integration
 - **`initialize`** → Read `.code-captain/commands/initialize.md` for project setup workflows
 - **`execute-task`** → Read `.code-captain/commands/execute-task.md` for TDD implementation workflow
-- **`generate-tasks`** → Read `.code-captain/integrations/github/generate-tasks.md` for LLM-powered task generation from specs
-- **`create-github-issues`** → Read `.code-captain/integrations/github/create-github-issues.md` for GitHub issue creation from specs
-- **`sync`** → Read `.code-captain/integrations/github/sync.md` for advanced bidirectional GitHub synchronization with partitioned cache
-- **GitHub workflow commands** → Read `.code-captain/integrations/github/workflow-commands.md` for next-task, start-work, claim-task, my-tasks, available-tasks, complete-task, team-status
-- **`resolve-conflicts`** → Read `.code-captain/integrations/github/resolve-conflicts.md` for intelligent sync conflict resolution
-- **`create-azure-work-items`** → Read `.code-captain/integrations/azure-devops/create-azure-work-items.md` for Azure DevOps work item creation from specs
-- **`sync-azure-work-items`** → Read `.code-captain/integrations/azure-devops/sync-azure-work-items.md` for Azure DevOps work item synchronization and reporting
+- **`swab`** → Read `.code-captain/commands/swab.md` for code cleanup methodology
+- **`status`** → Read `.code-captain/commands/status.md` for comprehensive status reporting methodology
+- **`new-command`** → Read `.code-captain/commands/new-command.md` for meta command creation methodology
+- **`create-github-issues`** → Read `.code-captain/commands/create-github-issues.md` for GitHub issue creation from specs
+- **`sync`** → Read `.code-captain/commands/sync.md` for advanced bidirectional GitHub synchronization with partitioned cache
+- **`sync-github-issues`** → Read `.code-captain/commands/sync-github-issues.md` for basic GitHub synchronization
+- **`create-azure-work-items`** → Read `.code-captain/commands/create-azure-work-items.md` for Azure DevOps work item creation from specs
+- **`sync-azure-work-items`** → Read `.code-captain/commands/sync-azure-work-items.md` for Azure DevOps work item synchronization and reporting
 
 **I always**:
 
+- **FIRST read `.code-captain/state.json`** to understand your platform and shell environment
 - Read command-specific documentation before executing complex commands
 - Leverage Cursor's `codebase_search`, `file_search`, `edit_file`, `run_terminal_cmd`, and `web_search` tools
+- Adapt commands and file paths for your specific platform (Windows vs Unix)
 - Document my decisions and rationale
 - Organize outputs into the appropriate folders
 - Validate results against original requirements
@@ -140,7 +133,7 @@ The `initialize` command intelligently detects project type:
 
 **Implementation**: Use `execute-task` to systematically implement features from specifications using TDD workflow with comprehensive testing.
 
-**Enhanced GitHub Workflow**: Use `generate-tasks` to create detailed implementation tasks from specs, then `create-github-issues` to push them to GitHub. Use `sync` for intelligent bidirectional synchronization with partitioned cache. Daily workflow includes `next-task` for intelligent task discovery, `start-work` for seamless task initiation with LLM context, and `complete-task` for efficient completion. Team coordination through `available-tasks`, `team-status`, and conflict resolution via `resolve-conflicts`.
+**GitHub Workflow**: Use `create-github-issues` to create GitHub issues from specifications and `sync` for intelligent bidirectional synchronization with partitioned cache. Use `sync-github-issues` for basic synchronization tasks.
 
 ## Usage Examples
 
@@ -148,37 +141,34 @@ The `initialize` command intelligently detects project type:
 # Project setup
 cc: initialize
 
+# Extend Code Captain with new commands
+cc: new-command "audit" "Security and code quality auditing"
+
+# Product planning (recommended after initialize)
+cc: plan-product "user profile dashboard for remote teams"
+
 # Requirements and planning
 cc: create-spec "user profile dashboard with real-time notifications"
 cc: create-adr "microservices vs monolith architecture for user service"
 cc: research "OAuth 2.0 vs SAML for enterprise authentication"
 
-# Task generation and GitHub integration
-cc: generate-tasks .code-captain/specs/2024-12-28-user-profile-dashboard/  # Generate tasks from spec
-cc: create-github-issues  # Create GitHub issues from generated tasks
-cc: sync  # Initial sync to build cache
-
-# Daily development workflow
-cc: next-task  # Find best task to work on next
-cc: start-work 125 --with-context  # Claim task and generate LLM context
-cc: my-tasks  # Check your current assignments
-cc: complete-task 125 --pr-link https://github.com/owner/repo/pull/456
-
-# Team coordination
-cc: available-tasks --priority high  # See what's available to claim
-cc: claim-task 127  # Reserve task for later
-cc: team-status --spec user-dashboard  # See team progress on feature
-
-# Sync and conflict management
-cc: sync --my-work-only  # Quick sync of just your work
-cc: resolve-conflicts --interactive  # Handle any sync conflicts
+# GitHub integration
+cc: create-github-issues  # Create GitHub issues from specifications
+cc: sync  # Advanced bidirectional sync with cache
+cc: sync-github-issues  # Basic GitHub sync
 
 # Traditional implementation
 cc: execute-task  # TDD implementation from specifications
 
+# Project status and orientation
+cc: status  # Get comprehensive status report and suggested next actions
+
+# Code cleanup
+cc: swab  # Find and apply one small improvement to the codebase
+
 # Azure DevOps integration
-cc: create-azure-work-items  # Auto-detect latest spec folder
-cc: sync-azure-work-items --status active --format summary  # Sync active work items
+cc: create-azure-work-items  # Create work items from specifications
+cc: sync-azure-work-items  # Sync with Azure DevOps work items
 ```
 
 ## Tool Integration Strategy

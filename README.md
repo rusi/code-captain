@@ -22,80 +22,63 @@ Code Captain is an intelligent development workflow system that guides you throu
 
 ## 🚀 Quick Installation
 
-### Windows Users ⚠️
+### NPX Interactive Installer (Recommended) ✨
 
-**IMPORTANT**: This script requires a bash environment. Choose one of these options:
-
-#### Option 1: Git Bash (Recommended) ✅
-1. **Install Git for Windows**: https://git-scm.com/download/win
-2. **Open Git Bash** (comes with Git installation)
-3. **Run the installer**:
-```bash
-curl -sSL https://raw.githubusercontent.com/devobsessed/code-captain/main/install.sh | bash
-```
-
-#### Option 2: WSL (Windows Subsystem for Linux) ✅
-1. **Enable WSL** in Windows features
-2. **Install a Linux distribution** from Microsoft Store
-3. **Run in your WSL terminal**:
-```bash
-curl -sSL https://raw.githubusercontent.com/devobsessed/code-captain/main/install.sh | bash
-```
-
-#### What WON'T Work ❌
-- **PowerShell** - Not compatible
-- **Command Prompt** - Not compatible
-
-### macOS/Linux Users
-
-#### One-Command Setup
+**Cross-platform interactive installer with beautiful UI:**
 
 ```bash
-curl -sSL https://raw.githubusercontent.com/devobsessed/code-captain/main/install.sh | bash
+npx @devobsessed/code-captain
 ```
 
-#### Local Testing (Development)
+**Features:**
+- 🎨 Beautiful terminal UI with progress indicators
+- 🔍 Auto-detection of your IDE environment
+- ✅ Cross-platform compatibility (Windows, macOS, Linux)
+- 🚀 Interactive selection for Cursor, VS Code, or Windsurf
+- 📦 No dependencies - works with just Node.js
 
+**Requirements:** Node.js 16 or higher
+
+### One-Line Installation
+
+**Auto-detect and install:**
 ```bash
-git clone https://github.com/devobsessed/code-captain.git
-cd code-captain
-./install.sh --local . --pm github
+npx @devobsessed/code-captain
 ```
 
-#### Manual Installation
-
+**Local testing (Development):**
 ```bash
-git clone https://github.com/devobsessed/code-captain.git
-cd code-captain
-chmod +x install.sh
-./install.sh
+CC_LOCAL_SOURCE=. npx @devobsessed/code-captain
 ```
 
-#### Advanced Options
+### IDE-Specific Instructions
 
-```bash
-# Install with specific platform
-PM_SYSTEM=azure-devops curl -sSL https://raw.githubusercontent.com/devobsessed/code-captain/main/install.sh | bash
+The installer supports multiple development environments:
 
-# Local install with overwrite
-./install.sh --local . --pm github --overwrite
+- **Cursor** - AI-first editor with built-in agent capabilities (installs to `.code-captain/` + `.cursor/rules/`)
+- **VS Code with GitHub Copilot** - Classic VS Code with Copilot extension (installs to `.github/` + `.code-captain/docs/`)
+- **Windsurf** - Codeium's AI-powered development environment
 
-# Get help
-./install.sh --help
-```
+The installer will auto-detect your environment and recommend the best option, or you can choose manually during the interactive setup.
 
 ### Troubleshooting
 
-#### Windows Installation Issues
+#### Common Installation Issues
 
-**Problem**: "bash: command not found" or similar bash errors  
-**Solution**: You're likely in PowerShell or Command Prompt. Switch to Git Bash or WSL.
+**Problem**: "npx: command not found"  
+**Solution**: Install Node.js from https://nodejs.org/ (version 16 or higher required)
 
-**Problem**: Files install to WSL but you want them in Windows filesystem  
-**Solution**: Run the installation **in Git Bash** rather than WSL if you want files in your Windows project directory.
+**Problem**: Permission denied errors  
+**Solution**: Ensure you have write permissions in the current directory, or use `sudo` if needed (not recommended)
 
-**Problem**: Cursor can't find the installed commands  
-**Solution**: Code Captain installs locally to your project directory (`.code-captain/`), not globally. This ensures Cursor can access all files.
+**Problem**: IDE not detected correctly  
+**Solution**: The installer will prompt you to manually select your IDE if auto-detection fails
+
+**Problem**: Installation fails to download files  
+**Solution**: Check your internet connection or use local source mode: `CC_LOCAL_SOURCE=path npx @devobsessed/code-captain`
+
+**Problem**: IDE can't find the installed commands  
+**Solution**: Code Captain installs locally to your project directory (`.code-captain/` + `.cursor/rules/` for Cursor, `.github/` + `.code-captain/docs/` for VS Code, or `windsurf/` for Windsurf). Restart your IDE to load the new configurations.
 
 **Problem**: Installation seems to hang  
 **Solution**: Use environment variables for non-interactive installation:
@@ -120,41 +103,31 @@ PM_SYSTEM=github curl -sSL https://raw.githubusercontent.com/devobsessed/code-ca
 ### 📋 Project Setup & Analysis
 
 - **`initialize`** - Analyze greenfield/brownfield projects and generate foundational documentation
+- **`plan-product "product idea"`** - Generate comprehensive product planning documentation with vision, roadmap, and business strategy
+- **`new-command "name" "description"`** - Create new Code Captain commands following established patterns and conventions
 - **`research "topic"`** - Conduct systematic 4-phase research with structured findings
 - **`explain-code [target]`** - Generate comprehensive code explanations with visual diagrams
 
 ### 📝 Requirements & Planning
 
 - **`create-spec "feature"`** - Generate comprehensive feature specifications with technical details and task breakdown
+- **`edit-spec [spec-identifier] "changes"`** - Modify existing feature specifications using contract-first approach with impact analysis
 - **`create-adr "architectural decision"`** - Create Architecture Decision Records with systematic research and alternatives analysis. **Automatically executes research workflow if no research exists.**
 - **User Stories & Tasks** - Automatically created as part of specifications
 
 ### ⚙️ Implementation
 
 - **`execute-task`** - Systematically implement features using Test-Driven Development (TDD) workflow
+- **`status`** - Get comprehensive status report when starting work or switching context, analyzing git state, active work, and project health
+- **`swab`** - Make one small, focused improvement to the codebase following the "Boy Scout Rule"
 
 ### 🔗 Platform Integration
 
-#### Enhanced GitHub Integration
+#### GitHub Integration
 
-**Spec to GitHub Workflow:**
-- **`generate-tasks [spec-path]`** - Generate detailed implementation tasks from specifications using LLM analysis
-- **`create-github-issues [spec-path]`** - Create GitHub issues from generated tasks with full traceability
-
-**Advanced Sync & Cache:**
+- **`create-github-issues [spec-path]`** - Create GitHub issues from specifications with full traceability
 - **`sync [--full|--my-work-only|--spec]`** - Intelligent bidirectional sync with partitioned cache for optimal performance
-
-**Daily Development Workflow:**
-- **`next-task [--priority|--spec]`** - Find the best next task to work on based on priorities and dependencies
-- **`start-work <issue-number>`** - Claim task and generate rich LLM context for implementation
-- **`claim-task <issue-number>`** - Reserve GitHub issues for future work
-- **`my-tasks [--sync-first]`** - Show your current GitHub assignments organized by status
-- **`complete-task <issue-number>`** - Mark tasks complete and suggest next work
-
-**Team Coordination:**
-- **`available-tasks [--priority|--spec]`** - Browse unassigned tasks ready to be claimed
-- **`team-status [--spec]`** - See what the entire team is working on with progress visualization
-- **`resolve-conflicts [--auto|--interactive]`** - Handle sync conflicts between local cache and GitHub
+- **`sync-github-issues`** - Basic sync to retrieve and save all GitHub issues
 
 #### Azure DevOps
 
@@ -163,39 +136,29 @@ PM_SYSTEM=github curl -sSL https://raw.githubusercontent.com/devobsessed/code-ca
 
 ## 🔄 Workflow Examples
 
-### Enhanced GitHub Development Workflow
+### GitHub Development Workflow
 
 ```bash
 # 1. Create comprehensive specification
 cc: create-spec "user profile dashboard with real-time notifications"
 
-# 2. Generate detailed implementation tasks
-cc: generate-tasks
-
-# 3. Create GitHub issues from tasks
+# 2. Create GitHub issues from tasks
 cc: create-github-issues
 
-# 4. Initial sync to build cache
+# 3. Sync with GitHub to build cache
 cc: sync
 
-# 5. Daily development workflow
-cc: next-task                    # Find best task to work on
-cc: start-work 125 --with-context  # Claim task and generate LLM context
-cc: my-tasks                     # Check your assignments
-cc: complete-task 125 --pr-link https://github.com/owner/repo/pull/456
-
-# 6. Team coordination
-cc: available-tasks --priority high  # See available high-priority work
-cc: team-status --spec user-dashboard  # Check team progress on feature
-
-# 7. Sync and conflict management
+# 4. Continue development and sync as needed
 cc: sync --my-work-only          # Quick sync of your work
-cc: resolve-conflicts --interactive  # Handle any conflicts
+cc: sync --spec user-dashboard   # Sync specific spec only
 ```
 
-### Research & Planning
+### Product Planning & Research
 
 ```bash
+# Start with comprehensive product planning
+cc: plan-product "enterprise authentication platform with SSO"
+
 # Research technology options
 cc: research "OAuth 2.0 vs SAML for enterprise authentication"
 
@@ -204,6 +167,9 @@ cc: create-adr "OAuth 2.0 vs SAML authentication strategy"
 
 # Create detailed specification based on research and decision
 cc: create-spec "enterprise SSO integration"
+
+# Later, modify specifications as requirements evolve
+cc: edit-spec "enterprise-sso-integration" "add LDAP directory support"
 
 # Generate implementation tasks
 # (Tasks are automatically created as part of specification)
@@ -236,6 +202,9 @@ cc: create-adr "Redis vs in-memory rate limiting implementation"
 
 # Plan new feature based on findings and decision
 cc: create-spec "API rate limiting with Redis"
+
+# Clean up code as you go
+cc: swab
 ```
 
 ## 📁 Directory Structure
@@ -252,12 +221,15 @@ code-captain/
 │   ├── execute-task.md     # TDD implementation workflow
 │   ├── explain-code.md     # Code explanation with diagrams
 │   ├── initialize.md       # Project setup and analysis
-│   └── research.md         # Systematic research methodology
-├── integrations/           # Platform-specific integrations
-│   ├── github/             # GitHub Issues & Projects
+│   ├── research.md         # Systematic research methodology
+│   ├── swab.md             # Code cleanup methodology
+│   └── new-command.md      # Meta command creation methodology
+├── integrations/           # Platform-specific command sources
+│   ├── github/             # GitHub Issues & Projects commands
 │   │   ├── create-github-issues.md
-│   │   └── sync-github-issues.md
-│   └── azure-devops/       # Azure DevOps Work Items
+│   │   ├── sync-github-issues.md
+│   │   └── sync.md
+│   └── azure-devops/       # Azure DevOps Work Items commands
 │       ├── create-azure-work-items.md
 │       └── sync-azure-work-items.md
 ├── docs/                   # Documentation and best practices
@@ -269,18 +241,17 @@ code-captain/
 
 ```
 .code-captain/
-├── commands/            # All command documentation (core + platform)
-├── specs/              # Feature specifications and requirements
+├── commands/            # All command documentation (core + platform-specific)
+├── docs/               # Generated documentation (created when needed)
+├── research/           # Research reports and findings (created when needed)
+├── decision-records/   # Architecture Decision Records (created when needed)
+├── explanations/       # Code explanations with diagrams (created when needed)
+├── specs/              # Feature specifications and requirements (created when needed)
 │   └── YYYY-MM-DD-feature-name/
 │       ├── spec.md     # Main specification
 │       ├── user-stories.md
 │       ├── tasks.md    # Implementation breakdown
 │       └── sub-specs/  # Technical details
-├── research/           # Research reports and findings
-├── decision-records/   # Architecture Decision Records (ADRs)
-├── explanations/       # Code explanations with diagrams
-├── docs/               # Generated documentation
-├── reports/            # GitHub/Azure sync reports
 └── cc.md              # Complete reference guide
 ```
 
@@ -315,6 +286,12 @@ The installer automatically:
 # Analyze the codebase and set up documentation
 cc: initialize
 
+# Plan the overall product strategy and vision
+cc: plan-product "modern social media platform with real-time features"
+
+# Create custom commands for your workflow
+cc: new-command "audit" "Security and code quality auditing"
+
 # Understand existing code patterns
 cc: explain-code AuthenticationService
 
@@ -345,14 +322,17 @@ cc: explain-code WebSocketManager
 #    ADRs: .code-captain/decision-records/0001-websocket-vs-sse.md
 #    Explanations: .code-captain/explanations/2024-12-28-WebSocketManager.md
 
-# 5. Implement using Test-Driven Development
+# 5. Check current status and get oriented
+cc: status
+
+# 6. Implement using Test-Driven Development
 cc: execute-task
 
-# 6. Create GitHub issues for project tracking
+# 7. Create GitHub issues for project tracking
 cc: create-github-issues .code-captain/specs/2024-12-28-realtime-chat/
 
-# 7. Monitor progress
-cc: sync-github-issues --status open --format detailed
+# 8. Monitor progress
+cc: sync-github-issues
 ```
 
 ## 🚀 Advanced Features
@@ -400,11 +380,16 @@ cc: sync-github-issues --status open --format detailed
 | Command                 | Purpose                                      | Output Location                                |
 | ----------------------- | -------------------------------------------- | ---------------------------------------------- |
 | `initialize`            | Project analysis & setup                     | `.code-captain/docs/`                          |
+| `plan-product "idea"`   | Comprehensive product planning               | `.code-captain/product/`                       |
+| `new-command "name" "desc"` | Create new Code Captain commands        | `.code-captain/commands/`                      |
 | `create-spec "feature"` | Feature specification                        | `.code-captain/specs/YYYY-MM-DD-feature/`      |
+| `edit-spec [id] "changes"` | Modify existing specifications            | `.code-captain/specs/YYYY-MM-DD-feature/`      |
 | `create-adr "decision"` | Architecture Decision Record (auto-research) | `.code-captain/decision-records/NNNN-title.md` |
 | `research "topic"`      | Technical research                           | `.code-captain/research/`                      |
 | `explain-code [target]` | Code explanation with diagrams               | `.code-captain/explanations/`                  |
 | `execute-task`          | TDD implementation                           | Source code + tests                            |
+| `status`                | Comprehensive status report                   | Clean formatted text with suggested actions   |
+| `swab`                  | Small code cleanup (Boy Scout Rule)         | Modified source files                          |
 
 ### GitHub Integration
 

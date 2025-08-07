@@ -1,2 +1,5 @@
 .code-captain/
 .cursor/
+.claude
+CLAUDE.md
+node_modules/

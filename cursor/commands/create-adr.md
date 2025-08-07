@@ -10,6 +10,14 @@ Create comprehensive Architecture Decision Records (ADRs) that systematically do
 cc: create-adr "architectural decision description"
 ```
 
+### Agent Routing
+
+Always route this command through the `code-captain` agent so it can orchestrate research and ADR creation consistently:
+
+```bash
+> Use the code-captain agent to create-adr "architectural decision description"
+```
+
 ## When to Use
 
 - Making significant architectural decisions that affect system structure or design
@@ -245,9 +253,8 @@ For each alternative, evaluate against established criteria:
    - Use sequential numbering (0001, 0002, etc.)
 
 3. **Create ADR directory structure:**
-   ```bash
-   mkdir -p .code-captain/decision-records
-   ```
+   
+   Create the decision records directory (Code Captain will use platform-appropriate commands based on your shell from `state.json`):
 
 **ADR Creation:**
 

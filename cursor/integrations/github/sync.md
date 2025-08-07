@@ -21,35 +21,22 @@ cc: sync --spec user-dashboard        # Sync specific spec only
 
 ## Command Process
 
-### Step 1: Initialize Cache Structure
+### Step 1: Sync Preparation
 
-**Create partitioned cache directories:**
-
-```
-.code-captain/state/
-├── index.json              # Project overview (always <50KB)
-├── sync-metadata.json      # Sync history and status
-├── my-assignments.json     # Current developer's work only
-├── available-tasks.json    # Unassigned tasks only
-├── specs/
-│   ├── user-dashboard.json # Per-spec GitHub state
-│   ├── payment-system.json
-│   └── ...
-└── sync-logs/
-    ├── 2024-01-15.log      # Daily sync logs
-    └── conflicts.json      # Active sync conflicts
-```
+**Validate GitHub access and repository:**
+- Verify GitHub CLI authentication
+- Check repository permissions
+- Confirm issue access
 
 ### Step 2: Determine Sync Strategy
 
 **Incremental Sync (Default):**
-- Get last sync timestamp from `index.json`
 - Only fetch issues updated since last sync
-- Update affected cache partitions only
+- Update local spec documents as needed
 
 **Full Sync:**
 - Fetch all issues with essential fields
-- Rebuild entire cache structure
+- Update all relevant spec documents
 - Comprehensive but slower
 
 **My Work Only:**
@@ -63,34 +50,30 @@ cc: sync --spec user-dashboard        # Sync specific spec only
 ### Step 3: GitHub Data Retrieval
 
 **Authentication & Rate Limit Check:**
-```bash
-gh auth status || exit "GitHub CLI not authenticated"
-gh api rate_limit | jq '.rate.remaining' # Check rate limits
-```
+
+Check GitHub CLI authentication and rate limits (Code Captain will use platform-appropriate commands based on your shell from `state.json`):
+- Verify GitHub CLI authentication status
+- Check API rate limit remaining
 
 **Incremental Sync Query:**
-```bash
-LAST_SYNC=$(jq -r '.last_sync' .code-captain/state/index.json)
-gh issue list \
-  --json number,title,state,assignees,labels,milestone,updatedAt \
-  --search "updated:>$LAST_SYNC" \
-  --limit 1000
-```
+
+Get last sync timestamp and fetch updated issues (Code Captain will use platform-appropriate commands based on your shell from `state.json`):
+- Read last sync timestamp from `.code-captain/state/index.json`
+- Use `gh issue list` to fetch issues updated since last sync
+- Include fields: number, title, state, assignees, labels, milestone, updatedAt
 
 **Full Sync Query:**
-```bash
-gh issue list \
-  --json number,title,state,assignees,labels,milestone,createdAt,updatedAt \
-  --state all \
-  --limit 1000
+
+Fetch all issues with comprehensive data:
+```
+gh issue list --json number,title,state,assignees,labels,milestone,createdAt,updatedAt --state all --limit 1000
 ```
 
 **My Assignments Query:**
-```bash
-gh issue list \
-  --json number,title,state,labels,milestone,updatedAt \
-  --assignee @me \
-  --state all
+
+Fetch issues assigned to current user:
+```
+gh issue list --json number,title,state,labels,milestone,updatedAt --assignee @me --state all
 ```
 
 ### Step 4: Data Transformation & Partitioning
@@ -191,102 +174,11 @@ function mapGitHubState(state: string, assignees: Array<any>): string {
 }
 ```
 
-**Update my-assignments.json:**
-```json
-{
-  "developer": {
-    "github_username": "bob-dev",
-    "display_name": "Bob Developer"
-  },
-  "last_updated": "2024-01-15T14:30:00Z",
-  
-  "assignments": [
-    {
-      "issue_number": 124,
-      "title": "Create dashboard route and controller",
-      "state": "OPEN",
-      "spec_folder": "2024-01-15-user-dashboard",
-      "task_id": "1.2",
-      "priority": "high",
-      "labels": ["enhancement", "high-priority", "backend"],
-      "milestone": "User Dashboard v1.0",
-      "created_at": "2024-01-15T10:00:00Z",
-      "updated_at": "2024-01-15T13:00:00Z",
-      "url": "https://github.com/company/repo/issues/124"
-    }
-  ]
-}
-```
-
-**Update available-tasks.json:**
-```json
-{
-  "last_updated": "2024-01-15T14:30:00Z",
-  "filter_criteria": {
-    "assignee": null,
-    "state": "OPEN",
-    "exclude_labels": ["blocked", "on-hold"]
-  },
-  
-  "available_tasks": [
-    {
-      "issue_number": 125,
-      "title": "Implement account details API",
-      "spec_folder": "2024-01-15-user-dashboard",
-      "task_id": "1.3",
-      "priority": "high",
-      "labels": ["enhancement", "high-priority", "backend"],
-      "milestone": "User Dashboard v1.0",
-      "dependencies": ["124"],
-      "estimated_hours": 4,
-      "url": "https://github.com/company/repo/issues/125"
-    }
-  ]
-}
-```
-
-**Update per-spec cache files:**
-```json
-{
-  "spec_folder": "2024-01-15-user-dashboard",
-  "milestone_name": "User Dashboard v1.0",
-  "last_sync": "2024-01-15T14:30:00Z",
-  
-  "github_issues": [
-    {
-      "issue_number": 123,
-      "task_id": "1.1",
-      "title": "Write tests for dashboard component",
-      "state": "CLOSED",
-      "assignee": "alice-dev",
-      "priority": "high",
-      "created_at": "2024-01-15T09:00:00Z",
-      "closed_at": "2024-01-15T12:00:00Z"
-    }
-  ],
-
-  "mapping": {
-    "local_to_github": {
-      "1.1": 123,
-      "1.2": 124,
-      "1.3": 125
-    },
-    "github_to_local": {
-      "123": "1.1",
-      "124": "1.2", 
-      "125": "1.3"
-    }
-  },
-
-  "stats": {
-    "total_tasks": 5,
-    "issues_created": 5,
-    "completed": 1,
-    "in_progress": 2,
-    "available": 2
-  }
-}
-```
+**Update local specification documents:**
+- Update issue status in relevant spec files
+- Sync assignee information
+- Update completion status
+- Maintain traceability between specs and GitHub issues
 
 ### Step 6: Conflict Detection & Resolution
 
@@ -340,11 +232,9 @@ function mapGitHubState(state: string, assignees: Array<any>): string {
 - Cache Files Updated: 3
 - Conflicts Detected: 2 (auto-resolved)
 
-📁 Updated Cache Files:
-- index.json - Project overview updated
-- my-assignments.json - 2 new assignments
-- available-tasks.json - 5 new available tasks
-- specs/user-dashboard.json - Status updates
+📁 Updated Files:
+- Local specification documents updated with issue status
+- GitHub issue mappings synchronized
 
 ⚠️ Conflicts Resolved:
 - Issue #124: Assignment updated (alice-dev → bob-dev)

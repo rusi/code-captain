@@ -10,6 +10,14 @@ Generate comprehensive feature specifications using a contract-first approach th
 cc: create-spec "rough feature description"
 ```
 
+### Agent Routing
+
+Execute via the `code-captain` agent, which handles the clarification loop and then launches sub-agents in parallel post-contract lock:
+
+```bash
+> Use the code-captain agent to create-spec "rough feature description"
+```
+
 ## Command Process
 
 ### Phase 1: Contract Establishment (No File Creation)
@@ -119,21 +127,52 @@ Options:
 #### Step 2.1: Initialize Tracking
 ```bash
 # Use todo_write to track creation process
-1. Create spec folder structure
-2. Generate core specification document  
-3. Create user stories with acceptance criteria
-4. Generate technical sub-specifications
-5. Create implementation task breakdown
-6. Present package for user review and validation
+1. Determine current date for folder naming
+2. Create spec folder structure
+3. Generate core specification document  
+4. Create user stories with acceptance criteria
+5. Generate technical sub-specifications
+6. Create implementation task breakdown
+7. Present package for user review and validation
 ```
 
-#### Step 2.2: Create Directory Structure
-**Generated folder:**
+#### Step 2.2: Determine Current Date
+**Objective:** Get current date for folder naming and document timestamps
+
+**Date Determination Process:**
+
+1. **CREATE** directory if not exists: `.code-captain/specs/`
+2. **CREATE** temporary file: `.code-captain/specs/.date-check`
+3. **READ** file creation timestamp from filesystem
+4. **EXTRACT** date in YYYY-MM-DD format
+5. **DELETE** temporary file
+6. **STORE** date in variable for folder naming
+
+**Fallback Method:** If file system method fails:
+1. **STATE**: "I need to confirm today's date for the specification folder"
+2. **ASK**: "What is today's date? (YYYY-MM-DD format)"
+3. **WAIT** for user response
+4. **VALIDATE** format matches `^\d{4}-\d{2}-\d{2}$`
+   - year: 2024-2030
+   - month: 01-12
+   - day: 01-31
+5. **STORE** date for folder naming
+
+**Error Handling:**
+- **IF** date_invalid: USE fallback_method
+- **IF** both_methods_fail: ERROR "Unable to determine current date"
+
+#### Step 2.3: Create Directory Structure
+**Generated folder (using determined date):**
 ```
-.code-captain/specs/YYYY-MM-DD-{feature-name}/
+.code-captain/specs/[DATE]-{feature-name}/
 ├── spec.md                    # Main specification (from contract)
 ├── spec-lite.md              # Condensed version for AI context  
-├── tasks.md                  # User stories + implementation tasks (integrated)
+├── user-stories/             # Individual user story files
+│   ├── README.md             # Overview and progress tracking
+│   ├── story-1-{name}.md     # Individual user story with focused tasks
+│   ├── story-2-{name}.md     # Each story kept small and manageable
+│   └── story-N-{name}.md     # Max 5-7 implementation tasks per story
 └── sub-specs/                # Technical deep-dives
     ├── technical-spec.md     # Architecture & implementation details
     ├── database-schema.md    # Database changes (if needed)
@@ -141,13 +180,13 @@ Options:
     └── ui-wireframes.md     # UI/UX specifications (if needed)  
 ```
 
-#### Step 2.3: Generate Core Documents
+#### Step 2.4: Generate Core Documents
 
 **spec.md** - Built directly from the locked contract:
 ```markdown
 # [Feature Name] Specification
 
-> Created: [DATE]
+> Created: [DATE from Step 2.2 determination process]
 > Status: Planning  
 > Contract Locked: ✅
 
@@ -161,45 +200,74 @@ Options:
 [Technical strategy based on codebase analysis]
 ```
 
-**tasks.md** - User stories integrated with implementation tasks:
-```markdown
-# User Stories & Implementation Tasks
+**user-stories/ folder structure** - Individual user story files for better organization:
 
-## Story 1: [Title from contract deliverable]
+**user-stories/README.md** - Overview and progress tracking:
+```markdown
+# User Stories Overview
+
+> **Specification:** [Feature Name]
+> **Created:** [DATE]
+> **Status:** Planning
+
+## Stories Summary
+
+| Story | Title | Status | Tasks | Progress |
+|-------|-------|--------|-------|----------|
+| 1 | [Story title] | Not Started | 5 | 0/5 |
+| 2 | [Story title] | Not Started | 4 | 0/4 |
+| 3 | [Story title] | Not Started | 6 | 0/6 |
+
+**Total Progress:** 0/15 tasks (0%)
+
+## Story Dependencies
+- Story 2 depends on Story 1 completion
+- Story 3 can run parallel to Story 2
+
+## Quick Links
+- [Story 1: User Login](./story-1-user-login.md)
+- [Story 2: Password Reset](./story-2-password-reset.md)
+- [Story 3: Profile Management](./story-3-profile-management.md)
+```
+
+**user-stories/story-1-{name}.md** - Individual story files (max 5-7 tasks each):
+```markdown
+# Story 1: [Title from contract deliverable]
+
+> **Status:** Not Started
+> **Priority:** High
+> **Dependencies:** None
+
+## User Story
 **As a** [user type from clarification]
 **I want to** [action from contract]  
 **So that** [value from contract must-include]
 
-### Acceptance Criteria
+## Acceptance Criteria
 - [ ] Given [context], when [action], then [outcome]
 - [ ] Given [context], when [action], then [outcome]
-
-### Implementation Tasks
-- [ ] 1.1 Write tests for [user story component]
-- [ ] 1.2 [Technical implementation step]
-- [ ] 1.3 [Technical implementation step] 
-- [ ] 1.4 Verify acceptance criteria are met
-- [ ] 1.5 Verify all tests pass
-
----
-
-## Story 2: [Next user story title]
-**As a** [user type]
-**I want to** [action]
-**So that** [value]
-
-### Acceptance Criteria  
 - [ ] Given [context], when [action], then [outcome]
 
-### Implementation Tasks
-- [ ] 2.1 Write tests for [story component]
-- [ ] 2.2 [Implementation step]
-- [ ] 2.3 [Implementation step]
-- [ ] 2.4 Verify acceptance criteria are met
-- [ ] 2.5 Verify all tests pass
+## Implementation Tasks
+- [ ] 1.1 Write tests for [specific component]
+- [ ] 1.2 [Focused technical step]
+- [ ] 1.3 [Focused technical step] 
+- [ ] 1.4 [Focused technical step]
+- [ ] 1.5 Verify acceptance criteria are met
+- [ ] 1.6 Verify all tests pass
+
+## Notes
+[Any specific technical considerations, risks, or dependencies for this story]
+
+## Definition of Done
+- [ ] All tasks completed
+- [ ] All acceptance criteria met
+- [ ] Tests passing
+- [ ] Code reviewed
+- [ ] Documentation updated
 ```
 
-#### Step 2.4: Generate Technical Sub-Specs
+#### Step 2.5: Generate Technical Sub-Specs
 
 **Only create relevant sub-specs based on contract requirements:**
 
@@ -208,45 +276,62 @@ Options:
 - **api-spec.md**: Only if new API endpoints required
 - **ui-wireframes.md**: Only if UI/UX requirements were discussed
 
-**Cross-reference integration**: Each sub-spec references relevant user stories from tasks.md to maintain traceability between technical details and user value.
+**Cross-reference integration**: Each sub-spec references relevant user stories from the user-stories/ folder to maintain traceability between technical details and user value.
 
-#### Step 2.5: Create Integrated User Stories & Tasks
+#### Step 2.6: Create User Stories Folder Structure
 
-**tasks.md** - User stories with directly mapped implementation tasks:
+**user-stories/ folder** - Organized individual story files with focused task groups:
 
 **Structure Philosophy:**
-- Each user story becomes a major task group
-- Implementation tasks directly serve the user story
+- Each user story gets its own file for better organization
+- Implementation tasks are kept small and focused (max 5-7 per story)
+- Complex stories are broken into multiple smaller stories
+- README.md provides overview and progress tracking
 - Acceptance criteria become verification checkpoints
-- Tasks are ordered to deliver user value incrementally
-- Each story group follows TDD: test → implement → verify acceptance criteria
+- Each story follows TDD: test → implement → verify acceptance criteria
 
-**Benefits of Integration:**
+**Benefits of Folder Structure:**
+- **Manageability**: Each file stays focused and readable
+- **Navigation**: Easy to find and work on specific stories
+- **Parallel Work**: Multiple developers can work on different stories
+- **Version Control**: Smaller, focused diffs when stories change
+- **Progress Tracking**: Clear visibility of completion status
 - **Traceability**: Every technical task traces to user value
-- **Focus**: Developers see the "why" behind each technical step  
-- **Validation**: Acceptance criteria become natural test cases
-- **Prioritization**: User value drives implementation order
-- **Completion**: Story is done when acceptance criteria are met
 
-**Task Numbering:**
-- Major tasks = User Stories (1, 2, 3...)
-- Subtasks = Implementation steps (1.1, 1.2, 1.3...)
-- Always start with tests (1.1 Write tests...)
-- Always end with verification (1.X Verify acceptance criteria met)
+**File Organization:**
+- **README.md**: Overview, progress summary, dependencies
+- **story-N-{name}.md**: Individual stories with focused tasks (5-7 tasks max)
+- **Story Naming**: Clear, descriptive names for easy identification
+- **Task Numbering**: N.1, N.2, N.3... within each story file
 
-#### Step 2.6: Final Package Review & User Validation
+**Task Breakdown Strategy:**
+- If a story would have >7 tasks, split into multiple stories
+- Each story should deliver standalone user value
+- Tasks within a story should be cohesive and related
+- Always start with tests (N.1 Write tests...)
+- Always end with verification (N.X Verify acceptance criteria met)
+
+#### Step 2.7: Final Package Review & User Validation
 
 Present complete package with file references:
 ```
 ✅ Specification package created successfully!
 
-📁 .code-captain/specs/YYYY-MM-DD-feature-name/
+📁 .code-captain/specs/[DATE]-feature-name/
 ├── 📋 spec.md - Main specification document
 ├── 📝 spec-lite.md - AI context summary  
-├── 👥✅ tasks.md - User stories & implementation tasks (integrated)
+├── 👥 user-stories/ - Individual user story files
+│   ├── 📊 README.md - Overview and progress tracking
+│   ├── 📝 story-1-{name}.md - Focused story with 5-7 tasks
+│   ├── 📝 story-2-{name}.md - Manageable task groups
+│   └── 📝 story-N-{name}.md - Easy navigation and parallel work
 └── 📂 sub-specs/
     ├── 🔧 technical-spec.md - Technical requirements
     [Additional specs as created]
+
+**Stories Created:** [N] user stories with focused task groups (max 5-7 tasks each)
+**Total Tasks:** [X] implementation tasks across all stories
+**Organization:** Each story is self-contained for better workflow management
 
 Please take a moment to review the specification documents. The spec captures everything we discussed, including:
 - [Brief summary of key features/requirements]
@@ -256,9 +341,16 @@ Please take a moment to review the specification documents. The spec captures ev
 Please read through the files and let me know:
 - Does this accurately capture your vision?
 - Are there any missing requirements or incorrect assumptions?
-- Should any part be modified or expanded?
+- Are the user stories appropriately sized (5-7 tasks each)?
+- Should any stories be split further or combined?
 
-Once you're satisfied with the specification, I can help you start implementation with the first task, or we can make any needed adjustments.
+The user-stories folder structure allows you to:
+- Work on one story at a time for focused development
+- Track progress easily with the README overview
+- Assign different stories to different team members
+- Keep task lists manageable and actionable
+
+Once you're satisfied with the specification, I can help you start implementation with the first story, or we can make any needed adjustments.
 ```
 
 ## Key Improvements Over Original

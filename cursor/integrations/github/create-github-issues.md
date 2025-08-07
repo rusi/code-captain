@@ -60,22 +60,22 @@ cc: create-github-issues  # Auto-detect latest spec folder
 **Ensure required labels exist:**
 
 - Create or verify standard labels exist in repository
-- Use `gh label create` with `|| true` to handle existing labels gracefully
+- Use `gh label create` with platform-appropriate error handling to handle existing labels gracefully
 - Set up consistent label schema for issue organization
 
 ### Step 2: Label Management & Setup
 
-**Create required labels using GitHub CLI:**
+**Create required labels:**
 
-```bash
-# Ensure all required labels exist (|| true prevents errors if labels already exist)
-gh label create "user-story" --color "0052cc" --description "User story issues" || true
-gh label create "feature" --color "a2eeef" --description "New feature" || true  
-gh label create "task" --color "d4c5f9" --description "Implementation tasks" || true
-gh label create "subtask" --color "f9c5d4" --description "Sub-implementation tasks" || true
-gh label create "enhancement" --color "84b6eb" --description "Enhancement to existing feature" || true
-gh label create "testing" --color "fef2c0" --description "Testing related work" || true
-```
+Create all required labels (Code Captain will use platform-appropriate error handling based on your shell from `state.json`):
+- "user-story" (blue #0052cc) - User story issues
+- "feature" (light blue #a2eeef) - New feature  
+- "task" (purple #d4c5f9) - Implementation tasks
+- "subtask" (pink #f9c5d4) - Sub-implementation tasks
+- "enhancement" (blue #84b6eb) - Enhancement to existing feature
+- "testing" (yellow #fef2c0) - Testing related work
+
+Use `gh label create` commands with appropriate error handling for existing labels.
 
 **Verify label creation:**
 - Use `gh label list` to confirm all labels were created successfully
@@ -106,7 +106,7 @@ echo "✅ Batch creation script ready: $SCRIPT_PATH"
 
 ```bash
 TEMP_DIR="/tmp/cc-github-issues-$$"
-mkdir -p "$TEMP_DIR"
+Create temporary directory (Code Captain will use platform-appropriate commands based on your shell from `state.json`)
 
 echo "📁 Working directory: $TEMP_DIR"
 echo "   - user-stories.json (to be created)"
@@ -602,9 +602,8 @@ gh issue list --limit 50 --json number,title,state | jq '.[] | select(.title | t
 📋 All issues available at: https://github.com/{owner/repo}/issues
 
 Next Steps:
-- Use `cc: available-tasks` to see new unassigned work
-- Use `cc: next-task` for intelligent task recommendations  
-- Use `cc: start-work <issue-number>` to begin development
+- Use `cc: sync` to synchronize with GitHub and update local cache
+- Use `cc: execute-task` to begin implementation
 ```
 
 ### Step 12: Cleanup Temporary Resources
