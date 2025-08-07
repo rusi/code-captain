@@ -1,7 +1,7 @@
 {
   "version": "2.1.0",
-  "timestamp": "2025-08-07T14:55:52.007Z",
-  "commit": "6340a0200adbc6e8490fec0dc6ddcfa132be7aaf",
+  "timestamp": "2025-08-07T22:46:15.375Z",
+  "commit": "ef4c3ba07c2c542e515c031002ff133e1e17c06f",
   "description": "Code Captain file manifest for change detection",
   "files": {
     "cursor/cc.mdc": {
@@ -23,7 +23,7 @@
     "cursor/commands/create-adr.md": {
       "hash": "sha256:7429d40636b43d3394ad573acca93c2a433b7ab7e149ed7f990a45afabfdc0bb",
       "size": 15936,
-      "lastModified": "2025-08-07T03:06:39.682Z",
+      "lastModified": "2025-08-07T22:25:33.423Z",
       "version": "2.1.0",
       "component": "commands",
       "description": "Create comprehensive Architecture Decision Records (ADRs) that systematically document architectural..."
@@ -31,7 +31,7 @@
     "cursor/commands/create-spec.md": {
       "hash": "sha256:e45c36886fd1812ef41c85e5a7f83d98ec08e8d2488f9d8d1a24cd2e78b2c21c",
       "size": 18470,
-      "lastModified": "2025-08-07T03:06:39.681Z",
+      "lastModified": "2025-08-07T22:25:33.472Z",
       "version": "2.1.0",
       "component": "commands",
       "description": "Generate comprehensive feature specifications using a contract-first approach that ensures complete ..."
@@ -39,7 +39,7 @@
     "cursor/commands/edit-spec.md": {
       "hash": "sha256:a475a67a6fa0c1bb814a32c64911864d95569b5095c2911a5cc516ac5726ec2d",
       "size": 17119,
-      "lastModified": "2025-08-07T03:06:39.677Z",
+      "lastModified": "2025-08-07T22:25:34.347Z",
       "version": "2.1.0",
       "component": "commands",
       "description": "Modify existing feature specifications using a contract-first approach that ensures complete alignme..."
@@ -47,7 +47,7 @@
     "cursor/commands/execute-task.md": {
       "hash": "sha256:1be464ec264d0453964a6e9eb07e525d4b8e32d8f226e0726ac939deb97f3033",
       "size": 16708,
-      "lastModified": "2025-08-07T03:06:39.676Z",
+      "lastModified": "2025-08-07T22:25:34.471Z",
       "version": "2.1.0",
       "component": "commands",
       "description": "Execute a specific task and its sub-tasks systematically following a Test-Driven Development (TDD) w..."
@@ -55,7 +55,7 @@
     "cursor/commands/explain-code.md": {
       "hash": "sha256:5e19d74e7915b40797973aba75f8c8f3efd81f3641d9516d92a740fe807cff94",
       "size": 7754,
-      "lastModified": "2025-08-07T03:06:39.680Z",
+      "lastModified": "2025-08-07T22:25:33.568Z",
       "version": "2.1.0",
       "component": "commands",
       "description": "The `explain-code` command provides comprehensive, AI-powered explanations of code segments, functio..."
@@ -63,7 +63,7 @@
     "cursor/commands/initialize.md": {
       "hash": "sha256:baa8f31f73bccfbc410c26fa5dd9845f70d4424b914af4d832893c900a6aa2b1",
       "size": 11332,
-      "lastModified": "2025-08-07T03:06:39.679Z",
+      "lastModified": "2025-08-07T22:25:33.753Z",
       "version": "2.1.0",
       "component": "commands",
       "description": "Set up technical foundation and development infrastructure by detecting if this is a greenfield (new..."
@@ -71,7 +71,7 @@
     "cursor/commands/new-command.md": {
       "hash": "sha256:0ba4766ce52f65bad3ca5fc2645468d330f6c0afd4a152e1413d5e0a029bd78f",
       "size": 10626,
-      "lastModified": "2025-08-07T03:06:39.677Z",
+      "lastModified": "2025-08-07T22:25:34.455Z",
       "version": "2.1.0",
       "component": "commands",
       "description": "A meta command that creates new Code Captain commands following established patterns and conventions..."
@@ -79,7 +79,7 @@
     "cursor/commands/plan-product.md": {
       "hash": "sha256:41ecf4304a0f87318b67c448cd13fa4ffe5b3381a3106649c9fa4d991de1d91f",
       "size": 16544,
-      "lastModified": "2025-08-07T03:06:39.678Z",
+      "lastModified": "2025-08-07T22:25:33.944Z",
       "version": "2.1.0",
       "component": "commands",
       "description": "Generate comprehensive product planning documentation using a contract-first approach that establish..."
@@ -87,7 +87,7 @@
     "cursor/commands/research.md": {
       "hash": "sha256:bbda84519defced1434268b5a79389399b962aa6aeae2afb059850b404865265",
       "size": 9256,
-      "lastModified": "2025-08-07T03:06:39.679Z",
+      "lastModified": "2025-08-07T22:25:33.850Z",
       "version": "2.1.0",
       "component": "commands",
       "description": "Conduct systematic research on a topic using structured phases that build upon each other, creating ..."
@@ -95,7 +95,7 @@
     "cursor/commands/status.md": {
       "hash": "sha256:e7876816fef8dac68af0cd8eff748b6c9971c2122916f056b2ee69d2832b5a65",
       "size": 12458,
-      "lastModified": "2025-08-07T03:06:39.676Z",
+      "lastModified": "2025-08-07T22:25:34.490Z",
       "version": "2.1.0",
       "component": "commands",
       "description": "A command that provides developers with a comprehensive status report when starting work or switchin..."
@@ -103,7 +103,7 @@
     "cursor/commands/swab.md": {
       "hash": "sha256:1e690d33b57dd6667abeb8b13f4e6be45164378a21d0b654dc172d51f5780966",
       "size": 6325,
-      "lastModified": "2025-08-07T03:06:39.680Z",
+      "lastModified": "2025-08-07T22:25:33.660Z",
       "version": "2.1.0",
       "component": "commands",
       "description": "A deck-cleaning agent that makes one small, focused improvement to the codebase, following the \"Boy ..."
@@ -334,7 +334,7 @@
     "claude-code/agents/code-captain.md": {
       "hash": "sha256:766629c8ec16fe4e316e242246f252697e8ed40ea9ba38682b181119008ad620",
       "size": 6209,
-      "lastModified": "2025-08-07T06:12:58.264Z",
+      "lastModified": "2025-08-07T22:25:33.227Z",
       "version": "2.1.0",
       "component": "agents",
       "description": "Comprehensive AI development partner for coordinating software development workflows. Use proactively for project setup, requirements analysis, feature specifications, architecture decisions, implementation planning, and platform integrations across the entire development lifecycle."
@@ -342,23 +342,15 @@
     "claude-code/agents/spec-generator.md": {
       "hash": "sha256:ee220ded638b37fe29c519f8b21311b535c871b9d0f276d0cb7a609241bac497",
       "size": 8644,
-      "lastModified": "2025-08-07T07:06:40.565Z",
+      "lastModified": "2025-08-07T22:13:46.675Z",
       "version": "2.1.0",
       "component": "agents",
       "description": "Specialized agent for generating core specification documents from locked contracts. Creates spec.md and spec-lite.md files with proper structure and formatting."
     },
-    "claude-code/agents/spec-orchestrator.md": {
-      "hash": "sha256:4a2c525a7e26e75d0bb6ee5ed5e156d9d30610c2cfd6cd8681da9078c61a0c92",
-      "size": 9148,
-      "lastModified": "2025-08-07T07:05:52.835Z",
-      "version": "2.1.0",
-      "component": "agents",
-      "description": "name: spec-orchestrator"
-    },
     "claude-code/agents/story-creator.md": {
       "hash": "sha256:3968ec61d6530c165d594448ad703ddee9fb4ddc84fe6a414c6ed4fcc836c596",
       "size": 11225,
-      "lastModified": "2025-08-07T07:07:34.841Z",
+      "lastModified": "2025-08-07T22:13:46.677Z",
       "version": "2.1.0",
       "component": "agents",
       "description": "Specialized agent for creating user stories with focused task breakdown. Generates individual story files with 5-7 tasks each, following TDD patterns and ensuring each story delivers standalone user value."
@@ -366,23 +358,15 @@
     "claude-code/agents/tech-spec.md": {
       "hash": "sha256:22e055c35614ff928c62540eb3459b8841b2f48852d999ab949d35ebc9cdd108",
       "size": 12800,
-      "lastModified": "2025-08-07T07:08:32.560Z",
+      "lastModified": "2025-08-07T22:13:46.677Z",
       "version": "2.1.0",
       "component": "agents",
       "description": "Specialized agent for generating technical specifications based on requirements. Creates architecture documents, database schemas, API specs, and UI wireframes only when needed, ensuring technical details support user story implementation."
     },
-    "claude-code/commands/cc-create-spec.md": {
-      "hash": "sha256:c8d013e82184eb0dcdf69ef53b63a30fe063bb43341cb980562b4c0c755d28b3",
-      "size": 22772,
-      "lastModified": "2025-08-07T07:10:21.119Z",
-      "version": "2.1.0",
-      "component": "claude-commands",
-      "description": "Generate comprehensive feature specifications using an intelligent agent-based architecture with con..."
-    },
     "claude-code/commands/cc-initialize.md": {
       "hash": "sha256:7c94db2c53c3b937377074d1ef272cdc9b026ebb108c68770c4836f476a7abdc",
       "size": 15817,
-      "lastModified": "2025-08-07T06:36:05.471Z",
+      "lastModified": "2025-08-07T22:25:33.329Z",
       "version": "2.1.0",
       "component": "claude-commands",
       "description": "Set up technical foundation and development infrastructure by detecting if this is a greenfield (new..."

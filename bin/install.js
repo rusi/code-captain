@@ -395,7 +395,11 @@ class CodeCaptainInstaller {
     // Check if command exists
     commandExists(command) {
         try {
-            const result = spawn.sync(command, ['--version'], { stdio: 'pipe' });
+            const result = spawn.sync(command, ['--version'], {
+                stdio: ['pipe', 'pipe', 'pipe'],
+                timeout: 5000,
+                windowsHide: true
+            });
             return result.status === 0;
         } catch {
             return false;

@@ -6,6 +6,11 @@
 
 set -euo pipefail
 
+if [ "$#" -lt 2 ]; then
+    echo "Usage: $(basename "$0") <issues_json_file> <issue_type>" >&2
+    exit 1
+fi
+
 ISSUES_FILE="$1"
 ISSUE_TYPE="$2"  # user-story, task, subtask
 
