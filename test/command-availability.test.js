@@ -1,14 +1,14 @@
-import { describe, test, expect } from 'vitest'
-import { 
-  fileExists, 
-  getCommandFiles, 
-  extractCommandName, 
+import { describe, expect, test } from 'vitest'
+import {
   CORE_COMMANDS,
-  PLATFORM_CONFIG 
+  extractCommandName,
+  fileExists,
+  getCommandFiles,
+  PLATFORM_CONFIG
 } from './utils/test-helpers.js'
 
 describe('Command Availability Smoke Tests', () => {
-  
+
   describe('Platform File Structure', () => {
     test.each(Object.keys(PLATFORM_CONFIG))('platform %s has command directory', async (platform) => {
       const config = PLATFORM_CONFIG[platform]
@@ -20,17 +20,17 @@ describe('Command Availability Smoke Tests', () => {
   describe('Core Command Availability', () => {
     test.each(CORE_COMMANDS)('command "%s" exists on all platforms', async (commandName) => {
       const results = {}
-      
+
       for (const platform of Object.keys(PLATFORM_CONFIG)) {
         const config = PLATFORM_CONFIG[platform]
         let filePath
-        
+
         if (platform === 'claude' && commandName !== 'initialize') {
           // Claude has partial implementation - only check initialize for now
           results[platform] = 'partial'
           continue
         }
-        
+
         if (platform === 'copilot') {
           filePath = `${config.directory}/${commandName}${config.extension}`
         } else if (platform === 'claude') {
@@ -38,15 +38,15 @@ describe('Command Availability Smoke Tests', () => {
         } else {
           filePath = `${config.directory}/${commandName}${config.extension}`
         }
-        
+
         results[platform] = await fileExists(filePath)
       }
-      
+
       // All platforms except Claude should have the command
       expect(results.cursor).toBe(true)
       expect(results.copilot).toBe(true)
       expect(results.windsurf).toBe(true)
-      
+
       // Claude is allowed to be partial for now
       if (commandName === 'initialize') {
         expect(results.claude).toBe(true)
@@ -72,40 +72,15 @@ describe('Command Availability Smoke Tests', () => {
     test.each(Object.keys(PLATFORM_CONFIG))('platform %s has discoverable commands', async (platform) => {
       const commandFiles = await getCommandFiles(platform)
       expect(commandFiles.length).toBeGreaterThan(0)
-      
+
       // Extract command names
       const commands = commandFiles.map(extractCommandName)
-      
+
       // Should have some core commands (allowing for platform differences)
       const hasCreateSpec = commands.includes('create-spec')
       const hasInitialize = commands.includes('initialize')
-      
+
       expect(hasCreateSpec || hasInitialize).toBe(true)
-    })
-  })
-
-  describe('Integration Commands', () => {
-    test('cursor has GitHub integration commands', async () => {
-      const githubCommands = [
-        'cursor/integrations/github/create-github-issues.md',
-        'cursor/integrations/github/sync-github-issues.md',
-        'cursor/integrations/github/sync.md'
-      ]
-      
-      for (const command of githubCommands) {
-        expect(await fileExists(command)).toBe(true)
-      }
-    })
-
-    test('cursor has Azure DevOps integration commands', async () => {
-      const azureCommands = [
-        'cursor/integrations/azure-devops/create-azure-work-items.md',
-        'cursor/integrations/azure-devops/sync-azure-work-items.md'
-      ]
-      
-      for (const command of azureCommands) {
-        expect(await fileExists(command)).toBe(true)
-      }
     })
   })
 
@@ -118,7 +93,7 @@ describe('Command Availability Smoke Tests', () => {
   describe('Command Coverage Analysis', () => {
     test('report command coverage across platforms', async () => {
       const coverage = {}
-      
+
       for (const platform of Object.keys(PLATFORM_CONFIG)) {
         const commandFiles = await getCommandFiles(platform)
         const commands = commandFiles.map(extractCommandName)
@@ -128,7 +103,7 @@ describe('Command Availability Smoke Tests', () => {
           coreCommands: CORE_COMMANDS.filter(cmd => commands.includes(cmd))
         }
       }
-      
+
       // Log coverage report for debugging
       console.log('\n📊 Command Coverage Report:')
       for (const [platform, data] of Object.entries(coverage)) {
@@ -137,7 +112,7 @@ describe('Command Availability Smoke Tests', () => {
         console.log(`  Core commands: ${data.coreCommands.length}/${CORE_COMMANDS.length}`)
         console.log(`  Commands: ${data.commands.join(', ')}`)
       }
-      
+
       // Cursor should have the most complete set
       expect(coverage.cursor.coreCommands.length).toBeGreaterThanOrEqual(8)
       expect(coverage.copilot.coreCommands.length).toBeGreaterThanOrEqual(8)

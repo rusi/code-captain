@@ -54,7 +54,7 @@ Simple, no parameters needed. Works in any git repository with optional Code Cap
 **Based on Current State:**
 - If mid-task: Suggest `cc: execute-task`
 - If no active work: Suggest `cc: create-spec`
-- If specifications exist: Suggest `cc: create-github-issues`
+- If specifications exist: Suggest `cc: generate-tasks`
 - Always suggest `cc: swab` for code cleanup
 
 ## Output Format
@@ -411,3 +411,14 @@ $ cc: status
 ---
 
 *⚓ Keep your bearings, maintain your heading, and always know where you stand in the code.*
+
+## Suggested Next Actions
+
+Based on project state analysis, suggest relevant next steps:
+
+- **No specs**: Suggest `cc: create-spec` or `cc: plan-product`
+- **Specs without tasks**: Suggest `cc: generate-tasks`
+- **Tasks ready**: Suggest `cc: execute-task`
+- **Code quality issues**: Suggest `cc: swab`
+- **Missing architecture**: Suggest `cc: create-adr`
+- **Research needed**: Suggest `cc: research`

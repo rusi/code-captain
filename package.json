@@ -1,6 +1,6 @@
 {
   "name": "@devobsessed/code-captain",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "description": "Unified AI Development Agent System with intelligent change detection",
   "type": "module",
   "bin": {
@@ -12,7 +12,8 @@
     "self": "CC_LOCAL_SOURCE=. node bin/install.js",
     "test": "vitest run",
     "test:watch": "vitest --watch",
-    "test:ui": "vitest --ui"
+    "test:ui": "vitest --ui",
+    "analyze-tokens": "node scripts/analyze-token-counts.js"
   },
   "keywords": [
     "ai",

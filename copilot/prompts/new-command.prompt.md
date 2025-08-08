@@ -228,6 +228,17 @@ echo "command-name" | grep -E '^[a-z][a-z0-9-]*[a-z0-9]$'
 ls .github/prompts/ | grep "^command-name.prompt.md$"
 ```
 
+### Command Categories
+
+Commands are organized into logical categories:
+
+1. **Foundation** (`initialize`, `plan-product`)
+2. **Analysis** (`research`, `create-adr`)  
+3. **Specification** (`create-spec`, `edit-spec`)
+4. **Implementation** (`execute-task`, `generate-tasks`)
+5. **Quality** (`status`, `swab`)
+6. **Meta** (`new-command`, `explain-code`)
+
 ### Template Selection Logic
 
 **Command Categories and Templates:**
@@ -247,7 +258,8 @@ ls .github/prompts/ | grep "^command-name.prompt.md$"
    - TDD patterns
    - Verification steps
 
-4. **Integration** (`sync`, `create-github-issues`)
+4. **Quality** (`status`, `swab`)
+5. **Meta** (`new-command`, `explain-code`)
    - Platform API interactions
    - Sync and conflict handling
    - Status reporting

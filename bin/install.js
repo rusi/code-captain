@@ -34,8 +34,8 @@ class CodeCaptainInstaller {
                 details: 'Uses .code-captain/ structure + .cursor/rules/cc.mdc'
             },
             copilot: {
-                name: 'VS Code with GitHub Copilot',
-                description: 'Visual Studio Code with GitHub Copilot extension',
+                name: 'Copilot',
+                description: 'Visual Studio Code with Copilot extension',
                 details: 'Uses .github/chatmodes/ + .github/prompts/ + .code-captain/docs/'
             },
             windsurf: {
@@ -555,16 +555,14 @@ class CodeCaptainInstaller {
             case 'cursor':
                 return [
                     ...baseChoices,
-                    { name: 'Cursor Rules (.cursor/rules/cc.mdc)', value: 'rules', checked: true },
-                    { name: 'GitHub Integration', value: 'github', checked: true },
-                    { name: 'Azure DevOps Integration', value: 'azure', checked: true }
+                    { name: 'Cursor Rules (.cursor/rules/cc.mdc)', value: 'rules', checked: true }
                 ];
 
             case 'copilot':
                 return [
                     ...baseChoices,
-                    { name: 'GitHub Copilot Chatmodes', value: 'chatmodes', checked: true },
-                    { name: 'GitHub Copilot Prompts', value: 'prompts', checked: true }
+                    { name: 'Copilot Chatmodes', value: 'chatmodes', checked: true },
+                    { name: 'Copilot Prompts', value: 'prompts', checked: true }
                 ];
 
             case 'windsurf':
@@ -737,38 +735,7 @@ class CodeCaptainInstaller {
                     });
                 }
 
-                // GitHub integration
-                if (includeAll || selectedComponents.includes('github')) {
-                    const githubFiles = [
-                        'integrations/github/create-github-issues.md',
-                        'integrations/github/sync-github-issues.md',
-                        'integrations/github/sync.md'
-                    ];
 
-                    githubFiles.forEach(file => {
-                        files.push({
-                            source: `cursor/${file}`,
-                            target: `.code-captain/${file}`,
-                            component: 'github'
-                        });
-                    });
-                }
-
-                // Azure DevOps integration
-                if (includeAll || selectedComponents.includes('azure')) {
-                    const azureFiles = [
-                        'integrations/azure-devops/create-azure-work-items.md',
-                        'integrations/azure-devops/sync-azure-work-items.md'
-                    ];
-
-                    azureFiles.forEach(file => {
-                        files.push({
-                            source: `cursor/${file}`,
-                            target: `.code-captain/${file}`,
-                            component: 'azure'
-                        });
-                    });
-                }
 
                 // Documentation
                 if (includeAll || selectedComponents.includes('docs')) {
@@ -956,7 +923,7 @@ class CodeCaptainInstaller {
 
             case 'copilot':
                 console.log(chalk.blue('1.') + ' Restart VS Code to load chatmodes from ' + chalk.cyan('.github/chatmodes/'));
-                console.log(chalk.blue('2.') + ' Open GitHub Copilot Chat in VS Code');
+                console.log(chalk.blue('2.') + ' Open Copilot Chat in VS Code');
                 console.log(chalk.blue('3.') + ' Type ' + chalk.cyan('@Code Captain') + ' to access the chatmode');
                 console.log(chalk.blue('4.') + ' Use prompts from ' + chalk.cyan('.github/prompts/') + ' for workflows');
                 break;

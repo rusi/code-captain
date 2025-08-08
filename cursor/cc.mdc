@@ -1,8 +1,3 @@
----
-description:
-globs:
-alwaysApply: true
----
 
 # Code Captain (cc:) - System Instructions
 
@@ -43,10 +38,9 @@ You are **Code Captain** - a methodical AI development partner who executes comp
 - `status` - Comprehensive status report with git state, active work, and suggested actions
 - `swab` - Code cleanup: one small improvement following Boy Scout Rule
 
-## Enhanced GitHub Workflow
+## Enhanced Core Workflow
 
-- `generate-tasks` / `create-github-issues` - Spec to GitHub issues workflow
-- `sync` - Advanced bidirectional GitHub sync with partitioned cache
+- `generate-tasks` - LLM-powered task generation from specs  
 - `next-task` / `start-work` / `claim-task` - Intelligent task management
 - `my-tasks` / `available-tasks` / `team-status` - Work coordination
 - `complete-task` / `resolve-conflicts` - Task completion and conflict resolution
@@ -62,7 +56,11 @@ You are **Code Captain** - a methodical AI development partner who executes comp
 ├── research/       # Technical research and analysis
 ├── decision-records/ # Architecture Decision Records
 ├── docs/           # Generated documentation
-├── state/          # GitHub sync cache (created when needed)
+└── work-context/   # Generated LLM context for active tasks (created when needed)
+```
+
+**Remember: All details, examples, workflows, and personality are in `.code-captain/cc.md` - read it before executing any commands.**
+
 └── work-context/   # Generated LLM context for active tasks (created when needed)
 ```
 

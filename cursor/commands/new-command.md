@@ -248,7 +248,8 @@ ls .code-captain/commands/ | grep "^command-name.md$"
    - TDD patterns
    - Verification steps
 
-4. **Integration** (`sync`, `create-github-issues`)
+4. **Quality** (`status`, `swab`)
+5. **Meta** (`new-command`, `explain-code`)
    - Platform API interactions
    - Sync and conflict handling
    - Status reporting

@@ -64,22 +64,32 @@ Located in `.github/prompts/`:
 
 ## 🛠️ Available Workflows
 
-### 📋 Project Setup & Analysis
-- **Initialize Project** - Analyze codebase and generate documentation
-- **Product Planning** - Comprehensive product strategy and roadmap
-- **Technical Research** - Systematic 4-phase research methodology
-- **Custom Commands** - Create domain-specific workflows
-
-### 📝 Requirements & Planning
-- **Feature Specifications** - Comprehensive specs with technical details
-- **Architecture Decisions** - ADRs with research and alternatives analysis
-- **Code Explanations** - Visual diagrams and technical analysis
-- **Specification Editing** - Contract-first modification approach
+### 📋 Analysis & Research
+- **Research Topics**: AI/ML frameworks, database patterns, security approaches
+- **Market Analysis**: Competitive landscapes, feature comparisons  
+- **Technical Evaluation**: Library assessments, architecture reviews
 
 ### ⚙️ Implementation
-- **Test-Driven Development** - Systematic TDD workflow
-- **Project Status** - Comprehensive status analysis
-- **Code Cleanup** - Small improvements following Boy Scout Rule
+- **TDD Workflow**: Test-first development with full coverage
+- **Code Quality**: Automated reviews, style enforcement, best practices
+- **Documentation**: Living docs, API specs, deployment guides
+
+## Roadmap
+
+### Phase 1: Enhanced Core Features ✅
+1. **Advanced Analysis** - Multi-language support, framework detection
+2. **Rich Specifications** - Visual diagrams, interaction flows, API schemas  
+3. **Smart Implementation** - Context-aware code generation, test automation
+
+### Phase 2: Quality & Collaboration 🚧
+1. **Code Quality** - Automated reviews, security analysis, performance optimization
+2. **Team Coordination** - Specification sharing, progress tracking, knowledge management
+3. **Documentation** - Auto-generated docs, interactive guides, video tutorials
+
+### Phase 3: Advanced Features 📋
+1. **AI Integration** - Smart suggestions, predictive analysis, automated refactoring
+2. **Performance** - Benchmarking, optimization recommendations, monitoring integration
+3. **Deployment** - CI/CD integration, environment management, rollback strategies
 
 ## 🔄 Workflow Examples
 
@@ -163,7 +173,7 @@ Copilot integration creates this structure:
 - **Copy-paste convenience** for complex processes
 - **Customizable templates** for team standards
 
-### GitHub Integration
+### Repository Integration
 - **Repository-based configuration** through `.github/` structure
 - **Team collaboration** through shared chat modes and prompts
 - **Version-controlled workflows** alongside your codebase
@@ -199,7 +209,7 @@ Copilot-specific contributions:
 1. **Chat Mode Enhancement** - Improve workflow integration
 2. **Prompt Templates** - Add new workflow templates
 3. **Documentation** - Add Copilot-specific examples
-4. **GitHub Integration** - Enhance repository templates
+4. **Repository Integration** - Enhance repository templates
 
 ---
 

@@ -4,10 +4,15 @@ This test suite validates the Code Captain prompt system across all supported pl
 
 ## Test Categories
 
+- **Structure Validation**: Ensures proper file organization and required components exist
+- **Content Consistency**: Validates consistent terminology, concepts, and formatting across commands  
+- **Command Availability**: Checks that all expected commands are present and accessible
+- **Core Commands**: Validates proper command structure, metadata, and content requirements
+
 ### 🚀 Smoke Tests (`command-availability.test.js`)
 - **Command Availability**: Ensures all core commands exist on each platform
 - **File Structure**: Validates platform-specific directory structures
-- **Integration Commands**: Checks GitHub/Azure DevOps integrations
+- **Core Commands**: Validates proper command structure, metadata, and content requirements
 - **Coverage Analysis**: Reports command availability across platforms
 
 ### 🏗️ Structure Tests (`structure-validation.test.js`)
