@@ -48,7 +48,7 @@ class CodeCaptainInstaller {
             claude: {
                 name: 'Claude Code',
                 description: 'Direct integration with Claude for development workflows',
-                details: 'Uses .code-captain/claude/ structure with agents and commands'
+                details: 'Uses .claude/ for agents and commands (+ .code-captain/ for shared docs)'
             }
         };
     }
@@ -156,7 +156,7 @@ class CodeCaptainInstaller {
     async calculateFileHash(filePath) {
         try {
             const crypto = await import('crypto');
-            const content = await fs.readFile(filePath, 'utf8');
+            const content = await fs.readFile(filePath); // Buffer
             return crypto.default.createHash('sha256').update(content).digest('hex');
         } catch (error) {
             return null;
@@ -882,14 +882,14 @@ class CodeCaptainInstaller {
                 // Claude agents
                 if (includeAll || selectedComponents.includes('agents')) {
                     const claudeAgents = [
-                        'code-captain.md', 'spec-generator.md', 'spec-orchestrator.md',
+                        'code-captain.md', 'spec-generator.md',
                         'story-creator.md', 'tech-spec.md'
                     ];
 
                     claudeAgents.forEach(agent => {
                         files.push({
                             source: `claude-code/agents/${agent}`,
-                            target: `.code-captain/claude/agents/${agent}`,
+                            target: `.claude/agents/${agent}`,
                             component: 'agents'
                         });
                     });
@@ -904,7 +904,7 @@ class CodeCaptainInstaller {
                     claudeCommands.forEach(command => {
                         files.push({
                             source: `claude-code/commands/${command}`,
-                            target: `.code-captain/claude/commands/${command}`,
+                            target: `.claude/commands/${command}`,
                             component: 'claude-commands'
                         });
                     });
@@ -945,7 +945,7 @@ class CodeCaptainInstaller {
                 totalFiles: files.length,
                 targetDir: selectedIDE === 'copilot' ? '.github + .code-captain/docs' :
                     selectedIDE === 'windsurf' ? '.windsurf' :
-                        selectedIDE === 'claude' ? '.code-captain/claude' : '.code-captain (+ .cursor/rules)',
+                        selectedIDE === 'claude' ? '.claude' : '.code-captain (+ .cursor/rules)',
                 components: installOptions.installAll ? 'All components' : installOptions.selectedComponents.join(', '),
                 changesDetected: installOptions.changeInfo && (installOptions.changeInfo.changes.length > 0 || installOptions.changeInfo.newFiles.length > 0)
             };
@@ -998,9 +998,9 @@ class CodeCaptainInstaller {
                 break;
 
             case 'claude':
-                console.log(chalk.blue('1.') + ' Claude agents and commands are installed in ' + chalk.cyan('.code-captain/claude/'));
-                console.log(chalk.blue('2.') + ' Reference the agents in ' + chalk.cyan('.code-captain/claude/agents/') + ' for specialized workflows');
-                console.log(chalk.blue('3.') + ' Use command templates from ' + chalk.cyan('.code-captain/claude/commands/'));
+                console.log(chalk.blue('1.') + ' Claude agents and commands are installed in ' + chalk.cyan('.claude/'));
+                console.log(chalk.blue('2.') + ' Reference the agents in ' + chalk.cyan('.claude/agents/') + ' for specialized workflows');
+                console.log(chalk.blue('3.') + ' Use command templates from ' + chalk.cyan('.claude/commands/'));
                 console.log(chalk.blue('4.') + ' Import agent contexts directly into Claude conversations');
                 break;
         }
