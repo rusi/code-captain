@@ -1,15 +1,14 @@
 {
   "name": "@devobsessed/code-captain",
-  "version": "2.1.0",
+  "version": "0.0.6",
   "description": "Unified AI Development Agent System with intelligent change detection",
   "type": "module",
   "bin": {
-    "code-captain": "./bin/install.js"
+    "code-captain": "bin/install.js"
   },
   "scripts": {
-    "build": "npm run build:manifest",
-    "build:manifest": "node scripts/build-manifest.js",
-    "prepack": "npm run build:manifest",
+    "manifest": "node scripts/build-manifest.js",
+    "dry-run": "npm publish --dry-run",
     "test": "echo \"(no tests yet)\""
   },
   "keywords": [
@@ -23,6 +22,9 @@
     "automation"
   ],
   "author": "DevObsessed",
+  "contributors": [
+    "Brad Risse <brad.risse@devobsessed.com>"
+  ],
   "license": "MIT",
   "dependencies": {
     "boxen": "~7.0.0",
@@ -47,7 +49,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/devobsessed/code-captain.git"
+    "url": "git+https://github.com/devobsessed/code-captain.git"
   },
   "bugs": {
     "url": "https://github.com/devobsessed/code-captain/issues"

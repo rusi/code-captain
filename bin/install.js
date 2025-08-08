@@ -15,11 +15,16 @@ const __dirname = dirname(__filename);
 
 class CodeCaptainInstaller {
     constructor() {
+        // Determine if we're running from npm package or development
+        const packageRoot = path.resolve(__dirname, '..');
+        const isNpmPackage = fs.existsSync(path.join(packageRoot, 'package.json'));
+
         this.config = {
             repoUrl: 'https://github.com/devobsessed/code-captain',
             baseUrl: 'https://raw.githubusercontent.com/devobsessed/code-captain/main',
             version: 'main',
-            localSource: process.env.CC_LOCAL_SOURCE || null,
+            // Default to local source when running from npm package
+            localSource: process.env.CC_LOCAL_SOURCE || (isNpmPackage ? packageRoot : null),
             versionFile: '.code-captain/.version',
             manifestFile: '.code-captain/.manifest.json'
         };
@@ -49,11 +54,14 @@ class CodeCaptainInstaller {
     }
 
     // Display welcome banner
-    showWelcome() {
+    async showWelcome() {
+        const version = await this.getPackageVersion();
         const banner = boxen(
-            chalk.bold.green('Code Captain 2.0') + '\n' +
-            chalk.gray('Unified AI Development Agent System') + '\n\n' +
-            chalk.blue('🚀 Interactive Installation Wizard'),
+            chalk.bold.green(`Code Captain ${version}`) + '\n' +
+            chalk.gray('AI Development Agent System') + '\n' +
+            chalk.dim('brought to you by DevObsessed') + '\n' +
+            chalk.dim.blue('https://www.devobsessed.com/') + '\n\n' +
+            chalk.blue('⚓ Interactive Installation Wizard'),
             {
                 padding: 1,
                 margin: 1,
@@ -128,7 +136,23 @@ class CodeCaptainInstaller {
         return [...new Set(installations)]; // Remove duplicates
     }
 
-    // Calculate SHA256 hash of a local file
+    // Get the current package version
+    async getPackageVersion() {
+        try {
+            if (this.config.localSource) {
+                const packageJsonPath = path.join(this.config.localSource, 'package.json');
+                if (await fs.pathExists(packageJsonPath)) {
+                    const packageJson = await fs.readJson(packageJsonPath);
+                    return packageJson.version || 'unknown';
+                }
+            }
+            return 'unknown';
+        } catch (error) {
+            return 'unknown';
+        }
+    }
+
+    // Calculate SHA256 hash of a file
     async calculateFileHash(filePath) {
         try {
             const crypto = await import('crypto');
@@ -201,8 +225,15 @@ class CodeCaptainInstaller {
 
             if (!localManifest) {
                 spinner.succeed('No previous manifest found - treating as fresh installation');
+
+                // Get proper version information for first install
+                const currentVersion = this.config.localSource ? await this.getPackageVersion() : 'unknown';
+                const availableVersion = remoteManifest.version;
+
                 return {
                     isFirstInstall: true,
+                    localVersion: currentVersion,
+                    remoteVersion: availableVersion,
                     changes: [],
                     newFiles: [],
                     recommendations: ['Full installation recommended (no change tracking available)']
@@ -276,10 +307,14 @@ class CodeCaptainInstaller {
 
             spinner.succeed(`Found ${changes.length} updated files, ${newFiles.length} new files`);
 
+            // Get proper version information
+            const currentVersion = this.config.localSource ? await this.getPackageVersion() : 'unknown';
+            const availableVersion = remoteManifest.version;
+
             return {
                 isFirstInstall: false,
-                localVersion: localManifest.version,
-                remoteVersion: remoteManifest.version,
+                localVersion: currentVersion,
+                remoteVersion: availableVersion,
                 changes,
                 newFiles,
                 recommendations
@@ -1002,7 +1037,7 @@ class CodeCaptainInstaller {
     async run() {
         try {
             // Show welcome
-            this.showWelcome();
+            await this.showWelcome();
 
             // Check compatibility
             const systemInfo = await this.checkCompatibility();
@@ -1040,7 +1075,11 @@ class CodeCaptainInstaller {
 }
 
 // Run installer if called directly
-if (import.meta.url === `file://${process.argv[1]}`) {
+const isMainModule = import.meta.url === `file://${process.argv[1]}` ||
+    (process.argv[1] && process.argv[1].includes('code-captain')) ||
+    process.argv[1] === undefined;
+
+if (isMainModule) {
     const installer = new CodeCaptainInstaller();
     installer.run();
 }
