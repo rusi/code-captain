@@ -1,0 +1,58 @@
+{
+  "name": "@devobsessed/code-captain",
+  "version": "0.0.6",
+  "description": "Unified AI Development Agent System with intelligent change detection",
+  "type": "module",
+  "bin": {
+    "code-captain": "bin/install.js"
+  },
+  "scripts": {
+    "manifest": "node scripts/build-manifest.js",
+    "dry-run": "npm publish --dry-run",
+    "test": "echo \"(no tests yet)\""
+  },
+  "keywords": [
+    "ai",
+    "development",
+    "agent",
+    "cursor",
+    "copilot",
+    "windsurf",
+    "claude",
+    "automation"
+  ],
+  "author": "DevObsessed",
+  "contributors": [
+    "Brad Risse <brad.risse@devobsessed.com>"
+  ],
+  "license": "MIT",
+  "dependencies": {
+    "boxen": "~7.0.0",
+    "chalk": "~5.3.0",
+    "cross-spawn": "~7.0.3",
+    "fs-extra": "~11.1.1",
+    "inquirer": "~9.2.7",
+    "node-fetch": "~3.3.1",
+    "ora": "~7.0.1"
+  },
+  "files": [
+    "bin/",
+    "cursor/",
+    "copilot/",
+    "windsurf/",
+    "claude-code/",
+    "manifest.json",
+    "README.md"
+  ],
+  "engines": {
+    "node": ">=16.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/devobsessed/code-captain.git"
+  },
+  "bugs": {
+    "url": "https://github.com/devobsessed/code-captain/issues"
+  },
+  "homepage": "https://github.com/devobsessed/code-captain#readme"
+}
