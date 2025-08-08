@@ -24,9 +24,7 @@ class CodeCaptainInstaller {
             baseUrl: 'https://raw.githubusercontent.com/devobsessed/code-captain/main',
             version: 'main',
             // Default to local source when running from npm package
-            localSource: process.env.CC_LOCAL_SOURCE || (isNpmPackage ? packageRoot : null),
-            versionFile: '.code-captain/.version',
-            manifestFile: '.code-captain/.manifest.json'
+            localSource: process.env.CC_LOCAL_SOURCE || (isNpmPackage ? packageRoot : null)
         };
 
         this.ides = {
@@ -200,47 +198,38 @@ class CodeCaptainInstaller {
         };
     }
 
-    // Get local manifest if it exists
-    async getLocalManifest() {
-        try {
-            if (await fs.pathExists(this.config.manifestFile)) {
-                const content = await fs.readFile(this.config.manifestFile, 'utf8');
-                return JSON.parse(content);
-            }
-        } catch (error) {
-            console.warn(chalk.yellow('Warning: Could not read local manifest'));
-        }
-        return null;
-    }
 
-    // Compare manifests and detect changes
+
+    // Compare current files with remote manifest to detect changes
     async detectChanges(selectedIDE) {
         const spinner = ora('Analyzing file changes...').start();
 
         try {
-            const [remoteManifest, localManifest] = await Promise.all([
-                this.getRemoteManifest(),
-                this.getLocalManifest()
-            ]);
+            const remoteManifest = await this.getRemoteManifest();
+            const files = this.getIDEFiles(selectedIDE);
 
-            if (!localManifest) {
-                spinner.succeed('No previous manifest found - treating as fresh installation');
+            // Check if this looks like a first install (no existing files)
+            const existingFiles = [];
+            for (const file of files) {
+                if (await fs.pathExists(file.target)) {
+                    existingFiles.push(file.target);
+                }
+            }
 
-                // Get proper version information for first install
-                const currentVersion = this.config.localSource ? await this.getPackageVersion() : 'unknown';
+            if (existingFiles.length === 0) {
+                spinner.succeed('No existing files found - treating as fresh installation');
+
                 const availableVersion = remoteManifest.version;
-
                 return {
                     isFirstInstall: true,
-                    localVersion: currentVersion,
                     remoteVersion: availableVersion,
                     changes: [],
                     newFiles: [],
-                    recommendations: ['Full installation recommended (no change tracking available)']
+                    recommendations: ['Full installation recommended']
                 };
             }
 
-            const files = this.getIDEFiles(selectedIDE);
+            // Analyze existing files for changes
             const changes = [];
             const newFiles = [];
             let filesAnalyzed = 0;
@@ -286,7 +275,6 @@ class CodeCaptainInstaller {
                         changes.push({
                             file: remotePath,
                             component: file.component,
-                            localVersion: localManifest.files?.[remotePath]?.version || 'unknown',
                             remoteVersion: remoteFileInfo.version || 'latest',
                             reason: 'File content has changed',
                             localHash: localFileHash.substring(0, 8),
@@ -307,13 +295,10 @@ class CodeCaptainInstaller {
 
             spinner.succeed(`Found ${changes.length} updated files, ${newFiles.length} new files`);
 
-            // Get proper version information
-            const currentVersion = this.config.localSource ? await this.getPackageVersion() : 'unknown';
             const availableVersion = remoteManifest.version;
 
             return {
                 isFirstInstall: false,
-                localVersion: currentVersion,
                 remoteVersion: availableVersion,
                 changes,
                 newFiles,
@@ -364,41 +349,7 @@ class CodeCaptainInstaller {
         return recommendations;
     }
 
-    // Save manifest after successful installation
-    async saveManifest(remoteManifest, installedFiles) {
-        try {
-            const manifest = {
-                ...remoteManifest,
-                installedAt: new Date().toISOString(),
-                files: {}
-            };
 
-            // Calculate actual hashes of installed files
-            for (const file of installedFiles) {
-                const localHash = await this.calculateFileHash(file.target);
-
-                if (localHash) {
-                    // Use remote file info as base, but update with actual installed hash
-                    const remoteFileInfo = remoteManifest.files?.[file.source] || {};
-
-                    manifest.files[file.source] = {
-                        ...remoteFileInfo,
-                        hash: `sha256:${localHash}`,
-                        installedAt: new Date().toISOString(),
-                        actualSize: (await fs.stat(file.target).catch(() => ({ size: 0 }))).size
-                    };
-                }
-            }
-
-            await fs.ensureDir(path.dirname(this.config.manifestFile));
-            await fs.writeFile(this.config.manifestFile, JSON.stringify(manifest, null, 2));
-
-            return true;
-        } catch (error) {
-            console.warn(chalk.yellow(`Warning: Could not save manifest: ${error.message}`));
-            return false;
-        }
-    }
 
     // Auto-detect IDE preference
     detectIDE() {
@@ -489,8 +440,7 @@ class CodeCaptainInstaller {
         console.log(chalk.gray('═'.repeat(50)));
 
         // Show version information
-        if (changeInfo.localVersion && changeInfo.remoteVersion) {
-            console.log(chalk.blue('Current version:'), changeInfo.localVersion);
+        if (changeInfo.remoteVersion) {
             console.log(chalk.blue('Available version:'), changeInfo.remoteVersion);
         }
 
@@ -677,29 +627,48 @@ class CodeCaptainInstaller {
         return confirmed;
     }
 
-    // Create backup of existing file
-    async createBackup(targetPath, shouldBackup = true) {
+    // Create directory-level backup of target directories
+    async createDirectoryBackups(files, shouldBackup = true) {
         if (!shouldBackup) {
-            return null;
+            return [];
         }
 
-        if (await fs.pathExists(targetPath)) {
-            const timestamp = new Date().toISOString().replace(/[:.]/g, '-');
-            const backupPath = `${targetPath}.backup.${timestamp}`;
+        // Extract unique target directories from file list
+        const targetDirs = new Set();
+        files.forEach(file => {
+            const targetPath = file.target;
+            const rootDir = targetPath.split('/')[0]; // e.g., ".code-captain", ".cursor", ".github"
+            if (rootDir.startsWith('.')) {
+                targetDirs.add(rootDir);
+            }
+        });
 
-            try {
-                await fs.copy(targetPath, backupPath);
-                return backupPath;
-            } catch (error) {
-                console.warn(chalk.yellow(`Warning: Could not backup ${targetPath}: ${error.message}`));
-                return null;
+        const backupPaths = [];
+
+        for (const dir of targetDirs) {
+            if (await fs.pathExists(dir)) {
+                const backupPath = `${dir}.backup`;
+
+                try {
+                    // Remove existing backup if it exists
+                    if (await fs.pathExists(backupPath)) {
+                        await fs.remove(backupPath);
+                    }
+
+                    // Create directory backup
+                    await fs.copy(dir, backupPath);
+                    backupPaths.push(backupPath);
+                } catch (error) {
+                    console.warn(chalk.yellow(`Warning: Could not backup ${dir}: ${error.message}`));
+                }
             }
         }
-        return null;
+
+        return backupPaths;
     }
 
     // Download file from URL or local source
-    async downloadFile(relativePath, targetPath, shouldBackup = true) {
+    async downloadFile(relativePath, targetPath) {
         try {
             let content;
 
@@ -721,9 +690,6 @@ class CodeCaptainInstaller {
 
             // Ensure target directory exists
             await fs.ensureDir(path.dirname(targetPath));
-
-            // Create backup if file exists
-            await this.createBackup(targetPath, shouldBackup);
 
             // Write file
             await fs.writeFile(targetPath, content);
@@ -923,21 +889,23 @@ class CodeCaptainInstaller {
         const spinner = ora(`Installing ${this.ides[selectedIDE].name} integration...`).start();
 
         try {
-            let completed = 0;
-            const backupPaths = [];
+            // Create directory-level backups upfront if requested
+            const shouldBackup = installOptions.createBackups !== false; // Default to true if not specified
+            const backupPaths = await this.createDirectoryBackups(files, shouldBackup);
 
+            if (backupPaths.length > 0) {
+                spinner.text = `Created ${backupPaths.length} directory backup(s), installing files...`;
+            }
+
+            // Install all files
+            let completed = 0;
             for (const file of files) {
-                const shouldBackup = installOptions.createBackups !== false; // Default to true if not specified
-                await this.downloadFile(file.source, file.target, shouldBackup);
+                await this.downloadFile(file.source, file.target);
                 completed++;
                 spinner.text = `Installing files... (${completed}/${files.length})`;
             }
 
-            // Save manifest for future change detection
-            if (installOptions.changeInfo) {
-                const remoteManifest = await this.getRemoteManifest();
-                await this.saveManifest(remoteManifest, files);
-            }
+
 
             spinner.succeed(`${this.ides[selectedIDE].name} integration installed successfully!`);
 
@@ -947,7 +915,9 @@ class CodeCaptainInstaller {
                     selectedIDE === 'windsurf' ? '.windsurf' :
                         selectedIDE === 'claude' ? '.claude' : '.code-captain (+ .cursor/rules)',
                 components: installOptions.installAll ? 'All components' : installOptions.selectedComponents.join(', '),
-                changesDetected: installOptions.changeInfo && (installOptions.changeInfo.changes.length > 0 || installOptions.changeInfo.newFiles.length > 0)
+                changesDetected: installOptions.changeInfo && (installOptions.changeInfo.changes.length > 0 || installOptions.changeInfo.newFiles.length > 0),
+                backupsCreated: backupPaths.length > 0,
+                backupPaths: backupPaths
             };
         } catch (error) {
             spinner.fail('Installation failed');
@@ -1009,10 +979,13 @@ class CodeCaptainInstaller {
         console.log(chalk.gray('Documentation: https://github.com/devobsessed/code-captain'));
 
         // Show backup information if backups were created
-        if (installResult.totalFiles > 0) {
+        if (installResult.backupsCreated) {
             console.log('\n' + chalk.yellow('💾 Backup Information:'));
-            console.log(chalk.gray('Existing files were backed up with timestamps (e.g., filename.backup.2024-01-01T12-00-00-000Z)'));
-            console.log(chalk.gray('You can safely delete backup files once you\'re satisfied with the installation.'));
+            console.log(chalk.gray('The following directories were backed up:'));
+            installResult.backupPaths.forEach(backupPath => {
+                console.log(chalk.gray(`  • ${backupPath}/`));
+            });
+            console.log(chalk.gray('You can safely delete these backup directories once you\'re satisfied with the installation.'));
         }
     }
 

@@ -92,8 +92,8 @@ When confident, present a contract proposal with any concerns surfaced:
 **Success Criteria:** [How we'll know it's working correctly]
 
 **Scope Boundaries:** 
-- In Scope: [2-3 key features]
-- Out of Scope: [2-3 things we won't build]
+- Included: [2-3 key features]
+- Excluded: [2-3 things we won't build]
 
 **⚠️ Technical Concerns (if any):**
 - [Specific concern about feasibility, performance, or architecture]
@@ -414,8 +414,8 @@ Agent: [Continues with more informed questions about the hybrid architecture...]
 **Success Criteria:** Messages appear instantly, spam is prevented via crypto payments, blockchain verification happens within 5 minutes
 
 **Scope Boundaries:**
-- In Scope: Real-time chat, wallet integration, background blockchain settlement
-- Out of Scope: Advanced chat features (file sharing, voice), custom token creation
+- Included: Real-time chat, wallet integration, background blockchain settlement
+- Excluded: Advanced chat features (file sharing, voice), custom token creation
 
 ---
 Options: [yes/edit/risks/blueprint]

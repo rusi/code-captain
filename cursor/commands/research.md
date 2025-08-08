@@ -1,6 +1,6 @@
 # Research Command
 
-## Purpose
+## Overview
 
 Conduct systematic research on a topic using structured phases that build upon each other, creating actionable todos and leveraging web search capabilities.
 
