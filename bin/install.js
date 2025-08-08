@@ -43,7 +43,7 @@ class CodeCaptainInstaller {
             windsurf: {
                 name: 'Windsurf',
                 description: 'Codeium\'s AI-powered development environment',
-                details: 'Uses windsurf/rules/ for custom workflows'
+                details: 'Uses .windsurf/rules/ and .windsurf/workflows/ for custom workflows'
             },
             claude: {
                 name: 'Claude Code',
@@ -119,7 +119,7 @@ class CodeCaptainInstaller {
             'Code Captain Core': ['.code-captain/'],
             'Cursor Integration': ['.cursor/rules/cc.mdc', '.cursor/rules/'],
             'Copilot Integration': ['.github/chatmodes/', '.github/prompts/'],
-            'Windsurf Integration': ['windsurf/rules/', 'windsurf/workflows/'],
+            'Windsurf Integration': ['.windsurf/rules/', '.windsurf/workflows/'],
             'Claude Integration': ['.code-captain/claude/', 'claude-code/', '.claude/'],
             'Legacy Structure': ['cursor/', 'copilot/', 'windsurf/']
         };
@@ -415,7 +415,7 @@ class CodeCaptainInstaller {
         }
 
         // Check for Windsurf
-        if (fs.pathExistsSync('windsurf') || this.commandExists('windsurf')) {
+        if (fs.pathExistsSync('.windsurf') || this.commandExists('windsurf')) {
             detections.push('windsurf');
         }
 
@@ -856,7 +856,7 @@ class CodeCaptainInstaller {
                 // Rules
                 if (includeAll || selectedComponents.includes('rules')) {
                     files.push(
-                        { source: 'windsurf/rules/cc.md', target: 'windsurf/rules/cc.md', component: 'rules' }
+                        { source: 'windsurf/rules/cc.md', target: '.windsurf/rules/cc.md', component: 'rules' }
                     );
                 }
 
@@ -870,7 +870,7 @@ class CodeCaptainInstaller {
                     windsurfWorkflows.forEach(workflow => {
                         files.push({
                             source: `windsurf/workflows/${workflow}`,
-                            target: `windsurf/workflows/${workflow}`,
+                            target: `.windsurf/workflows/${workflow}`,
                             component: 'workflows'
                         });
                     });
@@ -944,7 +944,7 @@ class CodeCaptainInstaller {
             return {
                 totalFiles: files.length,
                 targetDir: selectedIDE === 'copilot' ? '.github + .code-captain/docs' :
-                    selectedIDE === 'windsurf' ? 'windsurf' :
+                    selectedIDE === 'windsurf' ? '.windsurf' :
                         selectedIDE === 'claude' ? '.code-captain/claude' : '.code-captain (+ .cursor/rules)',
                 components: installOptions.installAll ? 'All components' : installOptions.selectedComponents.join(', '),
                 changesDetected: installOptions.changeInfo && (installOptions.changeInfo.changes.length > 0 || installOptions.changeInfo.newFiles.length > 0)
