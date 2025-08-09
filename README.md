@@ -10,7 +10,7 @@ Code Captain transforms how you work with AI development assistants by providing
 
 - **📋 Systematic Workflows** - Structured approaches to common development tasks
 - **🏗️ Complete Lifecycle Coverage** - From requirements to deployment
-- **🔍 Project Management Integration** - GitHub, Azure DevOps, and more
+- **🔍 Documentation & Tracking** - Organized outputs and progress tracking
 - **📚 Organized Documentation** - Everything has its place and purpose
 
 Instead of ad-hoc AI prompting, Code Captain provides proven workflows for:

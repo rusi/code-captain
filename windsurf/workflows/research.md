@@ -91,21 +91,18 @@ Use memory feature to track progress:
 
 ## Date Determination
 
-### Primary Method: File System Timestamp
+### Primary Method: System Clock
 
-1. **CREATE** directory: `.code-captain/research/`
-2. **CREATE** temporary file: `.code-captain/research/.date-check`
-3. **READ** file creation timestamp
-4. **EXTRACT** date in YYYY-MM-DD format
-5. **DELETE** temporary file
-6. **STORE** date for folder naming
+1. Read the current UTC date from the system clock and format as `YYYY-MM-DD`.
+2. Store it for naming:  
+   `.code-captain/research/[DATE]-[topic-name]-research.md`
 
 ### Fallback Method
 
-If file system method fails:
-1. Ask user: "What is today's date? (YYYY-MM-DD format)"
-2. Validate format matches `^\d{4}-\d{2}-\d{2}$`
-3. Store date for folder naming
+If system clock access isn't available:
+1. Prompt: "What is today's date? (YYYY-MM-DD)"
+2. Validate against `^\d{4}-\d{2}-\d{2}$`
+3. Store the date for naming
 
 ## Research Document Template
 

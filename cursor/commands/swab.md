@@ -14,6 +14,17 @@ cc: swab
 
 ## Command Process
 
+### Step 0: Initialize Progress Tracking
+
+**Create todos for the swab process using `todo_write`:**
+
+```
+- Scan codebase for improvement opportunities [in_progress]
+- Prioritize and select best cleanup option [pending]
+- Present cleanup suggestion to user [pending]
+- Apply approved change [pending]
+```
+
 ### Step 1: Codebase Scanning
 
 **Scan for improvement opportunities:**
@@ -34,6 +45,8 @@ cc: swab
 
 ### Step 2: Opportunity Prioritization
 
+**Update progress:** Mark "Scan codebase for improvement opportunities" as `[completed]` and "Prioritize and select best cleanup option" as `[in_progress]`
+
 **Selection Criteria:**
 1. **Clarity Impact** - How much clearer will the code be?
 2. **Risk Level** - How certain are we this won't break anything?
@@ -48,6 +61,8 @@ cc: swab
 5. Formatting consistency fixes
 
 ### Step 3: Present Single Best Option
+
+**Update progress:** Mark "Prioritize and select best cleanup option" as `[completed]` and "Present cleanup suggestion to user" as `[in_progress]`
 
 **Display Format:**
 ```
@@ -66,12 +81,16 @@ Clean this up? [y/N]
 
 ### Step 4: Apply Change
 
+**Update progress:** Mark "Present cleanup suggestion to user" as `[completed]` and "Apply approved change" as `[in_progress]`
+
 **If approved:**
 - Make the exact replacement using search and replace
 - Verify the change was applied correctly
+- Mark "Apply approved change" as `[completed]`
 - Show success message: "✅ Deck swabbed! One less mess aboard."
 
 **If declined:**
+- Mark "Apply approved change" as `[completed]` (no change needed)
 - Exit gracefully with: "🧽 Deck inspection complete. No changes made."
 
 ## Core Rules
@@ -187,6 +206,44 @@ This might happen if the file was modified since scanning.
 Try running the command again.
 ```
 
+## Example Todo Progression
+
+**Initial:**
+
+```
+- Scan codebase for improvement opportunities [in_progress]
+- Prioritize and select best cleanup option [pending]
+- Present cleanup suggestion to user [pending]
+- Apply approved change [pending]
+```
+
+**After scanning:**
+
+```
+- Scan codebase for improvement opportunities [completed]
+- Prioritize and select best cleanup option [in_progress]
+- Present cleanup suggestion to user [pending]
+- Apply approved change [pending]
+```
+
+**After prioritization:**
+
+```
+- Scan codebase for improvement opportunities [completed]
+- Prioritize and select best cleanup option [completed]
+- Present cleanup suggestion to user [in_progress]
+- Apply approved change [pending]
+```
+
+**Final:**
+
+```
+- Scan codebase for improvement opportunities [completed]
+- Prioritize and select best cleanup option [completed]
+- Present cleanup suggestion to user [completed]
+- Apply approved change [completed]
+```
+
 ## Integration Notes
 
 This command integrates with the existing Code Captain ecosystem by:
@@ -195,6 +252,8 @@ This command integrates with the existing Code Captain ecosystem by:
 2. **Leveraging existing tools** - Uses `codebase_search`, `read_file`, `search_replace`
 3. **Maintaining simplicity** - No complex configuration or state management
 4. **Respecting user control** - Always asks permission before making changes
+5. **Progress tracking** - Uses `todo_write` for visibility into command progress
+6. **Quality foundation** - Complements specification and implementation commands by maintaining code quality, supporting the overall project foundation alongside `.code-captain` documentation
 
 ## Future Enhancements
 

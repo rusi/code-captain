@@ -54,7 +54,7 @@ Simple, no parameters needed. Works in any git repository with optional Code Cap
 **Based on Current State:**
 - If mid-task: Suggest `cc: execute-task`
 - If no active work: Suggest `cc: create-spec`
-- If specifications exist: Suggest `cc: generate-tasks`
+- If specifications exist: Suggest implementation with `cc: execute-task`
 - Always suggest `cc: swab` for code cleanup
 
 ## Output Format
@@ -417,7 +417,7 @@ $ cc: status
 Based on project state analysis, suggest relevant next steps:
 
 - **No specs**: Suggest `cc: create-spec` or `cc: plan-product`
-- **Specs without tasks**: Suggest `cc: generate-tasks`
+- **Specs ready for implementation**: Suggest `cc: execute-task`
 - **Tasks ready**: Suggest `cc: execute-task`
 - **Code quality issues**: Suggest `cc: swab`
 - **Missing architecture**: Suggest `cc: create-adr`

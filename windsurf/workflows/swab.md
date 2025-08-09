@@ -197,6 +197,7 @@ This workflow integrates with the existing Code Captain ecosystem by:
 2. **Leveraging Windsurf tools** - Uses `codebase_search`, `view_file`, `replace_file_content`
 3. **Maintaining simplicity** - No complex configuration or state management
 4. **Respecting user control** - Always asks permission before making changes
+5. **Quality foundation** - Complements specification and implementation commands by maintaining code quality, supporting the overall project foundation alongside `.code-captain` documentation
 
 ## Future Enhancements
 

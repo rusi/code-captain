@@ -1,3 +1,4 @@
+import fs from 'fs/promises'
 import { describe, expect, test } from 'vitest'
 import {
   CORE_COMMANDS,
@@ -209,6 +210,7 @@ describe('Content Consistency Tests', () => {
           if (content.includes('command') || content.includes('usage')) {
             // Look for command examples
             const hasCorrectSyntax = syntaxPattern.test(content)
+            expect(hasCorrectSyntax).toBe(true)
 
             // Log for debugging
             console.log(`${platform} syntax check: ${hasCorrectSyntax ? '✅' : '❌'}`)

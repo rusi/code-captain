@@ -143,18 +143,15 @@ All explanations are automatically saved to `.code-captain/explanations/` using 
 
 ## Date Determination Process
 
-### Primary Method: File System Timestamp
+### Primary Method: System Clock
 
-1. **CREATE** directory if not exists: `.code-captain/explanations/`
-2. **CREATE** temporary file: `.code-captain/explanations/.date-check`
-3. **READ** file creation timestamp from filesystem
-4. **EXTRACT** date in YYYY-MM-DD format
-5. **DELETE** temporary file
-6. **STORE** date in variable for file naming
+1. Read the current UTC date from the system clock and format as `YYYY-MM-DD`.
+2. Store it for naming:  
+   `.code-captain/explanations/[DATE]-[target-name].md`
 
 ### Fallback Method: User Confirmation
 
-If file system method fails:
+If system clock access isn't available:
 
 1. **STATE**: "I need to confirm today's date for the explanation file"
 2. **ASK**: "What is today's date? (YYYY-MM-DD format)"

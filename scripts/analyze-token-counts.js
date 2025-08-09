@@ -77,9 +77,7 @@ class CommandAnalyzer {
             { name: 'cursor', path: 'cursor/commands', pattern: '*.md' },
             { name: 'copilot', path: 'copilot/prompts', pattern: '*.prompt.md' },
             { name: 'windsurf', path: 'windsurf/workflows', pattern: '*.md' },
-            { name: 'claude-code', path: 'claude-code/commands', pattern: '*.md' },
-            { name: 'github-integration', path: 'cursor/integrations/github', pattern: '*.md' },
-            { name: 'azure-integration', path: 'cursor/integrations/azure-devops', pattern: '*.md' }
+            { name: 'claude-code', path: 'claude-code/commands', pattern: '*.md' }
         ];
 
         for (const platform of platforms) {
@@ -141,20 +139,26 @@ class CommandAnalyzer {
     }
 
     /**
-     * Get files matching pattern in directory
+     * Get files matching pattern in directory (recursive)
      */
     getFiles(dir, pattern) {
         try {
-            const files = fs.readdirSync(dir, { withFileTypes: true });
-            return files
-                .filter(dirent => dirent.isFile())
-                .map(dirent => dirent.name)
-                .filter(name => {
-                    if (pattern === '*.md') return name.endsWith('.md');
-                    if (pattern === '*.prompt.md') return name.endsWith('.prompt.md');
-                    return true;
-                })
-                .sort();
+            const entries = fs.readdirSync(dir, { withFileTypes: true });
+            return entries.flatMap(entry => {
+                if (entry.isDirectory()) {
+                    // Recursively scan subdirectories
+                    return this.getFiles(path.join(dir, entry.name), pattern)
+                        .map(file => path.join(entry.name, file));
+                } else if (entry.isFile()) {
+                    // Apply pattern filtering to files
+                    const name = entry.name;
+                    if (pattern === '*.md' && name.endsWith('.md')) return [name];
+                    if (pattern === '*.prompt.md' && name.endsWith('.prompt.md')) return [name];
+                    if (pattern !== '*.md' && pattern !== '*.prompt.md') return [name];
+                    return [];
+                }
+                return [];
+            }).sort();
         } catch (error) {
             console.log(`⚠️  Error reading directory ${dir}: ${error.message}`);
             return [];

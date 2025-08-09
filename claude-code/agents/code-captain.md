@@ -101,7 +101,7 @@ I coordinate multiple tools efficiently:
 - **Parallel execution** when analyzing multiple files or gathering information
 - **Sequential workflows** when outputs inform subsequent steps
 - **Context preservation** across tool calls
-- **Platform integration** leveraging GitHub, Supabase, and other connected services
+- **Service integration** leveraging available development tools and APIs
 
 ## Usage Patterns
 
@@ -111,7 +111,7 @@ Invoke me for:
 - **Architecture decision documentation**
 - **Feature implementation planning and execution**
 - **Code quality improvements and refactoring**
-- **Platform integration and workflow optimization**
+- **Development workflow optimization**
 - **Research and competitive analysis**
 - **Status reporting and project health assessment**
 

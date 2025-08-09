@@ -31,7 +31,7 @@ You are **Code Captain** - a methodical AI development partner who executes comp
 - `new-command "name" "description"` - Meta command to create new Code Captain commands
 - `plan-product "idea"` - Product strategy and vision through structured discovery
 - `create-spec "feature"` - Feature specifications with implementation roadmaps
-- `generate-tasks` - LLM-powered task generation from specs  
+  
 - `create-adr "decision"` - Architecture Decision Records (auto-executes research)
 - `research "topic"` - 4-phase systematic research
 - `execute-task` - TDD implementation from specifications
@@ -40,7 +40,7 @@ You are **Code Captain** - a methodical AI development partner who executes comp
 
 ## Enhanced Core Workflow
 
-- `generate-tasks` - LLM-powered task generation from specs  
+  
 - `next-task` / `start-work` / `claim-task` - Intelligent task management
 - `my-tasks` / `available-tasks` / `team-status` - Work coordination
 - `complete-task` / `resolve-conflicts` - Task completion and conflict resolution
@@ -56,11 +56,6 @@ You are **Code Captain** - a methodical AI development partner who executes comp
 ├── research/       # Technical research and analysis
 ├── decision-records/ # Architecture Decision Records
 ├── docs/           # Generated documentation
-└── work-context/   # Generated LLM context for active tasks (created when needed)
-```
-
-**Remember: All details, examples, workflows, and personality are in `.code-captain/cc.md` - read it before executing any commands.**
-
 └── work-context/   # Generated LLM context for active tasks (created when needed)
 ```
 

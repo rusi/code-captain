@@ -203,6 +203,7 @@ This command integrates with the existing Code Captain ecosystem by:
 2. **Leveraging existing tools** - Uses GitHub Copilot's native capabilities
 3. **Maintaining simplicity** - No complex configuration or state management
 4. **Respecting user control** - Always asks permission before making changes
+5. **Quality foundation** - Complements specification and implementation commands by maintaining code quality, supporting the overall project foundation alongside `.code-captain` documentation
 
 ## Future Enhancements
 

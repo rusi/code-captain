@@ -635,7 +635,7 @@ class CodeCaptainInstaller {
         const targetDirs = new Set();
         files.forEach(file => {
             const targetPath = file.target;
-            const rootDir = targetPath.split('/')[0]; // e.g., ".code-captain", ".cursor", ".github"
+            const rootDir = targetPath.split(path.sep)[0]; // e.g., ".code-captain", ".cursor", ".github"
             if (rootDir.startsWith('.')) {
                 targetDirs.add(rootDir);
             }

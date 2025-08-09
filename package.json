@@ -9,7 +9,7 @@
   "scripts": {
     "manifest": "node scripts/build-manifest.js",
     "dry-run": "npm publish --dry-run",
-    "self": "CC_LOCAL_SOURCE=. node bin/install.js",
+    "self": "cross-env CC_LOCAL_SOURCE=. node bin/install.js",
     "test": "vitest run",
     "test:watch": "vitest --watch",
     "test:ui": "vitest --ui",
@@ -40,6 +40,7 @@
     "ora": "~7.0.1"
   },
   "devDependencies": {
+    "cross-env": "^7.0.3",
     "vitest": "^2.0.0",
     "gray-matter": "^4.0.3",
     "fast-glob": "^3.3.0"

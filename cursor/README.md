@@ -139,8 +139,8 @@ cc: new-command "deploy" "Production deployment workflow"
 cc: create-spec "user profile management"
 cc: edit-spec "user-profile-management" "add avatar upload functionality"
 
-# Generate implementation tasks
-cc: generate-tasks
+# Implementation workflow
+cc: execute-task
 ```
 
 ### Research and Decision Making
@@ -165,11 +165,6 @@ Code Captain automatically reads your environment from `.code-captain/state.json
 }
 ```
 
-### Project Management Platform
-Choose during installation or configure manually:
-- **GitHub Issues & Projects**
-- **Azure DevOps Work Items**
-
 ## 📊 Command Reference
 
 | Command | Purpose | Output Location |
@@ -178,7 +173,7 @@ Choose during installation or configure manually:
 | `plan-product` | Product planning | `.code-captain/product/` |
 | `create-spec` | Feature specification | `.code-captain/specs/YYYY-MM-DD-feature/` |
 | `execute-task` | TDD implementation | Source code + tests |
-| `generate-tasks` | Task generation | Updates spec with tasks |
+
 
 ## 🛠️ Troubleshooting
 
