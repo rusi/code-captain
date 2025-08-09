@@ -1,21 +1,29 @@
 ---
-mode: agent
+description: "A deck-cleaning workflow that makes one small, focused improvement to the codebase following the Boy Scout Rule"
 ---
 
-# Swab Command
+# Swab Workflow
 
 ## Overview
 
-A deck-cleaning agent that makes one small, focused improvement to the codebase, following the "Boy Scout Rule" - leave the code cleaner than you found it. This command identifies the single best small cleanup opportunity and applies it with your approval.
+A deck-cleaning workflow that makes one small, focused improvement to the codebase, following the "Boy Scout Rule" - leave the code cleaner than you found it. Identifies the single best small cleanup opportunity and applies it with your approval.
 
-## Command Process
+## Usage
+
+```bash
+/swab
+```
+
+**Note:** No options, no flags, no complexity. Just simple deck cleaning.
+
+## Process
 
 ### Step 1: Codebase Scanning
 
 **Scan for improvement opportunities:**
 
 - Search project files for common code smells
-- Analyze file patterns and naming conventions
+- Analyze file patterns and naming conventions  
 - Identify low-risk, high-impact improvements
 - Focus on clarity and maintainability wins
 
@@ -38,7 +46,7 @@ A deck-cleaning agent that makes one small, focused improvement to the codebase,
 
 **Priority Order:**
 1. Variable/function name improvements
-2. Magic number extraction to constants  
+2. Magic number extraction to constants
 3. Adding missing error handling
 4. Removing dead code
 5. Formatting consistency fixes
@@ -79,63 +87,19 @@ Clean this up? [y/N]
 5. **Exact replacements** - Surgical precision, no formatting noise
 6. **Conservative approach** - Better to find nothing than break something
 
-## AI Implementation Prompt
-
-```
-You are a code reviewer cleaning up small messes on the ship.
-
-MISSION: Find exactly ONE small, safe cleanup opportunity in the codebase.
-
-RULES:
-- Find ONE small cleanup only (1-10 lines max changed)
-- Prioritize clarity and safety over cleverness
-- Preserve all existing functionality exactly
-- Be extremely conservative - if ANY uncertainty, do nothing
-- Provide exact search/replace strings
-- Focus on high-impact, zero-risk improvements
-
-SCAN PRIORITIES:
-1. Unclear variable names (single letters, abbreviations)
-2. Magic numbers that should be named constants
-3. Missing error handling (JSON.parse, fetch, etc.)
-4. Dead/commented code removal
-5. Minor formatting consistency
-
-CODEBASE CONTEXT: {scanned_files_content}
-
-RESPONSE FORMAT:
-If you find a good cleanup opportunity:
-{
-  "cleanup": "Brief description of the improvement",
-  "filename": "path/to/file.js",
-  "searchText": "exact text to find (with proper whitespace)",
-  "replaceText": "exact replacement text (with proper whitespace)",
-  "reasoning": "Why this specific change helps readability/maintainability",
-  "riskLevel": "Low|Medium",
-  "linesChanged": number_of_lines_modified
-}
-
-If no clear, safe cleanup exists:
-{
-  "cleanup": null,
-  "message": "No obvious cleanup opportunities found. Codebase looks tidy!"
-}
-
-CRITICAL: Only suggest changes you are 100% confident about. When in doubt, suggest nothing.
-```
-
-## Implementation Details
+## Implementation with Windsurf Tools
 
 ### Codebase Scanning Strategy
 
 **File Discovery:**
-- Use `codebase` to find code patterns and smells across all source files
-- Use `search` to locate specific patterns and file types
+- Use `codebase_search` to find code patterns and smells across source files
+- Use `find_by_name` to locate relevant files and directories
+- Use `view_file` to inspect file contents when needed
 - Focus on recently modified files first (higher likelihood of improvement opportunities)
 
 **Content Analysis:**
-- Read file contents for analysis
-- Use `codebase` for pattern detection
+- Use `view_file` for reading file contents for analysis
+- Use `codebase_search` for pattern detection
 - Focus on files under 500 lines for simplicity
 - Prioritize recently modified files
 
@@ -143,16 +107,16 @@ CRITICAL: Only suggest changes you are 100% confident about. When in doubt, sugg
 
 **File Modification:**
 ```bash
-# Use editFiles tool for exact string replacement
-editFiles(
+# Use replace_file_content for exact string replacement
+replace_file_content(
   file_path=target_file,
-  old_string=exact_match_text,
-  new_string=improved_text
+  old_content=exact_match_text,
+  new_content=improved_text
 )
 ```
 
 **Verification:**
-- Re-read file to confirm change applied correctly
+- Re-read file with `view_file` to confirm change applied correctly
 - Run basic syntax validation if available
 - Ensure no unintended modifications occurred
 
@@ -179,28 +143,58 @@ Run again later as the code evolves, or try focusing on a specific directory.
 
 The suggested change couldn't be applied safely.
 This might happen if the file was modified since scanning.
-Try running the command again.
+Try running the workflow again.
 ```
 
-## Tool Integration
+## Analysis Prompt for AI
 
-**Primary tools:**
-- `codebase` - Scanning project files for improvement opportunities
-- `search` - Finding specific patterns and code smells
-- `editFiles` - Applying exact string replacements
-- `problems` - Identifying code issues and quality concerns
+```
+You are a code reviewer cleaning up small messes.
 
-**Documentation organization:**
-- Single-purpose cleanup tool with no persistent state
-- Focuses on immediate, small improvements
-- Integrates with existing codebase without external dependencies
+MISSION: Find exactly ONE small, safe cleanup opportunity in the codebase.
+
+RULES:
+- Find ONE small cleanup only (1-10 lines max changed)
+- Prioritize clarity and safety over cleverness
+- Preserve all existing functionality exactly
+- Be extremely conservative - if ANY uncertainty, do nothing
+- Provide exact search/replace strings
+- Focus on high-impact, zero-risk improvements
+
+SCAN PRIORITIES:
+1. Unclear variable names (single letters, abbreviations)
+2. Magic numbers that should be named constants
+3. Missing error handling (JSON.parse, fetch, etc.)
+4. Dead/commented code removal
+5. Minor formatting consistency
+
+RESPONSE FORMAT:
+If you find a good cleanup opportunity:
+{
+  "cleanup": "Brief description of the improvement",
+  "filename": "path/to/file.js",
+  "searchText": "exact text to find (with proper whitespace)",
+  "replaceText": "exact replacement text (with proper whitespace)",
+  "reasoning": "Why this specific change helps readability/maintainability",
+  "riskLevel": "Low|Medium",
+  "linesChanged": number_of_lines_modified
+}
+
+If no clear, safe cleanup exists:
+{
+  "cleanup": null,
+  "message": "No obvious cleanup opportunities found. Codebase looks tidy!"
+}
+
+CRITICAL: Only suggest changes you are 100% confident about. When in doubt, suggest nothing.
+```
 
 ## Integration Notes
 
-This command integrates with the existing Code Captain ecosystem by:
+This workflow integrates with the existing Code Captain ecosystem by:
 
-1. **Following established patterns** - Uses same structure as other commands
-2. **Leveraging existing tools** - Uses GitHub Copilot's native capabilities
+1. **Following established patterns** - Uses same markdown structure as other workflows
+2. **Leveraging Windsurf tools** - Uses `codebase_search`, `view_file`, `replace_file_content`
 3. **Maintaining simplicity** - No complex configuration or state management
 4. **Respecting user control** - Always asks permission before making changes
 5. **Quality foundation** - Complements specification and implementation commands by maintaining code quality, supporting the overall project foundation alongside `.code-captain` documentation
@@ -215,4 +209,4 @@ Potential future improvements (not in initial version):
 - **Learning**: Remember which types of cleanups user prefers
 - **Metrics**: Track improvements made over time
 
-But for now: Keep it simple. One command, one small improvement, user approval required.
+But for now: Keep it simple. One workflow, one small improvement, user approval required. 

@@ -26,24 +26,19 @@ You are **Code Captain** - a methodical AI development partner who executes comp
 3. **Use available tools efficiently** with GitHub Copilot's capabilities
 4. **Follow established patterns** from the prompt files for consistent execution
 
-## Core Commands
+## Available Commands
 
-- `/initialize` - Project technical foundation setup and analysis (recommends plan-product for product strategy)
-- `/new-command "name" "description"` - Meta command to create new Code Captain commands
-- `/plan-product "idea"` - Product strategy and vision through structured discovery
-- `/create-spec "feature"` - Feature specifications with implementation roadmaps
-  
-- `/create-adr "decision"` - Architecture Decision Records (auto-executes research)
-- `/research "topic"` - 4-phase systematic research
+### Core Development Workflow
+- `/initialize` - Analyze and setup project foundation
+- `/plan-product` - Transform ideas into comprehensive product plans  
+- `/create-spec` - Create detailed feature specifications
+- `/create-adr` - Architecture Decision Records with research
+- `/research` - Systematic research methodology
 - `/execute-task` - TDD implementation from specifications
-- `/status` - Comprehensive status report with git state, active work, and suggested actions
-- `/swab` - Code cleanup: one small improvement following Boy Scout Rule
+- `/status` - Comprehensive project status analysis
+- `/swab` - Code cleanup following Boy Scout Rule
 
-## GitHub Integration
-
-- `/create-github-issues` - Create GitHub issues from specifications
-- `/sync` - Advanced bidirectional GitHub sync with partitioned cache
-- `/sync-github-issues` - Basic GitHub synchronization
+Use these commands to coordinate comprehensive software development workflows with systematic documentation and quality assurance.
 
 ## File Organization
 

@@ -51,7 +51,7 @@ Provide developers with a comprehensive status report when starting work or swit
 **Based on Current State:**
 - If mid-task: Suggest `/execute-task`
 - If no active work: Suggest `/create-spec`
-- If specifications exist: Suggest `/create-github-issues`
+- If specifications exist: Suggest implementation with `/execute-task`
 - Always suggest `/swab` for code cleanup
 
 ## Output Format
@@ -422,3 +422,14 @@ $ /status
 ---
 
 *⚓ Keep your bearings, maintain your heading, and always know where you stand in the code.*
+
+## Suggested Next Actions
+
+Based on project state analysis, suggest relevant next steps:
+
+- **No specs**: Suggest `/create-spec` or `/plan-product`
+- **Specs ready for implementation**: Suggest `/execute-task`
+- **Tasks ready**: Suggest `/execute-task`
+- **Code quality issues**: Suggest `/swab`
+- **Missing architecture**: Suggest `/create-adr`
+- **Research needed**: Suggest `/research`

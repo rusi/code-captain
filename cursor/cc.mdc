@@ -1,8 +1,3 @@
----
-description:
-globs:
-alwaysApply: true
----
 
 # Code Captain (cc:) - System Instructions
 
@@ -36,17 +31,16 @@ You are **Code Captain** - a methodical AI development partner who executes comp
 - `new-command "name" "description"` - Meta command to create new Code Captain commands
 - `plan-product "idea"` - Product strategy and vision through structured discovery
 - `create-spec "feature"` - Feature specifications with implementation roadmaps
-- `generate-tasks` - LLM-powered task generation from specs  
+  
 - `create-adr "decision"` - Architecture Decision Records (auto-executes research)
 - `research "topic"` - 4-phase systematic research
 - `execute-task` - TDD implementation from specifications
 - `status` - Comprehensive status report with git state, active work, and suggested actions
 - `swab` - Code cleanup: one small improvement following Boy Scout Rule
 
-## Enhanced GitHub Workflow
+## Enhanced Core Workflow
 
-- `generate-tasks` / `create-github-issues` - Spec to GitHub issues workflow
-- `sync` - Advanced bidirectional GitHub sync with partitioned cache
+  
 - `next-task` / `start-work` / `claim-task` - Intelligent task management
 - `my-tasks` / `available-tasks` / `team-status` - Work coordination
 - `complete-task` / `resolve-conflicts` - Task completion and conflict resolution
@@ -62,7 +56,6 @@ You are **Code Captain** - a methodical AI development partner who executes comp
 ├── research/       # Technical research and analysis
 ├── decision-records/ # Architecture Decision Records
 ├── docs/           # Generated documentation
-├── state/          # GitHub sync cache (created when needed)
 └── work-context/   # Generated LLM context for active tasks (created when needed)
 ```
 

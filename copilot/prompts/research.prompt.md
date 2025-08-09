@@ -123,18 +123,15 @@ Conduct systematic research on a topic using structured phases that build upon e
 
 ## Date Determination Process
 
-### Primary Method: File System Timestamp
+### Primary Method: System Clock
 
-1. **CREATE** directory if not exists: `.code-captain/research/`
-2. **CREATE** temporary file: `.code-captain/research/.date-check`
-3. **READ** file creation timestamp from filesystem
-4. **EXTRACT** date in YYYY-MM-DD format
-5. **DELETE** temporary file
-6. **STORE** date in variable for folder naming
+1. Read the current UTC date from the system clock and format as `YYYY-MM-DD`.
+2. Store it for naming:  
+   `.code-captain/research/[DATE]-[topic-name]-research.md`
 
 ### Fallback Method: User Confirmation
 
-If file system method fails:
+If system clock access isn't available:
 
 1. **STATE**: "I need to confirm today's date for the research folder"
 2. **ASK**: "What is today's date? (YYYY-MM-DD format)"

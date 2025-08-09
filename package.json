@@ -1,6 +1,6 @@
 {
   "name": "@devobsessed/code-captain",
-  "version": "0.0.6",
+  "version": "0.0.8",
   "description": "Unified AI Development Agent System with intelligent change detection",
   "type": "module",
   "bin": {
@@ -9,7 +9,11 @@
   "scripts": {
     "manifest": "node scripts/build-manifest.js",
     "dry-run": "npm publish --dry-run",
-    "test": "echo \"(no tests yet)\""
+    "self": "cross-env CC_LOCAL_SOURCE=. node bin/install.js",
+    "test": "vitest run",
+    "test:watch": "vitest --watch",
+    "test:ui": "vitest --ui",
+    "analyze-tokens": "node scripts/analyze-token-counts.js"
   },
   "keywords": [
     "ai",
@@ -34,6 +38,12 @@
     "inquirer": "~9.2.7",
     "node-fetch": "~3.3.1",
     "ora": "~7.0.1"
+  },
+  "devDependencies": {
+    "cross-env": "^7.0.3",
+    "vitest": "^2.0.0",
+    "gray-matter": "^4.0.3",
+    "fast-glob": "^3.3.0"
   },
   "files": [
     "bin/",

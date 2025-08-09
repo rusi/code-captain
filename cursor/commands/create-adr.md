@@ -204,7 +204,7 @@ Use `todo_write` to track the ADR creation process:
 3. **Use `codebase_search` to understand current implementation approaches**
 
 4. **Identify and document alternative options:**
-   - Current state/status quo option
+   - Current state or status quo option
    - Industry standard approaches
    - Innovative or emerging alternatives
    - Hybrid approaches combining multiple patterns

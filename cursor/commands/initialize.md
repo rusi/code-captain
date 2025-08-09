@@ -1,6 +1,6 @@
 # Initialize Command Workflow
 
-## Command: `cc: initialize`
+## Overview
 
 ### Purpose
 

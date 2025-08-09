@@ -54,13 +54,6 @@ cc: status
 - **`cc: status`** - Comprehensive project status and next action recommendations
 - **`cc: swab`** - Apply one small improvement (Boy Scout Rule)
 
-### 🔗 Platform Integration
-- **`cc: create-github-issues [spec-path]`** - Create GitHub issues from specifications
-- **`cc: sync [--full|--my-work-only|--spec]`** - Advanced bidirectional GitHub sync
-- **`cc: sync-github-issues`** - Basic GitHub issue synchronization
-- **`cc: create-azure-work-items [spec-path]`** - Create Azure DevOps work items
-- **`cc: sync-azure-work-items [options]`** - Azure DevOps synchronization
-
 ## 🔄 Workflow Examples
 
 ### Complete Feature Development
@@ -77,10 +70,6 @@ cc: create-spec "real-time chat with message history"
 
 # 4. Implementation
 cc: execute-task
-
-# 5. Project management integration
-cc: create-github-issues
-cc: sync --spec realtime-chat
 ```
 
 ### Code Understanding and Cleanup
@@ -149,9 +138,11 @@ cc: new-command "deploy" "Production deployment workflow"
 # Create and modify specifications
 cc: create-spec "user profile management"
 cc: edit-spec "user-profile-management" "add avatar upload functionality"
+```
 
-# Generate project management artifacts
-cc: create-github-issues .code-captain/specs/2024-12-28-user-profile/
+```bash
+# Implementation workflow
+cc: execute-task
 ```
 
 ### Research and Decision Making
@@ -176,11 +167,6 @@ Code Captain automatically reads your environment from `.code-captain/state.json
 }
 ```
 
-### Project Management Platform
-Choose during installation or configure manually:
-- **GitHub Issues & Projects**
-- **Azure DevOps Work Items**
-
 ## 📊 Command Reference
 
 | Command | Purpose | Output Location |
@@ -189,8 +175,7 @@ Choose during installation or configure manually:
 | `plan-product` | Product planning | `.code-captain/product/` |
 | `create-spec` | Feature specification | `.code-captain/specs/YYYY-MM-DD-feature/` |
 | `execute-task` | TDD implementation | Source code + tests |
-| `create-github-issues` | GitHub integration | Updates spec with issue numbers |
-| `sync` | Advanced GitHub sync | `.code-captain/state/github/` |
+
 
 ## 🛠️ Troubleshooting
 
@@ -202,9 +187,9 @@ Choose during installation or configure manually:
 **Problem**: Commands run but don't generate expected files  
 **Solution**: Check `.code-captain/` folder permissions and verify command completion
 
-### GitHub Integration Issues
-**Problem**: GitHub commands fail  
-**Solution**: Verify repository has GitHub remote and check network connectivity
+### Task Generation Issues
+**Problem**: Task generation produces incomplete results  
+**Solution**: Ensure specifications are detailed and requirements are clear
 
 ## 🤝 Contributing
 

@@ -22,8 +22,7 @@ class ManifestBuilder {
             'cursor/cc.mdc': { component: 'rules', description: 'Cursor AI agent rules' },
             'cursor/cc.md': { component: 'commands', description: 'Core Code Captain reference' },
             'cursor/commands/*.md': { component: 'commands' },
-            'cursor/integrations/github/*.md': { component: 'github' },
-            'cursor/integrations/azure-devops/*.md': { component: 'azure' },
+
             'cursor/docs/*.md': { component: 'docs' },
 
             // Copilot files

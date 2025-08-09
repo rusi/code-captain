@@ -43,7 +43,7 @@ cc: create-spec "rough feature description"
 #### Step 1.3: Structured Clarification Loop
 **Rules:**
 - Ask ONE focused question at a time
-- After each answer, re-scan codebase for new context if relevant
+- After each answer, re-scan codebase for additional context if relevant
 - Continue until reaching 95% confidence on deliverable
 - Each question should target the highest-impact unknown
 - **Never declare "final question"** - let the conversation flow naturally
@@ -92,8 +92,8 @@ When confident, present a contract proposal with any concerns surfaced:
 **Success Criteria:** [How we'll know it's working correctly]
 
 **Scope Boundaries:** 
-- In Scope: [2-3 key features]
-- Out of Scope: [2-3 things we won't build]
+- Included: [2-3 key features]
+- Excluded: [2-3 things we won't build]
 
 **⚠️ Technical Concerns (if any):**
 - [Specific concern about feasibility, performance, or architecture]
@@ -133,14 +133,11 @@ Options:
 
 **Date Determination Process:**
 
-1. **CREATE** directory if not exists: `.code-captain/specs/`
-2. **CREATE** temporary file: `.code-captain/specs/.date-check`
-3. **READ** file creation timestamp from filesystem
-4. **EXTRACT** date in YYYY-MM-DD format
-5. **DELETE** temporary file
-6. **STORE** date in variable for folder naming
+1. Read the current UTC date from the system clock and format as `YYYY-MM-DD`.
+2. Store it for naming:  
+   `.code-captain/specs/[DATE]-[feature-name]/`
 
-**Fallback Method:** If file system method fails:
+**Fallback Method:** If system clock access isn't available:
 1. **STATE**: "I need to confirm today's date for the specification folder"
 2. **ASK**: "What is today's date? (YYYY-MM-DD format)"
 3. **WAIT** for user response
@@ -414,8 +411,8 @@ Agent: [Continues with more informed questions about the hybrid architecture...]
 **Success Criteria:** Messages appear instantly, spam is prevented via crypto payments, blockchain verification happens within 5 minutes
 
 **Scope Boundaries:**
-- In Scope: Real-time chat, wallet integration, background blockchain settlement
-- Out of Scope: Advanced chat features (file sharing, voice), custom token creation
+- Included: Real-time chat, wallet integration, background blockchain settlement
+- Excluded: Advanced chat features (file sharing, voice), custom token creation
 
 ---
 Options: [yes/edit/risks/blueprint]

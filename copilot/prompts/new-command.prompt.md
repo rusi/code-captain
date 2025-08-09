@@ -33,7 +33,7 @@ A meta command that creates new Code Captain commands following established patt
 **Interactive Specification Building:**
 Ask clarifying questions to build complete command specification:
 
-1. **Command Category**: "Is this a [Setup/Analysis/Implementation/Integration] command?"
+1. **Command Category**: "Is this a [Foundation/Analysis/Specification/Implementation/Quality/Meta] command?"
 2. **Execution Style**: "Should this use contract style (extensive clarification rounds like create-spec) or direct execution (immediate action like swab)?"
 3. **Usage Pattern**: "Does it take arguments, flags, or is it standalone?"
 4. **AI Coordination**: "Does it need AI prompts for complex decision-making?"
@@ -88,20 +88,35 @@ mode: agent
 - Clear step-by-step execution
 - Progress feedback and completion confirmation
 
-**Setup/Analysis Commands:**
+**Foundation Commands:**
+- Project initialization steps
+- Planning and product setup workflows
+- Configuration and environment setup
+
+**Analysis Commands:**
 - Context scanning steps
-- File generation workflows
-- Progress tracking workflows
+- Research and analysis workflows
+- Documentation review and assessment
+
+**Specification Commands:**
+- Specification creation and editing
+- Structured documentation workflows
+- Contract-based clarification processes
 
 **Implementation Commands:**
 - TDD workflows if applicable
 - Code modification steps
-- Verification procedures
+- Task execution procedures
 
-**Integration Commands:**
-- Platform-specific API interactions
-- Sync and conflict resolution
-- Error handling patterns
+**Quality Commands:**
+- Health and status reporting
+- QA-oriented checks and validations
+- Lightweight remediation workflows
+
+**Meta Commands:**
+- Command scaffolding and documentation updates
+- Code understanding and explanation
+- Process and tooling refinements
 
 ### Step 3: Documentation Integration
 
@@ -179,9 +194,12 @@ TEMPLATE STRUCTURE:
 TEMPLATE ADAPTATION RULES:
 - Contract Style commands: Include clarification phases, contract establishment, critical analysis, user agreement checkpoints
 - Direct Execution commands: Include immediate action workflows, minimal interaction, clear progress feedback
-- Setup/Analysis commands: Include context scanning, file generation, progress tracking
-- Implementation commands: Include TDD workflows, code modification, verification
-- Integration commands: Include API interactions, sync, error handling
+- Foundation commands: Include project initialization, planning workflows, configuration setup
+- Analysis commands: Include context scanning, research workflows, documentation assessment
+- Specification commands: Include specification creation, structured documentation, contract-based processes
+- Implementation commands: Include TDD workflows, code modification, task execution
+- Quality commands: Include health and status reporting, QA-oriented checks and validations, lightweight remediation workflows
+- Meta commands: Include command scaffolding and documentation updates, code understanding and explanation, process and tooling refinements
 - All commands: Include clear examples, tool coordination, progress tracking
 - CRITICAL: Be language and shell agnostic - use codebase, search instead of language-specific commands or hardcoded file extensions
 
@@ -228,29 +246,50 @@ echo "command-name" | grep -E '^[a-z][a-z0-9-]*[a-z0-9]$'
 ls .github/prompts/ | grep "^command-name.prompt.md$"
 ```
 
+### Command Categories
+
+Commands are organized into logical categories:
+
+1. **Foundation** (`initialize`, `plan-product`)
+2. **Analysis** (`research`, `create-adr`)  
+3. **Specification** (`create-spec`, `edit-spec`)
+4. **Implementation** (`execute-task`)
+5. **Quality** (`status`, `swab`)
+6. **Meta** (`new-command`, `explain-code`)
+
 ### Template Selection Logic
 
 **Command Categories and Templates:**
 
-1. **Setup/Analysis** (`initialize`, `research`, `explain-code`)
+1. **Foundation** (`initialize`, `plan-product`)
+   - Project initialization workflows
+   - Planning and setup processes
+   - Configuration and environment preparation
+
+2. **Analysis** (`research`, `create-adr`)
    - Context scanning workflows
    - Documentation generation
-   - Progress tracking emphasis
+   - Research and assessment emphasis
 
-2. **Planning/Specification** (`create-spec`, `create-adr`, `plan-product`)
+3. **Specification** (`create-spec`, `edit-spec`)
    - Interactive clarification phases
    - Structured output formats
    - Contract-based workflows
 
-3. **Implementation** (`execute-task`, `swab`)
+4. **Implementation** (`execute-task`)
    - Code modification workflows
    - TDD patterns
-   - Verification steps
+   - Task execution steps
 
-4. **Integration** (`sync`, `create-github-issues`)
-   - Platform API interactions
-   - Sync and conflict handling
-   - Status reporting
+5. **Quality** (`status`, `swab`)
+   - Health and status reporting
+   - QA-oriented checks and validations
+   - Lightweight remediation workflows
+
+6. **Meta** (`new-command`, `explain-code`)
+   - Command scaffolding and documentation updates
+   - Code understanding and explanation
+   - Process and tooling refinements
 
 
 

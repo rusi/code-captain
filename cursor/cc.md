@@ -34,14 +34,7 @@ I **always organize my work** into your `.code-captain/` folder structure to kee
 
 ### 🎯 Platform Integrations
 
-**GitHub Integration:**
-- **`create-github-issues [spec-folder-path]`** - I'll automatically create GitHub issues from specifications, establishing traceability and updating source documents with issue numbers → Links specs to GitHub project management
-- **`sync [--full|--my-work-only|--spec]`** - I'll perform intelligent bidirectional sync with GitHub using partitioned cache for optimal performance → Advanced sync with conflict resolution
-- **`sync-github-issues`** - I'll retrieve and sync with current GitHub issues, providing organized reports and updating local spec documents → Basic GitHub sync functionality
-
-**Azure DevOps Integration:**
-- **`create-azure-work-items [spec-folder-path]`** - I'll automatically create Azure DevOps work items from existing user stories and tasks, establishing parent-child relationships and updating source documents with work item numbers for full traceability → Uses Azure DevOps REST API to link specs to Azure project management
-- **`sync-azure-work-items [options]`** - I'll retrieve and sync with current Azure DevOps work items, providing organized reports and optionally updating local spec documents with current work item statuses and progress → Comprehensive Azure DevOps work item tracking and project status reporting
+Currently, Code Captain focuses on local development workflows and specification management. Platform integrations may be added in future versions based on community needs.
 
 ## My File Organization System
 
@@ -58,17 +51,13 @@ I keep everything organized in your `.code-captain/` directory:
 └── cc.md               # This complete reference document
 ```
 
-**Specs folder** gets all your formal specifications - requirements docs, user stories, system designs, and generated tasks. This is where the "official" project documentation lives, including tasks.md files that feed into GitHub issues.
+**Specs folder** gets all your formal specifications - requirements docs, user stories, system designs, and generated tasks. This is where the "official" project documentation lives.
 
 **Decision-records folder** gets all Architecture Decision Records (ADRs) - systematic documentation of architectural decisions with research, alternatives analysis, and rationale.
 
 **Research folder** gets all my investigation work - technology evaluations, competitive analysis, technical research reports. This is where I explore options before making recommendations.
 
 **Docs folder** gets generated documentation - test strategies, code reviews, PRDs, performance analyses. This is where I put actionable outputs and reports.
-
-**Reports** are generated as needed in the docs/ folder for platform sync reports (GitHub, Azure DevOps), project status updates, and tracking summaries.
-
-**State folder** gets GitHub sync cache with partitioned data for optimal performance - your assignments, available tasks, and per-spec GitHub state. This enables fast task discovery and team coordination.
 
 **Work-context folder** gets generated LLM context when you start working on tasks - comprehensive context files with spec details, codebase analysis, and implementation guidance for efficient development.
 
@@ -90,11 +79,6 @@ I keep everything organized in your `.code-captain/` directory:
 - **`swab`** → Read `.code-captain/commands/swab.md` for code cleanup methodology
 - **`status`** → Read `.code-captain/commands/status.md` for comprehensive status reporting methodology
 - **`new-command`** → Read `.code-captain/commands/new-command.md` for meta command creation methodology
-- **`create-github-issues`** → Read `.code-captain/commands/create-github-issues.md` for GitHub issue creation from specs
-- **`sync`** → Read `.code-captain/commands/sync.md` for advanced bidirectional GitHub synchronization with partitioned cache
-- **`sync-github-issues`** → Read `.code-captain/commands/sync-github-issues.md` for basic GitHub synchronization
-- **`create-azure-work-items`** → Read `.code-captain/commands/create-azure-work-items.md` for Azure DevOps work item creation from specs
-- **`sync-azure-work-items`** → Read `.code-captain/commands/sync-azure-work-items.md` for Azure DevOps work item synchronization and reporting
 
 **I always**:
 
@@ -133,8 +117,6 @@ The `initialize` command intelligently detects project type:
 
 **Implementation**: Use `execute-task` to systematically implement features from specifications using TDD workflow with comprehensive testing.
 
-**GitHub Workflow**: Use `create-github-issues` to create GitHub issues from specifications and `sync` for intelligent bidirectional synchronization with partitioned cache. Use `sync-github-issues` for basic synchronization tasks.
-
 ## Usage Examples
 
 ```bash
@@ -152,11 +134,6 @@ cc: create-spec "user profile dashboard with real-time notifications"
 cc: create-adr "microservices vs monolith architecture for user service"
 cc: research "OAuth 2.0 vs SAML for enterprise authentication"
 
-# GitHub integration
-cc: create-github-issues  # Create GitHub issues from specifications
-cc: sync  # Advanced bidirectional sync with cache
-cc: sync-github-issues  # Basic GitHub sync
-
 # Traditional implementation
 cc: execute-task  # TDD implementation from specifications
 
@@ -165,10 +142,6 @@ cc: status  # Get comprehensive status report and suggested next actions
 
 # Code cleanup
 cc: swab  # Find and apply one small improvement to the codebase
-
-# Azure DevOps integration
-cc: create-azure-work-items  # Create work items from specifications
-cc: sync-azure-work-items  # Sync with Azure DevOps work items
 ```
 
 ## Tool Integration Strategy

@@ -119,14 +119,11 @@ Options:
 
 **Date Determination Process:**
 
-1. **CREATE** directory if not exists: `.code-captain/specs/`
-2. **CREATE** temporary file: `.code-captain/specs/.date-check`
-3. **READ** file creation timestamp from filesystem
-4. **EXTRACT** date in YYYY-MM-DD format
-5. **DELETE** temporary file
-6. **STORE** date in variable for folder naming
+1. Read the current UTC date from the system clock and format as `YYYY-MM-DD`.
+2. Store it for naming:  
+   `.code-captain/specs/[DATE]-[feature-name]/`
 
-**Fallback Method:** If file system method fails:
+**Fallback Method:** If system clock access isn't available:
 1. **STATE**: "I need to confirm today's date for the specification folder"
 2. **ASK**: "What is today's date? (YYYY-MM-DD format)"
 3. **WAIT** for user response

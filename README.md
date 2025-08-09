@@ -10,7 +10,7 @@ Code Captain transforms how you work with AI development assistants by providing
 
 - **📋 Systematic Workflows** - Structured approaches to common development tasks
 - **🏗️ Complete Lifecycle Coverage** - From requirements to deployment
-- **🔍 Project Management Integration** - GitHub, Azure DevOps, and more
+- **🔍 Documentation & Tracking** - Organized outputs and progress tracking
 - **📚 Organized Documentation** - Everything has its place and purpose
 
 Instead of ad-hoc AI prompting, Code Captain provides proven workflows for:
@@ -87,12 +87,6 @@ Code Captain integrates with multiple AI-powered development environments. Choos
 - **`status`** - Comprehensive project status
 - **`swab`** - Small code improvements
 
-### 🔗 Platform Integration
-- **`create-github-issues`** - Generate GitHub issues from specs
-- **`sync-github-issues`** - Sync with GitHub project management
-- **`create-azure-work-items`** - Generate Azure DevOps work items
-- **`sync-azure-work-items`** - Sync with Azure DevOps
-
 *Command syntax and execution varies by IDE - see platform-specific documentation*
 
 ## 🔄 Workflow Examples
@@ -108,9 +102,6 @@ cc: create-spec "real-time chat system"
 
 # 3. Implement with TDD
 cc: execute-task
-
-# 4. Integrate with project management
-cc: create-github-issues
 ```
 
 ### Project Analysis
