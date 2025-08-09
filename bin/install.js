@@ -161,6 +161,17 @@ class CodeCaptainInstaller {
         }
     }
 
+    // Fetch with timeout using AbortController
+    async fetchWithTimeout(url, init = {}, timeoutMs = 15000) {
+        const controller = new AbortController();
+        const timer = setTimeout(() => controller.abort(), timeoutMs);
+        try {
+            return await fetch(url, { ...init, signal: controller.signal });
+        } finally {
+            clearTimeout(timer);
+        }
+    }
+
     // Get remote manifest with file versions/hashes
     async getRemoteManifest() {
         try {
@@ -174,7 +185,7 @@ class CodeCaptainInstaller {
                     return { manifest, isFallback: false };
                 }
             } else {
-                const response = await fetch(manifestUrl);
+                const response = await this.fetchWithTimeout(manifestUrl, {}, 15000);
                 if (response.ok) {
                     const manifest = await response.json();
                     return { manifest, isFallback: false };
@@ -722,7 +733,7 @@ class CodeCaptainInstaller {
             } else {
                 // Remote download mode
                 const url = `${this.config.baseUrl}/${relativePath}`;
-                const response = await fetch(url);
+                const response = await this.fetchWithTimeout(url, {}, 20000);
 
                 if (!response.ok) {
                     throw new Error(`HTTP ${response.status}: ${response.statusText}`);

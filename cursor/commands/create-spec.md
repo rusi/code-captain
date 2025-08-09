@@ -43,7 +43,7 @@ cc: create-spec "rough feature description"
 #### Step 1.3: Structured Clarification Loop
 **Rules:**
 - Ask ONE focused question at a time
-- After each answer, re-scan codebase for new context if relevant
+- After each answer, re-scan codebase for additional context if relevant
 - Continue until reaching 95% confidence on deliverable
 - Each question should target the highest-impact unknown
 - **Never declare "final question"** - let the conversation flow naturally

@@ -1,7 +1,7 @@
 {
   "version": "0.0.7",
-  "timestamp": "2025-08-09T06:15:29.088Z",
-  "commit": "72c0720c9d959dba038e9d0824adeb0a0553854d",
+  "timestamp": "2025-08-09T06:49:33.922Z",
+  "commit": "e3e5862dc12e2cfd9a6de7e1c6e5ec5ed7cd8fd5",
   "description": "Code Captain file manifest for change detection",
   "files": {
     "cursor/cc.mdc": {
@@ -29,9 +29,9 @@
       "description": "Create comprehensive Architecture Decision Records (ADRs) that systematically document architectural..."
     },
     "cursor/commands/create-spec.md": {
-      "hash": "sha256:1a8aa17e5c9198f2604202c17a3ad01db46e52c0f20d63f2f4785487dd67f878",
-      "size": 18330,
-      "lastModified": "2025-08-09T06:09:21.399Z",
+      "hash": "sha256:3ec514546ca47396f7f46cd3ae1fb4d908783b9cbb1fcf8aa6bad4abb46204f4",
+      "size": 18337,
+      "lastModified": "2025-08-09T06:49:05.641Z",
       "version": "0.0.7",
       "component": "commands",
       "description": "Generate comprehensive feature specifications using a contract-first approach that ensures complete ..."
@@ -308,9 +308,9 @@
       "description": "Code Captain status report for project orientation and next actions"
     },
     "windsurf/workflows/swab.md": {
-      "hash": "sha256:706651d110353f20ab847cfd3fe9d3cfd1d3aa32ac0ef4093fd8aeaf67b3b85a",
-      "size": 6613,
-      "lastModified": "2025-08-09T06:12:32.061Z",
+      "hash": "sha256:5fd60266aa7850cac1bd3aae4b88e5c1bb2bb55eefa64362eeb51f47d240f3c5",
+      "size": 6586,
+      "lastModified": "2025-08-09T06:29:34.764Z",
       "version": "0.0.7",
       "component": "workflows",
       "description": "A deck-cleaning workflow that makes one small, focused improvement to the codebase following the Boy Scout Rule"

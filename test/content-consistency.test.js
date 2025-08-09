@@ -46,6 +46,12 @@ describe('Content Consistency Tests', () => {
 
       const expectedPhrases = keyPhrases[commandName] || []
 
+      // Skip commands without defined key phrases
+      if (expectedPhrases.length === 0) {
+        console.log(`⚠️  Skipping ${commandName} - no key phrases defined`)
+        return
+      }
+
       for (const phrase of expectedPhrases) {
         const platformsWithPhrase = Object.entries(platformContents)
           .filter(([platform, data]) =>
@@ -53,10 +59,8 @@ describe('Content Consistency Tests', () => {
           )
           .map(([platform]) => platform)
 
-        // At least 2 platforms should mention key phrases
-        if (platformsWithPhrase.length >= 2) {
-          expect(platformsWithPhrase.length).toBeGreaterThanOrEqual(2)
-        }
+        // Require at least 2 platforms to mention each key phrase
+        expect(platformsWithPhrase.length).toBeGreaterThanOrEqual(2)
       }
     })
   })
@@ -65,6 +69,7 @@ describe('Content Consistency Tests', () => {
     test('all create-spec variants follow contract-first approach', async () => {
       const platforms = ['cursor', 'copilot', 'windsurf']
       const contractFirstCount = []
+      let presentVariants = 0
 
       for (const platform of platforms) {
         const config = PLATFORM_CONFIG[platform]
@@ -72,6 +77,7 @@ describe('Content Consistency Tests', () => {
 
         try {
           const { content } = await parseMarkdownFile(filePath)
+          presentVariants++
 
           if (hasContractFirstApproach(content)) {
             contractFirstCount.push(platform)
@@ -82,8 +88,9 @@ describe('Content Consistency Tests', () => {
         }
       }
 
-      // All existing create-spec commands should follow contract-first
-      expect(contractFirstCount.length).toBeGreaterThan(0)
+      // All present variants must be contract-first
+      expect(presentVariants).toBeGreaterThan(0)
+      expect(contractFirstCount.length).toBe(presentVariants)
     })
   })
 
@@ -133,9 +140,9 @@ describe('Content Consistency Tests', () => {
   describe('Tool Reference Consistency', () => {
     test('platforms use appropriate tool references', async () => {
       const platformTools = {
-        cursor: ['codebase_search', 'grep_search', 'read_file', 'list_dir'],
-        copilot: ['codebase', 'editFiles', 'search', 'runCommands'],
-        windsurf: ['codebase_search', 'view_file', 'find_by_name', 'edit_file']
+        cursor: ['codebase_search', 'grep_search', 'read_file', 'list_dir', 'edit_file', 'file_search'],
+        copilot: ['changes', 'codebase', 'editFiles', 'extensions', 'fetch', 'findTestFiles', 'new', 'openSimpleBrowser', 'problems', 'runCommands', 'runNotebooks', 'runTasks', 'runTests', 'search', 'searchResults', 'terminalLastCommand', 'terminalSelection', 'testFailure', 'usages'],
+        windsurf: ['view_file', 'write_to_file', 'replace_file_content', 'find_by_name', 'list_dir', 'grep_search', 'codebase_search', 'view_code_item', 'trajectory_search', 'browser_preview', 'open_browser_url', 'list_browser_pages', 'get_dom_tree', 'capture_browser_screenshot', 'capture_browser_console_logs', 'run_command', 'command_status', 'deploy_web_app', 'read_deployment_config', 'search_web', 'read_url_content', 'view_content_chunk', 'list_resources', 'read_resource']
       }
 
       for (const [platform, expectedTools] of Object.entries(platformTools)) {
@@ -144,35 +151,40 @@ describe('Content Consistency Tests', () => {
         // Check a sample command file
         const filePath = `${config.directory}/create-spec${config.extension}`
 
+        let content;
         try {
-          const { content } = await parseMarkdownFile(filePath)
-
-          // Should contain some expected tools for the platform
-          const mentionedTools = expectedTools.filter(tool =>
-            content.includes(tool) || content.includes(`\`${tool}\``)
-          )
-
-          // If tools are mentioned, they should be platform-appropriate
-          if (content.includes('`') && content.includes('tool')) {
-            // Should have at least some platform-specific tools
-            // This is a soft requirement since not all commands need tools
-          }
-
-          // Should not contain tools from other platforms
-          const otherPlatformTools = Object.entries(platformTools)
-            .filter(([p]) => p !== platform)
-            .flatMap(([p, tools]) => tools)
-            .filter(tool => !expectedTools.includes(tool))
-
-          const wrongTools = otherPlatformTools.filter(tool => content.includes(tool))
-
-          if (wrongTools.length > 0) {
-            console.warn(`⚠️  ${platform} contains tools from other platforms: ${wrongTools.join(', ')}`)
-          }
-
+          const result = await parseMarkdownFile(filePath)
+          content = result.content
         } catch (error) {
           // File doesn't exist, skip
           continue
+        }
+
+        // Should contain some expected tools for the platform
+        const mentionedTools = expectedTools.filter(tool =>
+          content.includes(tool) || content.includes(`\`${tool}\``)
+        )
+
+        // If tools are mentioned, they should be platform-appropriate
+        if (content.includes('`') && content.includes('tool')) {
+          // Soft requirement for presence (no assert), but enforce "no cross-platform tools"
+        }
+
+        // Should not contain tools from other platforms
+        const otherPlatformTools = Object.entries(platformTools)
+          .filter(([p]) => p !== platform)
+          .flatMap(([p, tools]) => tools)
+          .filter(tool => !expectedTools.includes(tool))
+
+        const wrongTools = otherPlatformTools.filter(tool =>
+          content.includes(`\`${tool}\``) || content.includes(`'${tool}'`) || content.includes(`"${tool}"`)
+        )
+
+        if (mentionedTools.length > 0 || /tools?/i.test(content)) {
+          expect(
+            wrongTools.length,
+            `${platform} contains tools from other platforms: ${wrongTools.join(', ')}`
+          ).toBe(0)
         }
       }
     })
