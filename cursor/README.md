@@ -138,7 +138,9 @@ cc: new-command "deploy" "Production deployment workflow"
 # Create and modify specifications
 cc: create-spec "user profile management"
 cc: edit-spec "user-profile-management" "add avatar upload functionality"
+```
 
+```bash
 # Implementation workflow
 cc: execute-task
 ```

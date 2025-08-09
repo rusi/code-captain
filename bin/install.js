@@ -170,20 +170,24 @@ class CodeCaptainInstaller {
                 const localManifestPath = path.join(this.config.localSource, 'manifest.json');
                 if (await fs.pathExists(localManifestPath)) {
                     const content = await fs.readFile(localManifestPath, 'utf8');
-                    return JSON.parse(content);
+                    const manifest = JSON.parse(content);
+                    return { manifest, isFallback: false };
                 }
             } else {
                 const response = await fetch(manifestUrl);
                 if (response.ok) {
-                    return await response.json();
+                    const manifest = await response.json();
+                    return { manifest, isFallback: false };
                 }
             }
 
             // Fallback: generate manifest from current commit
-            return await this.generateFallbackManifest();
+            const fallbackManifest = await this.generateFallbackManifest();
+            return { manifest: fallbackManifest, isFallback: true };
         } catch (error) {
             console.warn(chalk.yellow('Warning: Could not fetch remote manifest, using fallback'));
-            return await this.generateFallbackManifest();
+            const fallbackManifest = await this.generateFallbackManifest();
+            return { manifest: fallbackManifest, isFallback: true };
         }
     }
 
@@ -205,7 +209,7 @@ class CodeCaptainInstaller {
         const spinner = ora('Analyzing file changes...').start();
 
         try {
-            const remoteManifest = await this.getRemoteManifest();
+            const { manifest: remoteManifest, isFallback: manifestIsFallback } = await this.getRemoteManifest();
             const files = this.getIDEFiles(selectedIDE);
 
             // Check if this looks like a first install (no existing files)
@@ -217,7 +221,11 @@ class CodeCaptainInstaller {
             }
 
             if (existingFiles.length === 0) {
-                spinner.succeed('No existing files found - treating as fresh installation');
+                if (manifestIsFallback) {
+                    spinner.succeed('No existing files found - treating as fresh installation (offline mode)');
+                } else {
+                    spinner.succeed('No existing files found - treating as fresh installation');
+                }
 
                 const availableVersion = remoteManifest.version;
                 return {
@@ -225,7 +233,8 @@ class CodeCaptainInstaller {
                     remoteVersion: availableVersion,
                     changes: [],
                     newFiles: [],
-                    recommendations: ['Full installation recommended']
+                    recommendations: ['Full installation recommended'],
+                    manifestIsFallback
                 };
             }
 
@@ -282,18 +291,29 @@ class CodeCaptainInstaller {
                         });
                     }
                 } else {
-                    // No remote file info - treat as new in remote
-                    newFiles.push({
-                        file: remotePath,
-                        component: file.component,
-                        reason: 'New file in remote repository'
-                    });
+                    // No remote file info - check if we're in fallback mode
+                    if (manifestIsFallback) {
+                        // In fallback mode, we can't determine if files are new
+                        // Skip these files from change detection
+                        continue;
+                    } else {
+                        // Not in fallback mode - truly new file in remote
+                        newFiles.push({
+                            file: remotePath,
+                            component: file.component,
+                            reason: 'New file in remote repository'
+                        });
+                    }
                 }
             }
 
-            const recommendations = this.generateUpdateRecommendations(changes, newFiles);
+            const recommendations = this.generateUpdateRecommendations(changes, newFiles, manifestIsFallback);
 
-            spinner.succeed(`Found ${changes.length} updated files, ${newFiles.length} new files`);
+            if (manifestIsFallback) {
+                spinner.succeed(`Found ${changes.length} updated files, ${newFiles.length} new files (offline mode - limited change detection)`);
+            } else {
+                spinner.succeed(`Found ${changes.length} updated files, ${newFiles.length} new files`);
+            }
 
             const availableVersion = remoteManifest.version;
 
@@ -302,7 +322,8 @@ class CodeCaptainInstaller {
                 remoteVersion: availableVersion,
                 changes,
                 newFiles,
-                recommendations
+                recommendations,
+                manifestIsFallback
             };
 
         } catch (error) {
@@ -312,13 +333,14 @@ class CodeCaptainInstaller {
                 changes: [],
                 newFiles: [],
                 recommendations: ['Unable to detect changes - consider full update'],
+                manifestIsFallback: true, // Assume fallback mode on error
                 error: error.message
             };
         }
     }
 
     // Generate smart update recommendations
-    generateUpdateRecommendations(changes, newFiles) {
+    generateUpdateRecommendations(changes, newFiles, manifestIsFallback = false) {
         const recommendations = [];
         const changedComponents = new Set();
 
@@ -329,20 +351,31 @@ class CodeCaptainInstaller {
             }
         });
 
-        if (changedComponents.size === 0) {
-            recommendations.push('✅ All files are up to date!');
-        } else {
-            recommendations.push(`📦 Recommended updates: ${Array.from(changedComponents).join(', ')}`);
+        if (manifestIsFallback) {
+            recommendations.push('⚠️  Operating in offline/fallback mode - limited change detection');
+            recommendations.push('📶 Consider checking internet connection for full update analysis');
 
-            // Specific recommendations
-            if (changedComponents.has('commands')) {
-                recommendations.push('🚀 Commands updated - new features or bug fixes available');
+            if (changedComponents.size === 0) {
+                recommendations.push('📦 No local file changes detected - full reinstall recommended for latest updates');
+            } else {
+                recommendations.push(`📦 Local changes detected in: ${Array.from(changedComponents).join(', ')}`);
             }
-            if (changedComponents.has('rules')) {
-                recommendations.push('⚙️ Rules updated - improved AI agent behavior');
-            }
-            if (changedComponents.has('docs')) {
-                recommendations.push('📚 Documentation updated - check for new best practices');
+        } else {
+            if (changedComponents.size === 0) {
+                recommendations.push('✅ All files are up to date!');
+            } else {
+                recommendations.push(`📦 Recommended updates: ${Array.from(changedComponents).join(', ')}`);
+
+                // Specific recommendations
+                if (changedComponents.has('commands')) {
+                    recommendations.push('🚀 Commands updated - new features or bug fixes available');
+                }
+                if (changedComponents.has('rules')) {
+                    recommendations.push('⚙️ Rules updated - improved AI agent behavior');
+                }
+                if (changedComponents.has('docs')) {
+                    recommendations.push('📚 Documentation updated - check for new best practices');
+                }
             }
         }
 
@@ -439,9 +472,16 @@ class CodeCaptainInstaller {
         console.log('\n' + chalk.bold.blue('🔍 Change Analysis'));
         console.log(chalk.gray('═'.repeat(50)));
 
+        // Show fallback mode warning if applicable
+        if (changeInfo.manifestIsFallback) {
+            console.log(chalk.yellow('⚠️  Operating in offline/fallback mode - limited change detection capabilities'));
+            console.log(chalk.gray('   Remote manifest unavailable - cannot detect all new files or verify latest versions'));
+        }
+
         // Show version information
         if (changeInfo.remoteVersion) {
-            console.log(chalk.blue('Available version:'), changeInfo.remoteVersion);
+            const versionLabel = changeInfo.manifestIsFallback ? 'Local/fallback version:' : 'Available version:';
+            console.log(chalk.blue(versionLabel), changeInfo.remoteVersion);
         }
 
         // Show what's changed
@@ -607,7 +647,10 @@ class CodeCaptainInstaller {
             // Show change summary
             const { changeInfo } = installOptions;
             if (changeInfo && (changeInfo.changes.length > 0 || changeInfo.newFiles.length > 0)) {
-                console.log(chalk.blue('Files to update:'), `${changeInfo.changes.length} changed, ${changeInfo.newFiles.length} new`);
+                const modeIndicator = changeInfo.manifestIsFallback ? ' (offline mode)' : '';
+                console.log(chalk.blue('Files to update:'), `${changeInfo.changes.length} changed, ${changeInfo.newFiles.length} new${modeIndicator}`);
+            } else if (changeInfo && changeInfo.manifestIsFallback) {
+                console.log(chalk.blue('Installation mode:'), 'Offline/fallback mode - limited change detection');
             }
         } else {
             console.log(chalk.blue('Installation type:'), 'Full installation (new setup)');
@@ -635,8 +678,10 @@ class CodeCaptainInstaller {
         const targetDirs = new Set();
         files.forEach(file => {
             const targetPath = file.target;
-            const rootDir = targetPath.split(path.sep)[0]; // e.g., ".code-captain", ".cursor", ".github"
-            if (rootDir.startsWith('.')) {
+            const normalizedTarget = path.normalize(targetPath);
+            const segments = normalizedTarget.split(path.sep).filter(Boolean);
+            const rootDir = segments[0]; // e.g., ".code-captain", ".cursor", ".github"
+            if (rootDir && rootDir.startsWith('.')) {
                 targetDirs.add(rootDir);
             }
         });

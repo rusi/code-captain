@@ -93,8 +93,8 @@ Clean this up? [y/N]
 
 **File Discovery:**
 - Use `codebase_search` to find code patterns and smells across source files
-- Use `list_dir` to explore project structure and identify main source directories
-- Use `find_by_name` to locate specific file types if needed
+- Use `find_by_name` to locate relevant files and directories
+- Use `view_file` to inspect file contents when needed
 - Focus on recently modified files first (higher likelihood of improvement opportunities)
 
 **Content Analysis:**
