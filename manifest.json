@@ -1,7 +1,7 @@
 {
   "version": "0.0.7",
-  "timestamp": "2025-08-09T06:49:33.922Z",
-  "commit": "e3e5862dc12e2cfd9a6de7e1c6e5ec5ed7cd8fd5",
+  "timestamp": "2025-08-09T06:57:59.586Z",
+  "commit": "9636dcaefa9e235506d5f26c26241af06f8bbb03",
   "description": "Code Captain file manifest for change detection",
   "files": {
     "cursor/cc.mdc": {
