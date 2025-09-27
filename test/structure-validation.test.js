@@ -1,234 +1,242 @@
-import { describe, expect, test } from 'vitest'
+import { describe, expect, test } from "vitest";
 import {
   extractCommandName,
   getCommandFiles,
   parseMarkdownFile,
   PLATFORM_CONFIG,
-  validateFrontmatter
-} from './utils/test-helpers.js'
+  validateFrontmatter,
+} from "./utils/test-helpers.js";
 
-describe('Structure Validation Tests', () => {
-
-  describe('Frontmatter Validation', () => {
-    test('copilot prompts have correct frontmatter', async () => {
-      const commandFiles = await getCommandFiles('copilot')
+describe("Structure Validation Tests", () => {
+  describe("Frontmatter Validation", () => {
+    test("copilot prompts have correct frontmatter", async () => {
+      const commandFiles = await getCommandFiles("copilot");
 
       for (const filePath of commandFiles) {
-        const { data } = await parseMarkdownFile(filePath)
+        const { data } = await parseMarkdownFile(filePath);
 
-        expect(() => validateFrontmatter(data, 'copilot')).not.toThrow()
-        expect(data.mode).toBe('agent')
+        expect(() => validateFrontmatter(data, "copilot")).not.toThrow();
+        expect(data.mode).toBe("agent");
       }
-    })
+    });
 
-    test('windsurf workflows have description frontmatter', async () => {
-      const commandFiles = await getCommandFiles('windsurf')
-
-      for (const filePath of commandFiles) {
-        const { data } = await parseMarkdownFile(filePath)
-
-        // Windsurf should have description in frontmatter
-        expect(data).toHaveProperty('description')
-        expect(typeof data.description).toBe('string')
-        expect(data.description.length).toBeGreaterThan(10)
-      }
-    })
-
-    test('cursor commands have no conflicting frontmatter', async () => {
-      const commandFiles = await getCommandFiles('cursor')
+    test("cursor commands have no conflicting frontmatter", async () => {
+      const commandFiles = await getCommandFiles("cursor");
 
       for (const filePath of commandFiles) {
-        const { data } = await parseMarkdownFile(filePath)
+        const { data } = await parseMarkdownFile(filePath);
 
         // Cursor shouldn't have mode: agent (that's for Copilot)
-        expect(data.mode).toBeUndefined()
+        expect(data.mode).toBeUndefined();
       }
-    })
-  })
+    });
+  });
 
-  describe('Content Structure', () => {
-    test.each(['cursor', 'copilot', 'windsurf'])('platform %s commands have proper headers', async (platform) => {
-      const commandFiles = await getCommandFiles(platform)
+  describe("Content Structure", () => {
+    test.each(["cursor", "copilot"])(
+      "platform %s commands have proper headers",
+      async (platform) => {
+        const commandFiles = await getCommandFiles(platform);
 
-      for (const filePath of commandFiles) {
-        const { content } = await parseMarkdownFile(filePath)
+        for (const filePath of commandFiles) {
+          const { content } = await parseMarkdownFile(filePath);
 
-        // Should have at least one H1 header
-        expect(content).toMatch(/^#\s+.+/m)
+          // Should have at least one H1 header
+          expect(content).toMatch(/^#\s+.+/m);
 
-        // Should have overview or description section
-        expect(content).toMatch(/##\s+(overview|description|command process)/i)
+          // Should have overview or description section
+          expect(content).toMatch(
+            /##\s+(overview|description|command process)/i
+          );
+        }
       }
-    })
+    );
 
-    test('create-spec commands follow contract-first structure', async () => {
-      const platforms = ['cursor', 'copilot', 'windsurf']
+    test("create-spec commands follow contract-first structure", async () => {
+      const platforms = ["cursor", "copilot"];
 
       for (const platform of platforms) {
-        const config = PLATFORM_CONFIG[platform]
-        const filePath = `${config.directory}/create-spec${config.extension}`
+        const config = PLATFORM_CONFIG[platform];
+        const filePath = `${config.directory}/create-spec${config.extension}`;
 
         try {
-          const { content } = await parseMarkdownFile(filePath)
+          const { content } = await parseMarkdownFile(filePath);
 
           // Should mention contract establishment
-          expect(content.toLowerCase()).toContain('contract')
+          expect(content.toLowerCase()).toContain("contract");
 
           // Should mention no file creation initially
-          expect(content.toLowerCase()).toMatch(/(no file creation|before creating.*files)/i)
+          expect(content.toLowerCase()).toMatch(
+            /(no file creation|before creating.*files)/i
+          );
 
           // Should have phases or steps
-          expect(content).toMatch(/(phase|step)\s+\d/i)
-
+          expect(content).toMatch(/(phase|step)\s+\d/i);
         } catch (error) {
           // File might not exist for this platform, that's tested elsewhere
-          console.warn(`Skipping ${platform} create-spec test: ${error.message}`)
+          console.warn(
+            `Skipping ${platform} create-spec test: ${error.message}`
+          );
         }
       }
-    })
+    });
 
-    test('execute-task commands mention TDD workflow', async () => {
-      const platforms = ['cursor', 'copilot', 'windsurf']
+    test("execute-task commands mention TDD workflow", async () => {
+      const platforms = ["cursor", "copilot"];
 
       for (const platform of platforms) {
-        const config = PLATFORM_CONFIG[platform]
-        const filePath = `${config.directory}/execute-task${config.extension}`
+        const config = PLATFORM_CONFIG[platform];
+        const filePath = `${config.directory}/execute-task${config.extension}`;
 
         try {
-          const { content } = await parseMarkdownFile(filePath)
+          const { content } = await parseMarkdownFile(filePath);
 
           // Should mention TDD
-          expect(content.toLowerCase()).toMatch(/(tdd|test.*driven|test.*first)/i)
-
+          expect(content.toLowerCase()).toMatch(
+            /(tdd|test.*driven|test.*first)/i
+          );
         } catch (error) {
-          console.warn(`Skipping ${platform} execute-task test: ${error.message}`)
+          console.warn(
+            `Skipping ${platform} execute-task test: ${error.message}`
+          );
         }
       }
-    })
-  })
+    });
+  });
 
-  describe('Command Naming Consistency', () => {
-    test('commands use consistent naming across platforms', async () => {
-      const allCommands = new Set()
-      const platformCommands = {}
+  describe("Command Naming Consistency", () => {
+    test("commands use consistent naming across platforms", async () => {
+      const allCommands = new Set();
+      const platformCommands = {};
 
       for (const platform of Object.keys(PLATFORM_CONFIG)) {
-        const commandFiles = await getCommandFiles(platform)
-        const commands = commandFiles.map(extractCommandName)
+        const commandFiles = await getCommandFiles(platform);
+        const commands = commandFiles.map(extractCommandName);
 
-        platformCommands[platform] = commands
-        commands.forEach(cmd => allCommands.add(cmd))
+        platformCommands[platform] = commands;
+        commands.forEach((cmd) => allCommands.add(cmd));
       }
 
       // Check for naming inconsistencies
       for (const command of allCommands) {
-        const variations = []
+        const variations = [];
 
         for (const [platform, commands] of Object.entries(platformCommands)) {
-          const hasExact = commands.includes(command)
-          const similar = commands.filter(cmd =>
-            cmd.includes(command) || command.includes(cmd)
-          )
+          const hasExact = commands.includes(command);
+          const similar = commands.filter(
+            (cmd) => cmd.includes(command) || command.includes(cmd)
+          );
 
           if (hasExact) {
-            variations.push(`${platform}:exact`)
+            variations.push(`${platform}:exact`);
           } else if (similar.length > 0) {
-            variations.push(`${platform}:similar(${similar.join(',')})`)
+            variations.push(`${platform}:similar(${similar.join(",")})`);
           }
         }
 
         // Log potential inconsistencies
-        if (variations.length > 1 && variations.length < Object.keys(PLATFORM_CONFIG).length) {
-          console.log(`⚠️  Command "${command}" variations: ${variations.join(' | ')}`)
+        if (
+          variations.length > 1 &&
+          variations.length < Object.keys(PLATFORM_CONFIG).length
+        ) {
+          console.log(
+            `⚠️  Command "${command}" variations: ${variations.join(" | ")}`
+          );
         }
       }
-    })
-  })
+    });
+  });
 
-  describe('Content Quality Checks', () => {
-    test.each(['cursor', 'copilot', 'windsurf'])('platform %s commands have substantial content', async (platform) => {
-      const commandFiles = await getCommandFiles(platform)
-
-      for (const filePath of commandFiles) {
-        const { content } = await parseMarkdownFile(filePath)
-
-        // Should have meaningful content (more than just headers)
-        const lines = content.split('\n').filter(line => line.trim())
-        expect(lines.length).toBeGreaterThan(10)
-
-        // Should have more than just markdown headers
-        const nonHeaderLines = lines.filter(line => !line.startsWith('#'))
-        expect(nonHeaderLines.length).toBeGreaterThan(5)
-      }
-    })
-
-    test('commands contain actionable instructions', async () => {
-      const platforms = ['cursor', 'copilot', 'windsurf']
-      const actionWords = ['use', 'create', 'analyze', 'scan', 'generate', 'execute', 'follow']
-
-      for (const platform of platforms) {
-        const commandFiles = await getCommandFiles(platform)
+  describe("Content Quality Checks", () => {
+    test.each(["cursor", "copilot"])(
+      "platform %s commands have substantial content",
+      async (platform) => {
+        const commandFiles = await getCommandFiles(platform);
 
         for (const filePath of commandFiles) {
-          const { content } = await parseMarkdownFile(filePath)
-          const lowerContent = content.toLowerCase()
+          const { content } = await parseMarkdownFile(filePath);
+
+          // Should have meaningful content (more than just headers)
+          const lines = content.split("\n").filter((line) => line.trim());
+          expect(lines.length).toBeGreaterThan(10);
+
+          // Should have more than just markdown headers
+          const nonHeaderLines = lines.filter((line) => !line.startsWith("#"));
+          expect(nonHeaderLines.length).toBeGreaterThan(5);
+        }
+      }
+    );
+
+    test("commands contain actionable instructions", async () => {
+      const platforms = ["cursor", "copilot"];
+      const actionWords = [
+        "use",
+        "create",
+        "analyze",
+        "scan",
+        "generate",
+        "execute",
+        "follow",
+      ];
+
+      for (const platform of platforms) {
+        const commandFiles = await getCommandFiles(platform);
+
+        for (const filePath of commandFiles) {
+          const { content } = await parseMarkdownFile(filePath);
+          const lowerContent = content.toLowerCase();
 
           // Should contain action words
-          const hasActionWords = actionWords.some(word => lowerContent.includes(word))
-          expect(hasActionWords).toBe(true)
+          const hasActionWords = actionWords.some((word) =>
+            lowerContent.includes(word)
+          );
+          expect(hasActionWords).toBe(true);
         }
       }
-    })
-  })
+    });
+  });
 
-  describe('Platform-Specific Requirements', () => {
-    test('copilot prompts reference correct tools', async () => {
-      const commandFiles = await getCommandFiles('copilot')
-      const copilotTools = ['codebase', 'editFiles', 'search', 'runCommands', 'new']
+  describe("Platform-Specific Requirements", () => {
+    test("copilot prompts reference correct tools", async () => {
+      const commandFiles = await getCommandFiles("copilot");
+      const copilotTools = [
+        "codebase",
+        "editFiles",
+        "search",
+        "runCommands",
+        "new",
+      ];
 
       for (const filePath of commandFiles) {
-        const { content } = await parseMarkdownFile(filePath)
+        const { content } = await parseMarkdownFile(filePath);
 
         // If tools are mentioned, they should be Copilot tools
-        if (content.includes('tool')) {
-          const hasCopilotTools = copilotTools.some(tool => content.includes(tool))
+        if (content.includes("tool")) {
+          const hasCopilotTools = copilotTools.some((tool) =>
+            content.includes(tool)
+          );
 
           // Should not reference Cursor-specific tools
-          expect(content).not.toMatch(/codebase_search|grep_search|read_file/i)
+          expect(content).not.toMatch(/codebase_search|grep_search|read_file/i);
         }
       }
-    })
+    });
 
-    test('windsurf workflows reference correct tools', async () => {
-      const commandFiles = await getCommandFiles('windsurf')
-      const windsurfTools = ['codebase_search', 'view_file', 'find_by_name', 'edit_file']
-
-      for (const filePath of commandFiles) {
-        const { content } = await parseMarkdownFile(filePath)
-
-        // If tools are mentioned, they should be Windsurf tools
-        if (content.includes('tool') || content.includes('Use `')) {
-          // Should not reference Copilot-specific tools
-          expect(content).not.toMatch(/editFiles|runCommands/i)
-        }
-      }
-    })
-
-    test('cursor commands use correct command syntax', async () => {
-      const commandFiles = await getCommandFiles('cursor')
+    test("cursor commands use correct command syntax", async () => {
+      const commandFiles = await getCommandFiles("cursor");
 
       for (const filePath of commandFiles) {
-        const { content } = await parseMarkdownFile(filePath)
+        const { content } = await parseMarkdownFile(filePath);
 
         // Should use cc: syntax for command references
-        if (content.includes('cc:')) {
-          expect(content).toMatch(/cc:\s+[a-z-]+/i)
+        if (content.includes("cc:")) {
+          expect(content).toMatch(/cc:\s+[a-z-]+/i);
         }
 
         // Should not use slash syntax (that's for other platforms)
         // Only catch slash commands at line start or in command contexts, not compound words
-        expect(content).not.toMatch(/(?:^|\s|```[\w]*\n)\/[a-z-]+(?:\s|$)/im)
+        expect(content).not.toMatch(/(?:^|\s|```[\w]*\n)\/[a-z-]+(?:\s|$)/im);
       }
-    })
-  })
-})
+    });
+  });
+});

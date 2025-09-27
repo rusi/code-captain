@@ -29,6 +29,7 @@ npx @devobsessed/code-captain
 ```
 
 The installer will:
+
 - 🔍 Auto-detect your development environment
 - 🎯 Install the appropriate Code Captain integration
 - 📦 Set up the complete workflow system
@@ -40,29 +41,28 @@ The installer will:
 
 Code Captain integrates with multiple AI-powered development environments. Choose your platform:
 
-### [Cursor IDE](cursor/README.md) 
-*AI-first development with built-in agent system*
+### [Cursor IDE](cursor/README.md)
+
+_AI-first development with built-in agent system_
+
 - Native `.cursor/rules/` integration
 - Command recognition and auto-completion
 - Seamless workflow execution
 - **→ [Cursor Setup Guide](cursor/README.md)**
 
 ### [GitHub Copilot + VS Code](copilot/README.md)
-*Classic VS Code with Copilot Chat integration*
+
+_Classic VS Code with Copilot Chat integration_
+
 - Custom chat modes and prompts
 - `.github/` repository integration
 - Team collaboration features
 - **→ [Copilot Setup Guide](copilot/README.md)**
 
-### [Windsurf](windsurf/README.md)
-*Codeium's AI-powered development environment*
-- Custom workflow integration
-- Built-in AI coordination
-- Advanced context management
-- **→ [Windsurf Setup Guide](windsurf/README.md)**
-
 ### [Claude.dev](claude-code/README.md)
-*VS Code extension for Claude integration*
+
+_VS Code extension for Claude integration_
+
 - Direct Claude API integration
 - Custom agent configurations
 - Flexible workflow execution
@@ -71,27 +71,31 @@ Code Captain integrates with multiple AI-powered development environments. Choos
 ## 🎮 Core Commands (All Platforms)
 
 ### 📋 Project Setup & Analysis
+
 - **`initialize`** - Analyze and set up project documentation
 - **`plan-product "idea"`** - Comprehensive product planning
 - **`research "topic"`** - Systematic technical research
 - **`new-command "name" "desc"`** - Extend Code Captain
 
 ### 📝 Requirements & Planning
+
 - **`create-spec "feature"`** - Feature specifications with technical details
 - **`edit-spec [id] "changes"`** - Modify existing specifications
 - **`create-adr "decision"`** - Architecture Decision Records with research
 - **`explain-code [target]`** - Code explanations with diagrams
 
 ### ⚙️ Implementation
+
 - **`execute-task`** - Test-driven development workflow
 - **`status`** - Comprehensive project status
 - **`swab`** - Small code improvements
 
-*Command syntax and execution varies by IDE - see platform-specific documentation*
+_Command syntax and execution varies by IDE - see platform-specific documentation_
 
 ## 🔄 Workflow Examples
 
 ### Feature Development
+
 ```bash
 # 1. Research and plan
 cc: research "WebSocket vs Server-Sent Events"
@@ -105,6 +109,7 @@ cc: execute-task
 ```
 
 ### Project Analysis
+
 ```bash
 # Analyze existing codebase
 cc: initialize
@@ -131,31 +136,32 @@ After installation, Code Captain creates an organized workspace:
 ```
 
 Plus IDE-specific integration files in:
+
 - `.cursor/rules/` (Cursor)
 - `.github/` (Copilot)
-- `.windsurf/` (Windsurf)
 - `.claude/` (Claude.dev)
 
 ## 🔧 Platform-Specific Setup
 
 Each development environment has its own setup process and command syntax:
 
-| Platform | Installation Location | Command Format | Documentation |
-|----------|----------------------|----------------|---------------|
-| **Cursor** | `.cursor/rules/` | `cc: command` | [Cursor Guide](cursor/README.md) |
-| **Copilot** | `.github/` | `/command` | [Copilot Guide](copilot/README.md) |
-| **Windsurf** | `.windsurf/` | `/command` | [Windsurf Guide](windsurf/README.md) |
-| **Claude.dev** | `.claude/` | `/command` | [Claude.dev Guide](claude-code/README.md) |
+| Platform       | Installation Location | Command Format | Documentation                             |
+| -------------- | --------------------- | -------------- | ----------------------------------------- |
+| **Cursor**     | `.cursor/rules/`      | `cc: command`  | [Cursor Guide](cursor/README.md)          |
+| **Copilot**    | `.github/`            | `/command`     | [Copilot Guide](copilot/README.md)        |
+| **Claude.dev** | `.claude/`            | `/command`     | [Claude.dev Guide](claude-code/README.md) |
 
 ## 🚀 Key Advantages
 
 ### vs. Manual AI Prompting
+
 - ✅ **Systematic workflows** vs. ad-hoc requests
 - ✅ **Organized documentation** vs. scattered outputs
 - ✅ **Project management integration** vs. isolated interactions
 - ✅ **Progress tracking** vs. manual status management
 
 ### vs. Traditional Development Tools
+
 - ✅ **AI-powered planning** vs. manual specification creation
 - ✅ **Integrated TDD workflow** vs. separate testing processes
 - ✅ **Automatic issue creation** vs. manual project management setup
@@ -164,6 +170,7 @@ Each development environment has its own setup process and command syntax:
 ## 🛠 Development & Customization
 
 ### Local Development
+
 ```bash
 # Clone and test locally
 git clone https://github.com/devobsessed/code-captain.git
@@ -174,6 +181,7 @@ CC_LOCAL_SOURCE=. npx @devobsessed/code-captain
 ```
 
 ### Adding Platform Support
+
 1. Create `platform-name/` directory
 2. Add platform-specific commands and documentation
 3. Update installer platform detection

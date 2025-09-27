@@ -1,27 +1,30 @@
 # Code Captain Test Suite
 
-This test suite validates the Code Captain prompt system across all supported platforms (Cursor, GitHub Copilot, Windsurf, Claude).
+This test suite validates the Code Captain prompt system across all supported platforms (Cursor, GitHub Copilot, Claude).
 
 ## Test Categories
 
 - **Structure Validation**: Ensures proper file organization and required components exist
-- **Content Consistency**: Validates consistent terminology, concepts, and formatting across commands  
+- **Content Consistency**: Validates consistent terminology, concepts, and formatting across commands
 - **Command Availability**: Checks that all expected commands are present and accessible
 - **Core Commands**: Validates proper command structure, metadata, and content requirements
 
 ### 🚀 Smoke Tests (`command-availability.test.js`)
+
 - **Command Availability**: Ensures all core commands exist on each platform
 - **File Structure**: Validates platform-specific directory structures
 - **Core Commands**: Validates proper command structure, metadata, and content requirements
 - **Coverage Analysis**: Reports command availability across platforms
 
 ### 🏗️ Structure Tests (`structure-validation.test.js`)
+
 - **Frontmatter Validation**: Platform-specific metadata requirements
 - **Content Structure**: Headers, sections, and organization
 - **Naming Consistency**: Command naming across platforms
 - **Quality Checks**: Content depth and actionable instructions
 
 ### 🔄 Consistency Tests (`content-consistency.test.js`)
+
 - **Cross-Platform Messaging**: Similar concepts across platforms
 - **Contract-First Approach**: Ensures specification-first methodology
 - **Section Structure**: Consistent organization patterns
@@ -29,6 +32,7 @@ This test suite validates the Code Captain prompt system across all supported pl
 - **Command Syntax**: Correct invocation patterns per platform
 
 ### 🔗 Integration Tests (`integration.test.js`)
+
 - **Workflow Validation**: End-to-end command sequences
 - **Cross-References**: Command links and dependencies
 - **Manifest Validation**: File tracking in manifest.json
@@ -60,6 +64,7 @@ npx vitest integration
 ## Test Configuration
 
 Tests are configured in `vitest.config.js` with:
+
 - Node.js environment
 - Glob patterns for test discovery
 - Watch exclusions for prompt directories
@@ -67,6 +72,7 @@ Tests are configured in `vitest.config.js` with:
 ## Core Commands Tested
 
 All platforms should support these core commands:
+
 - `create-spec` - Feature specification generation
 - `edit-spec` - Specification modification
 - `execute-task` - TDD workflow execution
@@ -82,26 +88,22 @@ All platforms should support these core commands:
 ## Platform-Specific Requirements
 
 ### Cursor
+
 - Files: `cursor/commands/*.md`
 - Rules: `cursor/cc.mdc`
 - Syntax: `cc: command-name`
 - Tools: `codebase_search`, `grep_search`, `read_file`
 
 ### GitHub Copilot
+
 - Files: `copilot/prompts/*.prompt.md`
 - Frontmatter: `mode: agent`
 - Chatmode: `copilot/chatmodes/Code Captain.chatmode.md`
 - Syntax: `/command-name`
 - Tools: `codebase`, `editFiles`, `search`
 
-### Windsurf
-- Files: `windsurf/workflows/*.md`
-- Frontmatter: `description: string`
-- Rules: `windsurf/rules/cc.md`
-- Syntax: `/command-name`
-- Tools: `codebase_search`, `view_file`, `find_by_name`
-
 ### Claude
+
 - Files: `claude-code/commands/*.md`
 - Agents: `claude-code/agents/*.md`
 - Syntax: `/command-name`
@@ -110,6 +112,7 @@ All platforms should support these core commands:
 ## Test Utilities
 
 The `test/utils/test-helpers.js` provides:
+
 - File existence checking
 - Markdown parsing with frontmatter
 - Command file discovery
@@ -119,6 +122,7 @@ The `test/utils/test-helpers.js` provides:
 ## Continuous Integration
 
 Tests run automatically on:
+
 - Pull requests
 - Main branch pushes
 - Release builds
@@ -128,11 +132,13 @@ Tests run automatically on:
 ### Common Issues
 
 1. **Missing Dependencies**
+
    ```bash
    npm install
    ```
 
 2. **Outdated Manifest**
+
    ```bash
    npm run manifest
    ```
@@ -145,6 +151,7 @@ Tests run automatically on:
 ### Debug Output
 
 Tests include debug output for:
+
 - Command coverage reports
 - Section structure analysis
 - Cross-platform consistency warnings
@@ -160,15 +167,16 @@ Tests include debug output for:
 ## Expected Test Results
 
 ### Passing Conditions
-- All core commands exist on primary platforms (Cursor, Copilot, Windsurf)
+
+- All core commands exist on primary platforms (Cursor, Copilot)
 - Frontmatter validation passes for each platform
 - Content includes required concepts (contract-first, TDD, etc.)
 - No cross-platform tool contamination
 - Consistent command syntax usage
 
 ### Known Partial Implementations
+
 - Claude platform has limited command set
 - Some platforms may lack specific integration commands
-- Windsurf may be missing some newer commands
 
 Run `npm test` to see current status and detailed coverage reports.

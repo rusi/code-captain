@@ -21,7 +21,6 @@
     "agent",
     "cursor",
     "copilot",
-    "windsurf",
     "claude",
     "automation"
   ],
@@ -49,7 +48,6 @@
     "bin/",
     "cursor/",
     "copilot/",
-    "windsurf/",
     "claude-code/",
     "manifest.json",
     "README.md"
