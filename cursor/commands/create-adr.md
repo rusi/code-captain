@@ -239,8 +239,8 @@ For each alternative, evaluate against established criteria:
    - Use sequential numbering (0001, 0002, etc.)
 
 3. **Create ADR directory structure:**
-   
-   Create the decision records directory (Code Captain will use platform-appropriate commands based on your shell from `state.json`):
+
+   Create the decision records directory:
 
 **ADR Creation:**
 

@@ -132,8 +132,8 @@ Cursor integration creates this structure:
 
 ### Smart Context Awareness
 
-- Reads `.code-captain/state.json` for platform and shell detection
-- Adapts commands and file paths for your specific environment
+- Native Cursor integration with automatic environment detection
+- Adapts commands and file paths for your specific platform
 - Maintains context across command executions
 
 ## 🚀 Advanced Usage
@@ -167,20 +167,6 @@ Cursor integration creates this structure:
 
 # Document architectural decisions
 /create-adr "state management library selection"
-```
-
-## 🔧 Configuration
-
-### Environment Setup
-
-Code Captain automatically reads your environment from `.code-captain/state.json`:
-
-```json
-{
-  "platform": "darwin",
-  "shell": "/bin/zsh",
-  "ide": "cursor"
-}
 ```
 
 ## 📊 Command Reference
