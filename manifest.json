@@ -1,13 +1,13 @@
 {
   "version": "0.0.8",
-  "timestamp": "2025-09-27T05:03:35.716Z",
-  "commit": "b909fa556055d511e6ee80ebcf67b981c127c956",
+  "timestamp": "2025-09-27T05:12:08.000Z",
+  "commit": "28b846f5b4b04622959e5b2eef7d8a3ad80fc432",
   "description": "Code Captain file manifest for change detection",
   "files": {
     "cursor/cc.mdc": {
-      "hash": "sha256:33af27cf19a61ca13f907120e303481416b0833702dd1aca7bb0bb2ae9f425fc",
-      "size": 2388,
-      "lastModified": "2025-09-27T05:03:28.458Z",
+      "hash": "sha256:ae5cd0d34cd9112e2ee6b4f239b5227a80e47de69fa1ced575fd1876d4c0fd68",
+      "size": 2386,
+      "lastModified": "2025-09-27T05:03:54.854Z",
       "version": "0.0.8",
       "component": "rules",
       "description": "You are **Code Captain** - a methodical AI development partner who executes comprehensive software w..."
@@ -21,9 +21,9 @@
       "description": "Create comprehensive Architecture Decision Records (ADRs) that systematically document architectural..."
     },
     "cursor/commands/create-spec.md": {
-      "hash": "sha256:bdb97f89022059c891ae69fac3b8d292eaea11442ec8757692c2c68d4d862a0a",
-      "size": 18263,
-      "lastModified": "2025-09-27T04:36:48.643Z",
+      "hash": "sha256:3f309ce2a75a9a2ff4562e5531cf938dcd2daf6c9c1e8ddc2806dd6562f60010",
+      "size": 17663,
+      "lastModified": "2025-09-27T05:08:25.509Z",
       "version": "0.0.8",
       "component": "commands",
       "description": "Generate comprehensive feature specifications using a contract-first approach that ensures complete ..."
@@ -45,9 +45,9 @@
       "description": "Execute a specific task and its sub-tasks systematically following a Test-Driven Development (TDD) w..."
     },
     "cursor/commands/explain-code.md": {
-      "hash": "sha256:169448370c49cbcd7ca94705ae7236cdfa7fdf0414b6b159c5fb45f0cd380f0b",
-      "size": 7570,
-      "lastModified": "2025-09-27T04:28:57.128Z",
+      "hash": "sha256:0520043996940af21c5ae7b28516042eea7480693eaf8e0d788b6ceab762b4da",
+      "size": 6975,
+      "lastModified": "2025-09-27T05:08:52.488Z",
       "version": "0.0.8",
       "component": "commands",
       "description": "The `explain-code` command provides comprehensive, AI-powered explanations of code segments, functio..."
@@ -77,9 +77,9 @@
       "description": "Generate comprehensive product planning documentation using a contract-first approach that establish..."
     },
     "cursor/commands/research.md": {
-      "hash": "sha256:1360b3a52fca9ebd92f4f89e60a41cb13cac634c41453a9e4f773144fcc09dbc",
-      "size": 9122,
-      "lastModified": "2025-09-27T04:28:57.124Z",
+      "hash": "sha256:6def0906545267f6fe14f1d920baa8cce0fdb27f3bae45c2ab9b22e3e6464e0e",
+      "size": 8595,
+      "lastModified": "2025-09-27T05:08:03.344Z",
       "version": "0.0.8",
       "component": "commands",
       "description": "Conduct systematic research on a topic using structured phases that build upon each other, creating ..."
@@ -119,15 +119,15 @@
     "copilot/prompts/create-adr.prompt.md": {
       "hash": "sha256:fc74c30184f7b8415a68ec03c1029807a84e67c697ab2fc64589557aac3c578c",
       "size": 14949,
-      "lastModified": "2025-09-27T04:04:14.821Z",
+      "lastModified": "2025-09-27T05:09:15.866Z",
       "version": "0.0.8",
       "component": "prompts",
       "description": "Create comprehensive Architecture Decision Records (ADRs) that systematically document architectural..."
     },
     "copilot/prompts/create-spec.prompt.md": {
-      "hash": "sha256:919116254a73de36a870691ffba8b00e2fc5c433d9fea7a906d43431aeaf45d9",
-      "size": 18407,
-      "lastModified": "2025-09-27T04:04:14.821Z",
+      "hash": "sha256:a121e5842f20d3495cac9735e9b7c3ddc44eb033a46f455ad4a8195c4576a8b5",
+      "size": 17829,
+      "lastModified": "2025-09-27T05:09:34.344Z",
       "version": "0.0.8",
       "component": "prompts",
       "description": "Generate comprehensive feature specifications using a contract-first approach that ensures complete ..."
@@ -135,7 +135,7 @@
     "copilot/prompts/edit-spec.prompt.md": {
       "hash": "sha256:a5718f51861886dd0d310348c150f8dd3a467ff94181fb375f960118e264d15f",
       "size": 16843,
-      "lastModified": "2025-09-27T04:04:14.821Z",
+      "lastModified": "2025-09-27T05:09:15.873Z",
       "version": "0.0.8",
       "component": "prompts",
       "description": "Modify existing feature specifications using a contract-first approach that ensures complete alignme..."
@@ -143,15 +143,15 @@
     "copilot/prompts/execute-task.prompt.md": {
       "hash": "sha256:a3666ad792ec2280b391a89bd30c2d5ec86414a2e7cc707eaae60c43a95ca750",
       "size": 5219,
-      "lastModified": "2025-09-27T04:04:14.822Z",
+      "lastModified": "2025-09-27T05:09:15.859Z",
       "version": "0.0.8",
       "component": "prompts",
       "description": "Execute a specific task and its sub-tasks systematically following a Test-Driven Development (TDD) w..."
     },
     "copilot/prompts/explain-code.prompt.md": {
-      "hash": "sha256:40daffe30706a74f9f972d308eb302845e2757f2167e97f9a2a15347684b4e97",
-      "size": 8039,
-      "lastModified": "2025-09-27T04:04:14.822Z",
+      "hash": "sha256:088c15391899e736473e8123d27d01c4c3dcab2d4197e7d68524102236bfab98",
+      "size": 7443,
+      "lastModified": "2025-09-27T05:09:55.885Z",
       "version": "0.0.8",
       "component": "prompts",
       "description": "Provide comprehensive, AI-powered explanations of code segments, functions, classes, or entire files..."
@@ -159,7 +159,7 @@
     "copilot/prompts/initialize.prompt.md": {
       "hash": "sha256:64620cbf52421b35ff10ae76e8dfe93e66a3a7e567a9be7c7544d0084ec3b4eb",
       "size": 2357,
-      "lastModified": "2025-09-27T04:04:14.822Z",
+      "lastModified": "2025-09-27T05:09:15.861Z",
       "version": "0.0.8",
       "component": "prompts",
       "description": "Analyze and set up technical foundation for either greenfield (new) or brownfield (existing) project..."
@@ -167,7 +167,7 @@
     "copilot/prompts/new-command.prompt.md": {
       "hash": "sha256:948850c9a737a3d045059ade9648e5e3c21e839e2bd94fd644e41cdef1d1701e",
       "size": 12093,
-      "lastModified": "2025-09-27T04:04:14.822Z",
+      "lastModified": "2025-09-27T05:09:15.854Z",
       "version": "0.0.8",
       "component": "prompts",
       "description": "A meta command that creates new Code Captain commands following established patterns and conventions..."
@@ -175,15 +175,15 @@
     "copilot/prompts/plan-product.prompt.md": {
       "hash": "sha256:67d11bf06727bcd175bf65e1f784d2685dbac93a57db02fb99670eec2becd0c8",
       "size": 16080,
-      "lastModified": "2025-09-27T04:04:14.822Z",
+      "lastModified": "2025-09-27T05:09:15.851Z",
       "version": "0.0.8",
       "component": "prompts",
       "description": "Generate comprehensive product planning documentation using a contract-first approach that establish..."
     },
     "copilot/prompts/research.prompt.md": {
-      "hash": "sha256:2af0a28261e3b94d8336bfffc3ad447ffc20b4f959b979107e16d1c4248c14a0",
-      "size": 9678,
-      "lastModified": "2025-09-27T04:04:14.822Z",
+      "hash": "sha256:cb3e08b4d40b58f09fb9bc2525b8d2149d6eea770301512e4c88f4e401df1374",
+      "size": 9072,
+      "lastModified": "2025-09-27T05:10:11.156Z",
       "version": "0.0.8",
       "component": "prompts",
       "description": "Conduct systematic research on a topic using structured phases that build upon each other, creating ..."
@@ -191,7 +191,7 @@
     "copilot/prompts/status.prompt.md": {
       "hash": "sha256:3710c9ac707adbdd9dae73496e76b4ee60b20d2e6c80a81efb2245df93f4dda7",
       "size": 13162,
-      "lastModified": "2025-09-27T04:04:14.823Z",
+      "lastModified": "2025-09-27T05:09:15.869Z",
       "version": "0.0.8",
       "component": "prompts",
       "description": "Provide developers with a comprehensive status report when starting work or switching context. Analy..."
@@ -199,7 +199,7 @@
     "copilot/prompts/swab.prompt.md": {
       "hash": "sha256:4daa2747d3483b573684280f376fe0dd9829accca2bd505faed8d30d704cf795",
       "size": 6741,
-      "lastModified": "2025-09-27T04:04:14.823Z",
+      "lastModified": "2025-09-27T05:09:15.871Z",
       "version": "0.0.8",
       "component": "prompts",
       "description": "A deck-cleaning agent that makes one small, focused improvement to the codebase, following the \"Boy ..."

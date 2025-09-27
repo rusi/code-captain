@@ -120,31 +120,12 @@ Conduct systematic research on a topic using structured phases that build upon e
 - **Further Research:** [What questions remain]
 - **Decision Points:** [Key choices that need to be made]
 
-## Date Determination Process
+## Date Determination
 
-### Primary Method: System Clock
+Get current date by running: `npx @devobsessed/code-captain date`
 
-1. Read the current UTC date from the system clock and format as `YYYY-MM-DD`.
-2. Store it for naming:  
-   `.code-captain/research/[DATE]-[topic-name]-research.md`
-
-### Fallback Method: User Confirmation
-
-If system clock access isn't available:
-
-1. **STATE**: "I need to confirm today's date for the research folder"
-2. **ASK**: "What is today's date? (YYYY-MM-DD format)"
-3. **WAIT** for user response
-4. **VALIDATE** format matches `^\d{4}-\d{2}-\d{2}$`
-   - year: 2024-2030
-   - month: 01-12
-   - day: 01-31
-5. **STORE** date for folder naming
-
-### Error Handling
-
-- **IF** date_invalid: USE fallback_method
-- **IF** both_methods_fail: ERROR "Unable to determine current date"
+This returns the current date in `YYYY-MM-DD` format for folder naming:
+`.code-captain/research/[DATE]-[topic-name]-research.md`
 
 ## Research Document Template
 

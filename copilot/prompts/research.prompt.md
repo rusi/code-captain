@@ -30,6 +30,7 @@ Conduct systematic research on a topic using structured phases that build upon e
 4. Plan research phases and approach
 
 **Research Structure:**
+
 - Phase 1: Define scope and questions [in_progress]
 - Phase 2: Initial discovery [pending]
 - Phase 3: Deep dive analysis [pending]
@@ -87,7 +88,7 @@ Conduct systematic research on a topic using structured phases that build upon e
 2. Create recommendations based on research
 3. Identify next steps or areas requiring further investigation
 4. Document sources and evidence for claims
-5. Determine current date using robust file system method (see Date Determination Process below)
+5. Get current date using: `npx @devobsessed/code-captain date`
 6. Create research document in `.code-captain/research/` folder using the standardized format below
 7. Present findings in appropriate format (summary document, recommendations)
 
@@ -121,37 +122,18 @@ Conduct systematic research on a topic using structured phases that build upon e
 - **Further Research:** [What questions remain]
 - **Decision Points:** [Key choices that need to be made]
 
-## Date Determination Process
+## Date Determination
 
-### Primary Method: System Clock
+Get current date by running: `npx @devobsessed/code-captain date`
 
-1. Read the current UTC date from the system clock and format as `YYYY-MM-DD`.
-2. Store it for naming:  
-   `.code-captain/research/[DATE]-[topic-name]-research.md`
-
-### Fallback Method: User Confirmation
-
-If system clock access isn't available:
-
-1. **STATE**: "I need to confirm today's date for the research folder"
-2. **ASK**: "What is today's date? (YYYY-MM-DD format)"
-3. **WAIT** for user response
-4. **VALIDATE** format matches `^\d{4}-\d{2}-\d{2}$`
-   - year: 2024-2030
-   - month: 01-12
-   - day: 01-31
-5. **STORE** date for folder naming
-
-### Error Handling
-
-- **IF** date_invalid: USE fallback_method
-- **IF** both_methods_fail: ERROR "Unable to determine current date"
+This returns the current date in `YYYY-MM-DD` format for folder naming:
+`.code-captain/research/[DATE]-[topic-name]-research.md`
 
 ## Research Document Template
 
-**First, determine the current date using the process above.**
+**First, get the current date using: `npx @devobsessed/code-captain date`**
 
-Create a markdown file in `.code-captain/research/[DATE]-[topic-name]-research.md` where `[DATE]` is determined using the robust date process.
+Create a markdown file in `.code-captain/research/[DATE]-[topic-name]-research.md`.
 
 **Example:** `.code-captain/research/2024-01-15-blockchain-supply-chain-research.md`
 
@@ -250,6 +232,7 @@ Use the following structure:
 ## Tool Integration
 
 **Primary tools:**
+
 - `fetch` - Web research and external information gathering
 - `search` - Finding existing research and related documentation
 - `editFiles` - Creating research documents and reports
@@ -257,6 +240,7 @@ Use the following structure:
 - `codebase` - Understanding project context and existing knowledge
 
 **Documentation organization:**
+
 - Research documents stored in `.code-captain/research/`
 - Date-prefixed filenames for chronological organization
 - Cross-references to related project documentation
@@ -297,6 +281,7 @@ Use the following structure:
 ## Example Research Progression
 
 **Initial Phase:**
+
 ```
 - Research blockchain solutions for supply chain [in_progress]
 - Analyze implementation approaches [pending]
@@ -306,6 +291,7 @@ Use the following structure:
 ```
 
 **After Phase 2:**
+
 ```
 - Research blockchain solutions for supply chain [completed]
 - Analyze implementation approaches [in_progress]
@@ -316,6 +302,7 @@ Use the following structure:
 ```
 
 **Final:**
+
 ```
 - Research blockchain solutions for supply chain [completed]
 - Analyze implementation approaches [completed]

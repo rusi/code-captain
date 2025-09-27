@@ -139,27 +139,11 @@ Files are named using the format: `[DATE]-[target-name].md` where DATE is YYYY-M
 
 ## Auto-Save Behavior
 
-All explanations are automatically saved to `.code-captain/explanations/` using the format `[DATE]-[target-name].md`. The system uses the same date determination process as the research command to ensure consistent timestamps.
+All explanations are automatically saved to `.code-captain/explanations/` using the format `[DATE]-[target-name].md`.
 
-## Date Determination Process
+Get current date by running: `npx @devobsessed/code-captain date`
 
-### Primary Method: System Clock
-
-1. Read the current UTC date from the system clock and format as `YYYY-MM-DD`.
-2. Store it for naming:  
-   `.code-captain/explanations/[DATE]-[target-name].md`
-
-### Fallback Method: User Confirmation
-
-If system clock access isn't available:
-
-1. **STATE**: "I need to confirm today's date for the explanation file"
-2. **ASK**: "What is today's date? (YYYY-MM-DD format)"
-3. **WAIT** for user response
-4. **VALIDATE** format matches `^\d{4}-\d{2}-\d{2}$`
-5. **STORE** date for file naming
-
-**Example filename:** `.code-captain/explanations/2024-01-15-AuthenticationFlow.md`
+**Example filename:** `.code-captain/explanations/2025-09-27-AuthenticationFlow.md`
 
 ## Integration Points
 

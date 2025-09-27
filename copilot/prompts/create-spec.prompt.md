@@ -13,22 +13,26 @@ Generate comprehensive feature specifications using a contract-first approach th
 ### Phase 1: Contract Establishment (No File Creation)
 
 **Mission Statement:**
+
 > Your goal is to turn my rough feature idea into a very clear work specification. You will deliver the complete spec package only after we both agree on the requirements contract. **Important: Challenge ideas that don't make technical or business sense - it's better to surface concerns early than build the wrong thing.**
 
 #### Step 1.1: Initial Context Scan
+
 - Scan existing `.code-captain/specs/` for related specifications
 - Analyze current codebase architecture and patterns using `codebase`
 - Load project context files (`tech-stack.md`, `code-style.md`, `objective.md`)
 - **Output:** Context summary (no files created yet)
 
 #### Step 1.2: Gap Analysis & Silent Enumeration
+
 **Internal Process (not shown to user):**
+
 - Silently list every missing fact, constraint, or requirement
 - Identify ambiguities in the initial description
 - Note potential integration points and dependencies
 - Catalog unknowns across these domains:
   - Purpose & business value
-  - Target audience & user personas  
+  - Target audience & user personas
   - Technical constraints & requirements
   - Success criteria & acceptance tests
   - Scope boundaries (in/out of scope)
@@ -39,7 +43,9 @@ Generate comprehensive feature specifications using a contract-first approach th
   - Risk tolerance & implementation approach
 
 #### Step 1.3: Structured Clarification Loop
+
 **Rules:**
+
 - Ask ONE focused question at a time
 - After each answer, re-scan codebase for new context if relevant
 - Continue until reaching 95% confidence on deliverable
@@ -49,6 +55,7 @@ Generate comprehensive feature specifications using a contract-first approach th
 - **Challenge ideas that don't make technical or business sense** - better to surface concerns early than build the wrong thing
 
 **Critical Analysis Responsibility:**
+
 - If requirements seem technically infeasible with current architecture, explain why and suggest alternatives
 - If scope seems too large for a single feature, recommend breaking it down
 - If user requests conflict with existing patterns found in codebase, point out the inconsistency
@@ -56,40 +63,45 @@ Generate comprehensive feature specifications using a contract-first approach th
 - If performance/security/scalability concerns arise, surface them proactively
 
 **Pushback Phrasing Examples:**
+
 - "I see a potential issue with [requirement] because [technical reason]. Would [alternative approach] work better?"
 - "Based on your existing codebase, [proposed approach] might conflict with [existing pattern]. How should we handle this?"
 - "The scope you're describing sounds like it might be 3-4 separate features. Should we focus on [core piece] first?"
 - "I'm concerned that [requirement] could create [specific problem]. Have you considered [alternative]?"
 
 **Question Categories (examples):**
+
 - "What specific user problem does this solve, and who experiences it?"
-- "Should this integrate with [existing system found in codebase], or remain separate?"  
+- "Should this integrate with [existing system found in codebase], or remain separate?"
 - "What does 'success' look like - how will we measure if this works?"
 - "Are there performance requirements (response time, throughput, scale)?"
 - "What UI/UX constraints exist - web only, mobile responsive, accessibility needs?"
 - "What's your risk tolerance - prefer stable/proven approaches or cutting-edge solutions?"
 
 **Transition to Contract:**
+
 - When confidence is high, present contract without declaring it "final"
 - Use phrases like "I think I have enough to create a solid contract" or "Based on our discussion, here's what I understand"
 - Always leave room for more questions if needed
 
 #### Step 1.4: Echo Check (Contract Proposal)
+
 When confident, present a contract proposal with any concerns surfaced:
 
 **Format:**
+
 ```
 ## Specification Contract
 
 **Deliverable:** [One clear sentence describing what will be built]
 
-**Must Include:** [Critical requirement that makes this valuable]  
+**Must Include:** [Critical requirement that makes this valuable]
 
 **Hardest Constraint:** [Biggest technical/business limitation to navigate]
 
 **Success Criteria:** [How we'll know it's working correctly]
 
-**Scope Boundaries:** 
+**Scope Boundaries:**
 - In Scope: [2-3 key features]
 - Out of Scope: [2-3 things we won't build]
 
@@ -104,7 +116,7 @@ When confident, present a contract proposal with any concerns surfaced:
 ---
 Options:
 - Type 'yes' to lock this contract and create the spec package
-- Type 'edit: [your changes]' to modify the contract  
+- Type 'edit: [your changes]' to modify the contract
 - Type 'risks' to explore potential implementation risks in detail
 - Type 'blueprint' to see the planned folder structure and documents
 - Ask more questions if anything needs clarification
@@ -115,34 +127,20 @@ Options:
 **Triggered only after user confirms contract with 'yes'**
 
 #### Step 2.1: Determine Current Date
-**Objective:** Get current date for folder naming and document timestamps
 
-**Date Determination Process:**
+Get current date by running: `npx @devobsessed/code-captain date`
 
-1. Read the current UTC date from the system clock and format as `YYYY-MM-DD`.
-2. Store it for naming:  
-   `.code-captain/specs/[DATE]-[feature-name]/`
-
-**Fallback Method:** If system clock access isn't available:
-1. **STATE**: "I need to confirm today's date for the specification folder"
-2. **ASK**: "What is today's date? (YYYY-MM-DD format)"
-3. **WAIT** for user response
-4. **VALIDATE** format matches `^\d{4}-\d{2}-\d{2}$`
-   - year: 2024-2030
-   - month: 01-12
-   - day: 01-31
-5. **STORE** date for folder naming
-
-**Error Handling:**
-- **IF** date_invalid: USE fallback_method
-- **IF** both_methods_fail: ERROR "Unable to determine current date"
+This returns the current date in `YYYY-MM-DD` format for folder naming:
+`.code-captain/specs/[DATE]-[feature-name]/`
 
 #### Step 2.2: Create Directory Structure
+
 **Generated folder (using determined date):**
+
 ```
 .code-captain/specs/[DATE]-{feature-name}/
 ├── spec.md                    # Main specification (from contract)
-├── spec-lite.md              # Condensed version for AI context  
+├── spec-lite.md              # Condensed version for AI context
 ├── user-stories/             # Individual user story files
 │   ├── README.md             # Overview and progress tracking
 │   ├── story-1-{name}.md     # Individual user story with focused tasks
@@ -152,12 +150,13 @@ Options:
     ├── technical-spec.md     # Architecture & implementation details
     ├── database-schema.md    # Database changes (if needed)
     ├── api-spec.md          # API documentation (if needed)
-    └── ui-wireframes.md     # UI/UX specifications (if needed)  
+    └── ui-wireframes.md     # UI/UX specifications (if needed)
 ```
 
 #### Step 2.3: Generate Core Documents
 
 **spec.md** - Built directly from the locked contract:
+
 ```markdown
 # [Feature Name] Specification
 
@@ -166,46 +165,51 @@ Options:
 > Contract Locked: ✅
 
 ## Contract Summary
+
 [Echo check content verbatim]
 
 ## Detailed Requirements
+
 [Expanded from clarification responses]
 
 ## Implementation Approach
+
 [Technical strategy based on codebase analysis]
 ```
 
 **user-stories/ folder structure** - Individual user story files for better organization:
 
 **user-stories/README.md** - Overview and progress tracking:
+
 ```markdown
 # User Stories Overview
 
-> **Specification:** [Feature Name]
-> **Created:** [DATE]
-> **Status:** Planning
+> **Specification:** [Feature Name] > **Created:** [DATE] > **Status:** Planning
 
 ## Stories Summary
 
-| Story | Title | Status | Tasks | Progress |
-|-------|-------|--------|-------|----------|
-| 1 | [Story title] | Not Started | 5 | 0/5 |
-| 2 | [Story title] | Not Started | 4 | 0/4 |
-| 3 | [Story title] | Not Started | 6 | 0/6 |
+| Story | Title         | Status      | Tasks | Progress |
+| ----- | ------------- | ----------- | ----- | -------- |
+| 1     | [Story title] | Not Started | 5     | 0/5      |
+| 2     | [Story title] | Not Started | 4     | 0/4      |
+| 3     | [Story title] | Not Started | 6     | 0/6      |
 
 **Total Progress:** 0/15 tasks (0%)
 
 ## Story Dependencies
+
 - Story 2 depends on Story 1 completion
 - Story 3 can run parallel to Story 2
 
 ## Quick Links
+
 - [Story 1: User Login](./story-1-user-login.md)
 - [Story 2: Password Reset](./story-2-password-reset.md)
 - [Story 3: Profile Management](./story-3-profile-management.md)
 ```
 
 **user-stories/story-1-{name}.md** - Individual story files (max 5-7 tasks each):
+
 ```markdown
 # Story 1: [Title from contract deliverable]
 
@@ -214,27 +218,32 @@ Options:
 > **Dependencies:** None
 
 ## User Story
+
 **As a** [user type from clarification]
 **I want to** [action from contract]  
 **So that** [value from contract must-include]
 
 ## Acceptance Criteria
+
 - [ ] Given [context], when [action], then [outcome]
 - [ ] Given [context], when [action], then [outcome]
 - [ ] Given [context], when [action], then [outcome]
 
 ## Implementation Tasks
+
 - [ ] 1.1 Write tests for [specific component]
 - [ ] 1.2 [Focused technical step]
-- [ ] 1.3 [Focused technical step] 
+- [ ] 1.3 [Focused technical step]
 - [ ] 1.4 [Focused technical step]
 - [ ] 1.5 Verify acceptance criteria are met
 - [ ] 1.6 Verify all tests pass
 
 ## Notes
+
 [Any specific technical considerations, risks, or dependencies for this story]
 
 ## Definition of Done
+
 - [ ] All tasks completed
 - [ ] All acceptance criteria met
 - [ ] Tests passing
@@ -258,6 +267,7 @@ Options:
 **user-stories/ folder** - Organized individual story files with focused task groups:
 
 **Structure Philosophy:**
+
 - Each user story gets its own file for better organization
 - Implementation tasks are kept small and focused (max 5-7 per story)
 - Complex stories are broken into multiple smaller stories
@@ -266,6 +276,7 @@ Options:
 - Each story follows TDD: test → implement → verify acceptance criteria
 
 **Benefits of Folder Structure:**
+
 - **Manageability**: Each file stays focused and readable
 - **Navigation**: Easy to find and work on specific stories
 - **Parallel Work**: Multiple developers can work on different stories
@@ -274,12 +285,14 @@ Options:
 - **Traceability**: Every technical task traces to user value
 
 **File Organization:**
+
 - **README.md**: Overview, progress summary, dependencies
 - **story-N-{name}.md**: Individual stories with focused tasks (5-7 tasks max)
 - **Story Naming**: Clear, descriptive names for easy identification
 - **Task Numbering**: N.1, N.2, N.3... within each story file
 
 **Task Breakdown Strategy:**
+
 - If a story would have >7 tasks, split into multiple stories
 - Each story should deliver standalone user value
 - Tasks within a story should be cohesive and related
@@ -289,12 +302,13 @@ Options:
 #### Step 2.6: Final Package Review & User Validation
 
 Present complete package with file references:
+
 ```
 ✅ Specification package created successfully!
 
 📁 .code-captain/specs/[DATE]-feature-name/
 ├── 📋 spec.md - Main specification document
-├── 📝 spec-lite.md - AI context summary  
+├── 📝 spec-lite.md - AI context summary
 ├── 👥 user-stories/ - Individual user story files
 │   ├── 📊 README.md - Overview and progress tracking
 │   ├── 📝 story-1-{name}.md - Focused story with 5-7 tasks
@@ -331,6 +345,7 @@ Once you're satisfied with the specification, I can help you start implementatio
 ## Tool Integration
 
 **Primary tools:**
+
 - `codebase` - Scanning existing architecture and patterns
 - `search` - Finding related specifications and documentation
 - `editFiles` - Creating specification documents
@@ -338,6 +353,7 @@ Once you're satisfied with the specification, I can help you start implementatio
 - `fetch` - External research for best practices
 
 **Documentation organization:**
+
 - Specifications stored in `.code-captain/specs/[DATE]-{feature-name}/`
 - User stories organized in individual files for better management
 - Technical sub-specs created only when relevant
@@ -345,22 +361,26 @@ Once you're satisfied with the specification, I can help you start implementatio
 ## Key Improvements Over Original
 
 ### 1. Contract-First Approach
+
 - **No presumptuous file creation** - Nothing gets built until contract is locked
 - **Structured clarification** - One question at a time, building understanding
 - **Echo check validation** - Clear contract summary before proceeding
 
-### 2. Codebase-Aware Questioning  
+### 2. Codebase-Aware Questioning
+
 - **Context scanning between questions** - Each answer triggers fresh codebase analysis
 - **Integration-focused queries** - Questions shaped by what exists in the codebase
 - **Architecture consistency** - Recommendations align with existing patterns
 
 ### 3. User Control & Transparency
+
 - **Clear decision points** - User explicitly approves before file creation
-- **Risk assessment option** - Can explore implementation risks before committing  
+- **Risk assessment option** - Can explore implementation risks before committing
 - **Blueprint preview** - Can see planned structure before creation
 - **Edit capability** - Can modify contract before locking
 
 ### 4. Efficient Clarification Process
+
 - **Gap enumeration** - Systematically identifies all unknowns
 - **95% confidence threshold** - Stops asking when ready to deliver
 - **Token efficiency** - Focused questions, no verbose explanations during clarification
@@ -382,7 +402,7 @@ First question: You mentioned "real-time multiplayer chat with blockchain integr
 
 Developer: I want messages to be permanently stored and verifiable, plus users should pay crypto to send messages to prevent spam
 
-Agent: I understand the anti-spam goal, but I'm concerned about the user experience. If users have to wait 30+ seconds for transaction confirmation before each message appears, that breaks the "real-time" chat experience. 
+Agent: I understand the anti-spam goal, but I'm concerned about the user experience. If users have to wait 30+ seconds for transaction confirmation before each message appears, that breaks the "real-time" chat experience.
 
 Would a hybrid approach work better - immediate message delivery with blockchain settlement in the background? Or are you thinking of a different model where users pre-purchase message credits?
 

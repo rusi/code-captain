@@ -1247,6 +1247,15 @@ class CodeCaptainInstaller {
   }
 }
 
+// Handle subcommands
+const args = process.argv.slice(2);
+
+if (args.length > 0 && args[0] === "date") {
+  // Return current date in YYYY-MM-DD format
+  console.log(new Date().toISOString().split("T")[0]);
+  process.exit(0);
+}
+
 // Run installer if called directly
 const isMainModule =
   import.meta.url === `file://${process.argv[1]}` ||
