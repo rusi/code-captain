@@ -186,7 +186,7 @@ For each alternative, evaluate against established criteria:
 1. **Get current date:**
 
    ```bash
-   date +%Y-%m-%d
+   npx @devobsessed/code-captain date
    ```
 
 2. **Determine ADR number:**
@@ -195,7 +195,7 @@ For each alternative, evaluate against established criteria:
    - Use sequential numbering (0001, 0002, etc.)
 
 3. **Create ADR directory structure:**
-   
+
    Create the decision records directory using `runCommands`
 
 **ADR Creation:**
@@ -207,7 +207,7 @@ Create markdown file: `.code-captain/decision-records/NNNN-decision-title.md` us
 ```markdown
 # NNNN. [Decision Title]
 
-**Date:** [Use output from date +%Y-%m-%d command]
+**Date:** [Use output from npx @devobsessed/code-captain date]
 
 **Status:** [Proposed/Accepted/Deprecated/Superseded]
 
@@ -380,6 +380,7 @@ Create markdown file: `.code-captain/decision-records/NNNN-decision-title.md` us
 ## Tool Integration
 
 **Primary tools:**
+
 - `codebase` - Understanding existing architecture and patterns
 - `search` - Finding existing ADRs and related documentation
 - `editFiles` - Creating ADR documents
@@ -387,6 +388,7 @@ Create markdown file: `.code-captain/decision-records/NNNN-decision-title.md` us
 - `fetch` - Retrieving external research and documentation
 
 **Documentation organization:**
+
 - ADRs stored in `.code-captain/decision-records/`
 - Research documents in `.code-captain/research/`
 - Sequential numbering for easy reference

@@ -6,25 +6,136 @@ A meta command that creates new Code Captain commands following established patt
 
 ## Command Process
 
-### Step 1: Command Specification Gathering
+### Phase 1: Command Contract Establishment (No File Creation)
 
-**Initial Input Processing:**
-- Parse command name (validate format: lowercase, hyphens allowed)
-- Extract brief description from user input
-- Validate command name doesn't conflict with existing commands
+**Mission Statement:**
 
-**Interactive Specification Building:**
-Ask clarifying questions to build complete command specification:
+> Your goal is to turn my rough command idea into a comprehensive command specification. You will deliver the complete command package only after we both agree on the command contract. **Important: Challenge command ideas that don't fit the Code Captain ecosystem or would create maintenance burden - it's better to surface concerns early than build the wrong command.**
 
-1. **Command Category**: "Is this a [Setup/Analysis/Implementation/Integration] command?"
-2. **Execution Style**: "Should this use contract style (extensive clarification rounds like create-spec) or direct execution (immediate action like swab)?"
-3. **Usage Pattern**: "Does it take arguments, flags, or is it standalone?"
-4. **AI Coordination**: "Does it need AI prompts for complex decision-making?"
-5. **Output Location**: "Where should outputs be stored? (.code-captain/[folder])"
-6. **Tool Integration**: "Which Cursor tools will it use? (codebase_search, read_file, etc.)"
-7. **Workflow Steps**: "What are the main phases/steps the command follows?"
+#### Step 1.1: Initial Context Scan
 
-### Step 2: Command Structure Generation
+- Scan existing commands in `.cursor/commands/` to understand patterns
+- Analyze existing Code Captain ecosystem using `codebase_search`
+- Load command patterns from successful commands (`create-spec`, `execute-task`, etc.)
+- **Output:** Context summary (no files created yet)
+
+#### Step 1.2: Gap Analysis & Silent Enumeration
+
+**Internal Process (not shown to user):**
+
+- Silently list every missing detail about the command's purpose and implementation
+- Identify ambiguities in the initial command description
+- Note potential conflicts with existing commands
+- Catalog unknowns across these domains:
+  - Command purpose & unique value proposition
+  - Target workflow & user scenarios
+  - Execution complexity & style requirements
+  - Input/output specifications
+  - Tool integration requirements
+  - File organization & output locations
+  - Error handling & edge cases
+  - Integration with existing commands
+  - Documentation & help text needs
+
+#### Step 1.3: Structured Clarification Loop
+
+**Rules:**
+
+- Ask ONE focused question at a time
+- After each answer, re-scan existing commands for additional context if relevant
+- Continue until reaching 95% confidence on command specification
+- Each question should target the highest-impact unknown
+- **Never declare "final question"** - let the conversation flow naturally
+- Let the user signal when they're ready to lock the contract
+- **Challenge command ideas that create complexity or don't fit** - better to surface concerns early than build problematic commands
+
+**Critical Analysis Responsibility:**
+
+- If command seems to duplicate existing functionality, explain the overlap and suggest alternatives
+- If complexity seems too high for the proposed value, recommend simplification
+- If the command doesn't fit Code Captain patterns, point out the inconsistency
+- If implementation would create maintenance burden, suggest alternative approaches
+- If command scope is unclear or too broad, ask for focus and boundaries
+
+**Pushback Phrasing Examples:**
+
+- "I see potential overlap with [existing command]. How would [your command] be different from [existing]?"
+- "The complexity you're describing sounds like it might need 3-4 separate commands. Should we focus on [core piece] first?"
+- "I'm concerned that [proposed approach] would break Code Captain's [established pattern]. Have you considered [alternative]?"
+- "This command would need significant ongoing maintenance. Could we achieve the same goal with [simpler approach]?"
+
+**Question Categories (examples):**
+
+- "What specific developer workflow does this solve that existing commands don't cover?"
+- "Should this integrate with [existing command found in scan], or remain separate?"
+- "What does 'success' look like - how will developers know the command worked correctly?"
+- "Should this be a contract-style command (extensive clarification like create-spec) or direct execution (immediate action like swab)?"
+- "Where should outputs be stored - new folder or existing (.code-captain/[folder])?"
+- "What Cursor tools will it need - codebase_search, file_search, edit_file, web_search?"
+
+**Transition to Contract:**
+
+- When confidence is high, present contract without declaring it "final"
+- Use phrases like "I think I understand the command you need" or "Based on our discussion, here's the command specification"
+- Always leave room for more questions if needed
+
+#### Step 1.4: Echo Check (Command Contract Proposal)
+
+When confident, present a command contract proposal with any concerns surfaced:
+
+**Format:**
+
+```
+## Command Contract
+
+**Command Name:** [validated-command-name]
+
+**Purpose:** [One clear sentence describing what this command does]
+
+**Unique Value:** [How this differs from existing commands and why it's needed]
+
+**Execution Style:** [Contract-style with clarification OR Direct execution]
+
+**Workflow Pattern:** [Step-by-step process the command follows]
+
+**Inputs Required:** [Arguments, flags, or interactive inputs needed]
+
+**Outputs Created:** [Files, directories, or modifications made]
+
+**Tool Integration:** [Cursor tools required: codebase_search, file_search, etc.]
+
+**⚠️ Implementation Concerns (if any):**
+- [Specific concern about complexity, maintenance, or ecosystem fit]
+- [Suggested alternative or mitigation approach]
+
+**💡 Recommendations:**
+- [Suggestions for improving the command based on ecosystem analysis]
+- [Ways to reduce complexity or improve consistency]
+
+---
+Options:
+- Type 'yes' to lock this contract and create the command
+- Type 'edit: [your changes]' to modify the contract
+- Type 'examples' to see similar commands for reference
+- Type 'blueprint' to see the planned file structure and documentation
+- Ask more questions if anything needs clarification
+```
+
+### Phase 2: Command Package Creation (Post-Agreement Only)
+
+**Triggered only after user confirms contract with 'yes'**
+
+#### Step 2.1: Initialize Tracking
+
+```bash
+# Use todo_write to track creation process
+1. Generate command documentation with proper structure
+2. Update ecosystem documentation and references
+3. Validate command integration and consistency
+4. Present completed command for user review
+```
+
+#### Step 2.2: Generate Command File Structure
 
 **Generate Standard Command File Structure:**
 
@@ -32,34 +143,36 @@ Ask clarifying questions to build complete command specification:
 # [Command Name] Command ([command-name])
 
 ## Overview
-[Generated from description and clarifying questions]
 
-## Usage
-```bash
-/[command-name] [arguments]
-```
+[Generated from description and clarifying questions]
 
 ## Command Process
 
 ### Step 1: [Phase Name]
-[Generated workflow steps]
+
+[Generated workflow steps based on contract]
 
 ### Step 2: [Phase Name]
-[Generated workflow steps]
+
+[Generated workflow steps based on contract]
 
 ## Core Rules
-[Generated based on command type]
 
-## AI Implementation Prompt
-[Generated if AI coordination needed]
+[Generated based on command type and execution style from contract]
+
+## Tool Integration
+
+[Generated tool usage based on contract requirements]
 
 ## Integration Notes
-[Generated integration details]
+
+[Generated integration details with existing commands]
 ```
 
 **Template Sections Based on Command Type and Execution Style:**
 
 **Contract Style Commands** (like `create-spec`, `create-adr`):
+
 - Phase 1: Contract Establishment (No File Creation)
 - Interactive clarification rounds with structured questions
 - Critical analysis and assumption challenging
@@ -67,65 +180,50 @@ Ask clarifying questions to build complete command specification:
 - Explicit user agreement before proceeding
 
 **Direct Execution Commands** (like `swab`, `execute-task`):
+
 - Immediate action workflows
 - Minimal clarification if needed
 - Clear step-by-step execution
 - Progress feedback and completion confirmation
 
 **Setup/Analysis Commands:**
+
 - Context scanning steps
 - File generation workflows
 - Progress tracking with `todo_write`
 
 **Implementation Commands:**
+
 - TDD workflows if applicable
 - Code modification steps
 - Verification procedures
 
 **Integration Commands:**
+
 - Platform-specific API interactions
 - Sync and conflict resolution
 - Error handling patterns
 
-### Step 3: Documentation Updates
-
-**Automatically update main documentation files:**
-
-1. **cc.md Updates:**
-   - Add to appropriate category section
-   - Add to command documentation reading list
-   - Add to usage examples
-
-2. **cc.mdc Updates:**
-   - Add to Core Commands or Platform Integration section
-   - Include brief description
-
-3. **README.md Updates:**
-   - Add to appropriate feature section
-   - Add to command reference table
-   - Include in workflow examples if relevant
-
-### Step 4: Validation and Integration
+### Step 3: Validation and Integration
 
 **Verify Command Integration:**
+
 - Check command file syntax and structure
-- Validate documentation updates
 - Ensure no conflicts with existing commands
-- Run basic structure validation
+- Validate command follows established patterns
+- Test command can be discovered by Cursor
 
 **Present Summary:**
+
 ```
 ✅ New command created successfully!
 
-📁 Files Created/Updated:
-  - .code-captain/commands/[command-name].md
-  - cc.md (updated)
-  - cc.mdc (updated) 
-  - README.md (updated)
+📁 Files Created:
+  - .cursor/commands/[command-name].md
 
 🚀 Command Ready:
   Usage: /[command-name] [args]
-  Documentation: .code-captain/commands/[command-name].md
+  Documentation: .cursor/commands/[command-name].md
 ```
 
 ## Core Rules
@@ -174,17 +272,13 @@ TEMPLATE ADAPTATION RULES:
 - CRITICAL: Be language and shell agnostic - use codebase_search, list_dir, file_search instead of language-specific find commands or hardcoded file extensions
 
 DOCUMENTATION UPDATES:
-Update these files with the new command:
-- cc.md: Add to appropriate category, command list, examples
-- cc.mdc: Add to Core Commands with brief description  
-- README.md: Add to features, command table, workflow examples
+Commands are automatically discovered by Cursor from `.cursor/commands/` - no manual documentation updates needed.
 
 OUTPUT REQUIREMENTS:
 1. Generate complete command file following the template
-2. Identify exact locations in documentation files to update
-3. Provide specific text additions for each documentation file
-4. Ensure consistency with existing command patterns
-5. Validate no conflicts with existing commands
+2. Ensure consistency with existing command patterns
+3. Validate no conflicts with existing commands
+4. Create command in `.cursor/commands/[command-name].md`
 
 QUALITY CHECKS:
 - Command name follows naming conventions (lowercase, hyphens)
@@ -201,6 +295,7 @@ QUALITY CHECKS:
 ### Command Name Validation
 
 **Validation Rules:**
+
 - Lowercase letters, numbers, hyphens only
 - No spaces or special characters
 - Maximum 20 characters
@@ -208,6 +303,7 @@ QUALITY CHECKS:
 - Must not conflict with existing commands
 
 **Validation Process:**
+
 ```bash
 # Check format
 echo "command-name" | grep -E '^[a-z][a-z0-9-]*[a-z0-9]$'
@@ -221,16 +317,19 @@ ls .code-captain/commands/ | grep "^command-name.md$"
 **Command Categories and Templates:**
 
 1. **Setup/Analysis** (`initialize`, `research`, `explain-code`)
+
    - Context scanning workflows
    - Documentation generation
    - Progress tracking emphasis
 
 2. **Planning/Specification** (`create-spec`, `create-adr`, `plan-product`)
+
    - Interactive clarification phases
    - Structured output formats
    - Contract-based workflows
 
 3. **Implementation** (`execute-task`, `swab`)
+
    - Code modification workflows
    - TDD patterns
    - Verification steps
@@ -244,15 +343,18 @@ ls .code-captain/commands/ | grep "^command-name.md$"
 ### Documentation Update Locations
 
 **cc.md Update Points:**
+
 - Line ~15-50: Available Commands sections
 - Line ~95-110: Command documentation list
 - Line ~150-190: Usage examples
 
 **cc.mdc Update Points:**
+
 - Line ~25-35: Core Commands list
 - Line ~35-45: Enhanced workflows (if integration)
 
 **README.md Update Points:**
+
 - Line ~120-140: Feature sections
 - Line ~400-415: Command reference table
 - Line ~250-270: Source structure
@@ -260,12 +362,14 @@ ls .code-captain/commands/ | grep "^command-name.md$"
 ### Error Handling
 
 **Common Issues:**
+
 - **Duplicate command name**: Check existing commands, suggest alternatives
 - **Invalid command name format**: Provide format guidance and examples
 - **Documentation update conflicts**: Use safe merge strategies, manual review if needed
 - **Template generation errors**: Validate inputs, provide clear error messages
 
 **Error Messages:**
+
 ```
 ❌ Command creation failed: [specific reason]
 
