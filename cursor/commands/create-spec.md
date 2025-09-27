@@ -1,14 +1,8 @@
-# Enhanced Create Spec Command (cc: create-spec)
+# Enhanced Create Spec Command (create-spec)
 
 ## Overview
 
 Generate comprehensive feature specifications using a contract-first approach that ensures complete alignment between developer and AI before creating any supporting files. This command eliminates presumptuous file creation by establishing a clear "contract" through structured clarification rounds.
-
-## Usage
-
-```bash
-cc: create-spec "rough feature description"
-```
 
 ## Command Process
 
@@ -368,7 +362,7 @@ Once you're satisfied with the specification, I can help you start implementatio
 ## Example Usage Flow
 
 ```
-Developer: cc: create-spec "real-time multiplayer chat with blockchain integration"
+Developer: /create-spec "real-time multiplayer chat with blockchain integration"
 
 Agent: I'm ready to help you create a comprehensive specification.
 

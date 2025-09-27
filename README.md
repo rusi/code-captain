@@ -98,27 +98,27 @@ _Command syntax and execution varies by IDE - see platform-specific documentatio
 
 ```bash
 # 1. Research and plan
-cc: research "WebSocket vs Server-Sent Events"
-cc: create-adr "real-time communication strategy"
+/research "WebSocket vs Server-Sent Events"
+/create-adr "real-time communication strategy"
 
 # 2. Create comprehensive specification
-cc: create-spec "real-time chat system"
+/create-spec "real-time chat system"
 
 # 3. Implement with TDD
-cc: execute-task
+/execute-task
 ```
 
 ### Project Analysis
 
 ```bash
 # Analyze existing codebase
-cc: initialize
+/initialize
 
 # Plan new features based on analysis
-cc: plan-product "enhanced user dashboard"
+/plan-product "enhanced user dashboard"
 
 # Clean up as you go
-cc: swab
+/swab
 ```
 
 ## 📁 Directory Structure
@@ -147,7 +147,7 @@ Each development environment has its own setup process and command syntax:
 
 | Platform       | Installation Location | Command Format | Documentation                             |
 | -------------- | --------------------- | -------------- | ----------------------------------------- |
-| **Cursor**     | `.cursor/rules/`      | `cc: command`  | [Cursor Guide](cursor/README.md)          |
+| **Cursor**     | `.cursor/commands/`   | `/command`     | [Cursor Guide](cursor/README.md)          |
 | **Copilot**    | `.github/`            | `/command`     | [Copilot Guide](copilot/README.md)        |
 | **Claude.dev** | `.claude/`            | `/command`     | [Claude.dev Guide](claude-code/README.md) |
 
@@ -210,4 +210,4 @@ CC_LOCAL_SOURCE=. npx @devobsessed/code-captain
 
 1. **Install:** `npx @devobsessed/code-captain`
 2. **Choose your IDE** from the links above
-3. **Begin with:** `cc: initialize`
+3. **Begin with:** `/initialize`

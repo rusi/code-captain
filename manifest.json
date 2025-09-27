@@ -1,269 +1,269 @@
 {
-  "version": "0.0.7",
-  "timestamp": "2025-08-09T06:57:59.586Z",
-  "commit": "9636dcaefa9e235506d5f26c26241af06f8bbb03",
+  "version": "0.0.8",
+  "timestamp": "2025-09-27T04:39:27.215Z",
+  "commit": "30f3e2960ba964ea80b8c493bff3c4b2d3f8e306",
   "description": "Code Captain file manifest for change detection",
   "files": {
     "cursor/cc.mdc": {
-      "hash": "sha256:edb9b0007ca24cac9e266b48a418e7a91237ba354be98b4e4d837f21cf7d25f4",
-      "size": 3488,
-      "lastModified": "2025-08-08T14:22:14.838Z",
-      "version": "0.0.7",
+      "hash": "sha256:3ccb42b7e55cde9ee59aa87e15451185fbd004e23a9a532db4dfae0c7b2aa883",
+      "size": 3494,
+      "lastModified": "2025-09-27T04:31:07.437Z",
+      "version": "0.0.8",
       "component": "rules",
-      "description": "**CRITICAL: Before responding to ANY cc: command, FIRST read `.code-captain/cc.md` for complete inst..."
+      "description": "**CRITICAL: Before responding to ANY slash command, FIRST read `.code-captain/cc.md` for complete in..."
     },
     "cursor/cc.md": {
-      "hash": "sha256:dcfff990470a0bbc4a29ef142959a5b7eeeef79084df0ea08e80dbc624da656f",
-      "size": 10060,
-      "lastModified": "2025-08-08T04:39:28.233Z",
-      "version": "0.0.7",
+      "hash": "sha256:4e72b5001be8f52580aadb808b40fb570b432f48f256546d9af08c63d9724d1a",
+      "size": 10034,
+      "lastModified": "2025-09-27T04:31:07.419Z",
+      "version": "0.0.8",
       "component": "commands",
       "description": "I am **Code Captain**, your AI development partner who coordinates comprehensive software developmen..."
     },
     "cursor/commands/create-adr.md": {
-      "hash": "sha256:047495ff730f52f632a79c762b2908a1bd03df6803de5b39c612abcabd8bb727",
-      "size": 15939,
-      "lastModified": "2025-08-08T02:59:35.711Z",
-      "version": "0.0.7",
+      "hash": "sha256:ed3dc621b64d38156e98d3cac140d4658d355c1eabd6f12310ddcb3ba046ffca",
+      "size": 15860,
+      "lastModified": "2025-09-27T04:36:42.732Z",
+      "version": "0.0.8",
       "component": "commands",
       "description": "Create comprehensive Architecture Decision Records (ADRs) that systematically document architectural..."
     },
     "cursor/commands/create-spec.md": {
-      "hash": "sha256:3ec514546ca47396f7f46cd3ae1fb4d908783b9cbb1fcf8aa6bad4abb46204f4",
-      "size": 18337,
-      "lastModified": "2025-08-09T06:49:05.641Z",
-      "version": "0.0.7",
+      "hash": "sha256:bdb97f89022059c891ae69fac3b8d292eaea11442ec8757692c2c68d4d862a0a",
+      "size": 18263,
+      "lastModified": "2025-09-27T04:36:48.643Z",
+      "version": "0.0.8",
       "component": "commands",
       "description": "Generate comprehensive feature specifications using a contract-first approach that ensures complete ..."
     },
     "cursor/commands/edit-spec.md": {
-      "hash": "sha256:a475a67a6fa0c1bb814a32c64911864d95569b5095c2911a5cc516ac5726ec2d",
-      "size": 17119,
-      "lastModified": "2025-08-08T01:52:31.601Z",
-      "version": "0.0.7",
+      "hash": "sha256:95836eba17d903953a4c4209a69c33eb6ad19f276f472d66c13887a8094868e2",
+      "size": 16803,
+      "lastModified": "2025-09-27T04:37:11.893Z",
+      "version": "0.0.8",
       "component": "commands",
       "description": "Modify existing feature specifications using a contract-first approach that ensures complete alignme..."
     },
     "cursor/commands/execute-task.md": {
-      "hash": "sha256:1be464ec264d0453964a6e9eb07e525d4b8e32d8f226e0726ac939deb97f3033",
-      "size": 16708,
-      "lastModified": "2025-08-08T01:52:31.601Z",
-      "version": "0.0.7",
+      "hash": "sha256:01323eaf32a4b44cc4c2abdaccd728245448070235a8d623751449e8daf23871",
+      "size": 16496,
+      "lastModified": "2025-09-27T04:37:05.920Z",
+      "version": "0.0.8",
       "component": "commands",
       "description": "Execute a specific task and its sub-tasks systematically following a Test-Driven Development (TDD) w..."
     },
     "cursor/commands/explain-code.md": {
-      "hash": "sha256:f521e7b56652c379282b9f53e11a671ce53e0d7114365eeca86f0cb84142c0d5",
-      "size": 7609,
-      "lastModified": "2025-08-09T06:09:21.399Z",
-      "version": "0.0.7",
+      "hash": "sha256:169448370c49cbcd7ca94705ae7236cdfa7fdf0414b6b159c5fb45f0cd380f0b",
+      "size": 7570,
+      "lastModified": "2025-09-27T04:28:57.128Z",
+      "version": "0.0.8",
       "component": "commands",
       "description": "The `explain-code` command provides comprehensive, AI-powered explanations of code segments, functio..."
     },
     "cursor/commands/initialize.md": {
-      "hash": "sha256:2c8e7e4b65778d13d0dbcb4c6906fcb045bacd71d9684bc091c636b2088bfa35",
-      "size": 11315,
-      "lastModified": "2025-08-08T02:59:35.700Z",
-      "version": "0.0.7",
+      "hash": "sha256:a519ecaacb02097b1d12a43a34ac3498a6bf9b47ecc6cb6621dd84b3d4970a10",
+      "size": 11267,
+      "lastModified": "2025-09-27T04:31:07.448Z",
+      "version": "0.0.8",
       "component": "commands",
       "description": "Set up technical foundation and development infrastructure by detecting if this is a greenfield (new..."
     },
     "cursor/commands/new-command.md": {
-      "hash": "sha256:dd016d7dcb222e59c4b699cd93d5340d44e659d4b36cb4bbc9529ba10a8bc404",
-      "size": 10703,
-      "lastModified": "2025-08-08T14:17:36.948Z",
-      "version": "0.0.7",
+      "hash": "sha256:d80b19ab256051db26f0787b70433ae0171e3bb6893ba1eacfe270600000e6a5",
+      "size": 10348,
+      "lastModified": "2025-09-27T04:37:29.874Z",
+      "version": "0.0.8",
       "component": "commands",
       "description": "A meta command that creates new Code Captain commands following established patterns and conventions..."
     },
     "cursor/commands/plan-product.md": {
-      "hash": "sha256:41ecf4304a0f87318b67c448cd13fa4ffe5b3381a3106649c9fa4d991de1d91f",
-      "size": 16544,
-      "lastModified": "2025-08-08T01:52:31.602Z",
-      "version": "0.0.7",
+      "hash": "sha256:90a69bc3334a69af98aa0814e7a00e1e2c4ce4cd0abf32b04f3c577f9437f221",
+      "size": 16455,
+      "lastModified": "2025-09-27T04:37:01.241Z",
+      "version": "0.0.8",
       "component": "commands",
       "description": "Generate comprehensive product planning documentation using a contract-first approach that establish..."
     },
     "cursor/commands/research.md": {
       "hash": "sha256:1360b3a52fca9ebd92f4f89e60a41cb13cac634c41453a9e4f773144fcc09dbc",
       "size": 9122,
-      "lastModified": "2025-08-09T06:09:21.398Z",
-      "version": "0.0.7",
+      "lastModified": "2025-09-27T04:28:57.124Z",
+      "version": "0.0.8",
       "component": "commands",
       "description": "Conduct systematic research on a topic using structured phases that build upon each other, creating ..."
     },
     "cursor/commands/status.md": {
-      "hash": "sha256:884d55964c15211b6d9e3eaf2ab39d9dab28de7e1f2bd2eb6cf8bc23eba37cbe",
-      "size": 12881,
-      "lastModified": "2025-08-08T14:22:16.634Z",
-      "version": "0.0.7",
+      "hash": "sha256:48ea3bd849cdfb566778f6d84090878c287cee3e07dd4ec997bdc51fcca40ea4",
+      "size": 12793,
+      "lastModified": "2025-09-27T04:28:57.113Z",
+      "version": "0.0.8",
       "component": "commands",
       "description": "A command that provides developers with a comprehensive status report when starting work or switchin..."
     },
     "cursor/commands/swab.md": {
-      "hash": "sha256:d314078cb7e02dbf72f77276da20cf234f83d75fb72743bbcbb9c09a327bf833",
-      "size": 8390,
-      "lastModified": "2025-08-09T06:12:32.054Z",
-      "version": "0.0.7",
+      "hash": "sha256:9faa9403fbd24b992bdd3c6cff204a6c867fb4068a79188ec7cbe5662daf1e4d",
+      "size": 8270,
+      "lastModified": "2025-09-27T04:36:54.837Z",
+      "version": "0.0.8",
       "component": "commands",
       "description": "A deck-cleaning agent that makes one small, focused improvement to the codebase, following the \"Boy ..."
     },
     "cursor/docs/best-practices.md": {
       "hash": "sha256:727c8ae467010da039c41d013c2557d689bfca16f8a93e6b8744c89fa66e27ba",
       "size": 2177,
-      "lastModified": "2025-08-08T01:52:31.605Z",
-      "version": "0.0.7",
+      "lastModified": "2025-09-27T04:04:14.825Z",
+      "version": "0.0.8",
       "component": "docs",
       "description": "Global development guidelines for Agent OS projects."
     },
     "copilot/chatmodes/Code Captain.chatmode.md": {
       "hash": "sha256:4f431910aaa4408cd79ca61e65b2599e041f79118103f82c097f1fd1d9e56763",
       "size": 2939,
-      "lastModified": "2025-08-08T04:39:28.374Z",
-      "version": "0.0.7",
+      "lastModified": "2025-09-27T04:04:14.821Z",
+      "version": "0.0.8",
       "component": "chatmodes",
       "description": "⚓ Awaiting orders..."
     },
     "copilot/prompts/create-adr.prompt.md": {
       "hash": "sha256:fc74c30184f7b8415a68ec03c1029807a84e67c697ab2fc64589557aac3c578c",
       "size": 14949,
-      "lastModified": "2025-08-08T01:52:31.595Z",
-      "version": "0.0.7",
+      "lastModified": "2025-09-27T04:04:14.821Z",
+      "version": "0.0.8",
       "component": "prompts",
       "description": "Create comprehensive Architecture Decision Records (ADRs) that systematically document architectural..."
     },
     "copilot/prompts/create-spec.prompt.md": {
       "hash": "sha256:919116254a73de36a870691ffba8b00e2fc5c433d9fea7a906d43431aeaf45d9",
       "size": 18407,
-      "lastModified": "2025-08-09T06:09:21.399Z",
-      "version": "0.0.7",
+      "lastModified": "2025-09-27T04:04:14.821Z",
+      "version": "0.0.8",
       "component": "prompts",
       "description": "Generate comprehensive feature specifications using a contract-first approach that ensures complete ..."
     },
     "copilot/prompts/edit-spec.prompt.md": {
       "hash": "sha256:a5718f51861886dd0d310348c150f8dd3a467ff94181fb375f960118e264d15f",
       "size": 16843,
-      "lastModified": "2025-08-08T01:52:31.595Z",
-      "version": "0.0.7",
+      "lastModified": "2025-09-27T04:04:14.821Z",
+      "version": "0.0.8",
       "component": "prompts",
       "description": "Modify existing feature specifications using a contract-first approach that ensures complete alignme..."
     },
     "copilot/prompts/execute-task.prompt.md": {
       "hash": "sha256:a3666ad792ec2280b391a89bd30c2d5ec86414a2e7cc707eaae60c43a95ca750",
       "size": 5219,
-      "lastModified": "2025-08-08T01:52:31.596Z",
-      "version": "0.0.7",
+      "lastModified": "2025-09-27T04:04:14.822Z",
+      "version": "0.0.8",
       "component": "prompts",
       "description": "Execute a specific task and its sub-tasks systematically following a Test-Driven Development (TDD) w..."
     },
     "copilot/prompts/explain-code.prompt.md": {
       "hash": "sha256:40daffe30706a74f9f972d308eb302845e2757f2167e97f9a2a15347684b4e97",
       "size": 8039,
-      "lastModified": "2025-08-09T06:09:21.404Z",
-      "version": "0.0.7",
+      "lastModified": "2025-09-27T04:04:14.822Z",
+      "version": "0.0.8",
       "component": "prompts",
       "description": "Provide comprehensive, AI-powered explanations of code segments, functions, classes, or entire files..."
     },
     "copilot/prompts/initialize.prompt.md": {
       "hash": "sha256:64620cbf52421b35ff10ae76e8dfe93e66a3a7e567a9be7c7544d0084ec3b4eb",
       "size": 2357,
-      "lastModified": "2025-08-08T01:52:31.597Z",
-      "version": "0.0.7",
+      "lastModified": "2025-09-27T04:04:14.822Z",
+      "version": "0.0.8",
       "component": "prompts",
       "description": "Analyze and set up technical foundation for either greenfield (new) or brownfield (existing) project..."
     },
     "copilot/prompts/new-command.prompt.md": {
       "hash": "sha256:948850c9a737a3d045059ade9648e5e3c21e839e2bd94fd644e41cdef1d1701e",
       "size": 12093,
-      "lastModified": "2025-08-08T14:22:16.633Z",
-      "version": "0.0.7",
+      "lastModified": "2025-09-27T04:04:14.822Z",
+      "version": "0.0.8",
       "component": "prompts",
       "description": "A meta command that creates new Code Captain commands following established patterns and conventions..."
     },
     "copilot/prompts/plan-product.prompt.md": {
       "hash": "sha256:67d11bf06727bcd175bf65e1f784d2685dbac93a57db02fb99670eec2becd0c8",
       "size": 16080,
-      "lastModified": "2025-08-08T01:52:31.597Z",
-      "version": "0.0.7",
+      "lastModified": "2025-09-27T04:04:14.822Z",
+      "version": "0.0.8",
       "component": "prompts",
       "description": "Generate comprehensive product planning documentation using a contract-first approach that establish..."
     },
     "copilot/prompts/research.prompt.md": {
       "hash": "sha256:2af0a28261e3b94d8336bfffc3ad447ffc20b4f959b979107e16d1c4248c14a0",
       "size": 9678,
-      "lastModified": "2025-08-09T06:09:21.399Z",
-      "version": "0.0.7",
+      "lastModified": "2025-09-27T04:04:14.822Z",
+      "version": "0.0.8",
       "component": "prompts",
       "description": "Conduct systematic research on a topic using structured phases that build upon each other, creating ..."
     },
     "copilot/prompts/status.prompt.md": {
       "hash": "sha256:3710c9ac707adbdd9dae73496e76b4ee60b20d2e6c80a81efb2245df93f4dda7",
       "size": 13162,
-      "lastModified": "2025-08-08T14:22:16.634Z",
-      "version": "0.0.7",
+      "lastModified": "2025-09-27T04:04:14.823Z",
+      "version": "0.0.8",
       "component": "prompts",
       "description": "Provide developers with a comprehensive status report when starting work or switching context. Analy..."
     },
     "copilot/prompts/swab.prompt.md": {
       "hash": "sha256:4daa2747d3483b573684280f376fe0dd9829accca2bd505faed8d30d704cf795",
       "size": 6741,
-      "lastModified": "2025-08-09T06:12:32.060Z",
-      "version": "0.0.7",
+      "lastModified": "2025-09-27T04:04:14.823Z",
+      "version": "0.0.8",
       "component": "prompts",
       "description": "A deck-cleaning agent that makes one small, focused improvement to the codebase, following the \"Boy ..."
     },
     "copilot/docs/best-practices.md": {
       "hash": "sha256:727c8ae467010da039c41d013c2557d689bfca16f8a93e6b8744c89fa66e27ba",
       "size": 2177,
-      "lastModified": "2025-08-08T01:52:31.594Z",
-      "version": "0.0.7",
+      "lastModified": "2025-09-27T04:04:14.821Z",
+      "version": "0.0.8",
       "component": "docs",
       "description": "Global development guidelines for Agent OS projects."
     },
     "claude-code/agents/code-captain.md": {
       "hash": "sha256:9a732658dd7abfc7ab3c0d76879e220420bb635bd5983ab00e080236af031e0f",
       "size": 5868,
-      "lastModified": "2025-08-08T14:20:15.741Z",
-      "version": "0.0.7",
+      "lastModified": "2025-09-27T04:04:14.819Z",
+      "version": "0.0.8",
       "component": "agents",
       "description": "Comprehensive AI development partner for coordinating software development workflows. Use proactively for project setup, requirements analysis, feature specifications, architecture decisions, implementation planning, and platform integrations across the entire development lifecycle."
     },
     "claude-code/agents/spec-generator.md": {
       "hash": "sha256:ee220ded638b37fe29c519f8b21311b535c871b9d0f276d0cb7a609241bac497",
       "size": 8644,
-      "lastModified": "2025-08-08T01:52:31.592Z",
-      "version": "0.0.7",
+      "lastModified": "2025-09-27T04:04:14.819Z",
+      "version": "0.0.8",
       "component": "agents",
       "description": "Specialized agent for generating core specification documents from locked contracts. Creates spec.md and spec-lite.md files with proper structure and formatting."
     },
     "claude-code/agents/story-creator.md": {
       "hash": "sha256:3968ec61d6530c165d594448ad703ddee9fb4ddc84fe6a414c6ed4fcc836c596",
       "size": 11225,
-      "lastModified": "2025-08-08T01:52:31.592Z",
-      "version": "0.0.7",
+      "lastModified": "2025-09-27T04:04:14.820Z",
+      "version": "0.0.8",
       "component": "agents",
       "description": "Specialized agent for creating user stories with focused task breakdown. Generates individual story files with 5-7 tasks each, following TDD patterns and ensuring each story delivers standalone user value."
     },
     "claude-code/agents/tech-spec.md": {
       "hash": "sha256:22e055c35614ff928c62540eb3459b8841b2f48852d999ab949d35ebc9cdd108",
       "size": 12800,
-      "lastModified": "2025-08-08T01:52:31.593Z",
-      "version": "0.0.7",
+      "lastModified": "2025-09-27T04:04:14.820Z",
+      "version": "0.0.8",
       "component": "agents",
       "description": "Specialized agent for generating technical specifications based on requirements. Creates architecture documents, database schemas, API specs, and UI wireframes only when needed, ensuring technical details support user story implementation."
     },
     "claude-code/commands/cc-initialize.md": {
       "hash": "sha256:7c94db2c53c3b937377074d1ef272cdc9b026ebb108c68770c4836f476a7abdc",
       "size": 15817,
-      "lastModified": "2025-08-08T01:52:31.593Z",
-      "version": "0.0.7",
+      "lastModified": "2025-09-27T04:04:14.820Z",
+      "version": "0.0.8",
       "component": "claude-commands",
       "description": "Set up technical foundation and development infrastructure by detecting if this is a greenfield (new..."
     }
   },
   "changelog": {
-    "0.0.7": {
-      "date": "2025-08-09",
+    "0.0.8": {
+      "date": "2025-09-27",
       "changes": []
     }
   }

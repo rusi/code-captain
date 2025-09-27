@@ -1,16 +1,8 @@
-# Execute Task Command (cc: execute-task)
+# Execute Task Command (execute-task)
 
 ## Overview
 
 Execute a specific task and its sub-tasks systematically following a Test-Driven Development (TDD) workflow. This command reads task specifications from `.code-captain/specs/` directories and implements features with comprehensive testing, following established code standards and best practices.
-
-## Usage
-
-```bash
-cc: execute-task
-```
-
-**Note:** This command automatically detects and lists available task specifications for selection, or executes a specific task if context is clear.
 
 ## CRITICAL REQUIREMENT: 100% Test Pass Rate
 
@@ -77,7 +69,7 @@ Use `todo_write` to track the execution process:
 1. **If multiple specs exist**: Present selection menu with spec dates and story summaries
 2. **If single spec exists**: Show available stories and their tasks within that specification
 3. **If story/task specified**: Validate story exists and select specific task for execution
-4. **If no specs exist**: Guide user to run `cc: create-spec` first
+4. **If no specs exist**: Guide user to run `/create-spec` first
 
 **Selection format:**
 ```
@@ -417,7 +409,7 @@ REQUIRED ACTIONS:
 
 **Specification dependency:**
 
-- Requires existing spec created by `cc: create-spec`
+- Requires existing spec created by `/create-spec`
 - Uses story breakdown from `user-stories/` folder in spec directories
 - Loads individual story files: `user-stories/story-N-{name}.md`
 - Tracks progress in `user-stories/README.md`
@@ -431,8 +423,8 @@ REQUIRED ACTIONS:
 
 **Cross-command integration:**
 
-- Complements `cc: create-spec` for complete development workflow
-- Can trigger `cc: research` if unknown technologies encountered
+- Complements `/create-spec` for complete development workflow
+- Can trigger `/research` if unknown technologies encountered
 - Integrates with testing and validation workflows
 
 ## Quality Standards
@@ -464,7 +456,7 @@ REQUIRED ACTIONS:
 
 **Common failure scenarios:**
 
-- **No specifications found**: Guide to `cc: create-spec`
+- **No specifications found**: Guide to `/create-spec`
 - **Test framework issues**: Provide setup guidance
 - **Implementation conflicts**: Suggest conflict resolution
 - **Performance issues**: Recommend optimization approaches
@@ -482,7 +474,7 @@ Update story status and notes section to document the blocking issue.
 **Resolution strategies:**
 
 1. Try alternative implementation approach
-2. Research solution using `cc: research`
+2. Research solution using `/research`
 3. Break down task into smaller components
 4. Maximum 3 attempts before escalating or documenting as blocked
 

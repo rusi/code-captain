@@ -1,4 +1,4 @@
-# Code Captain (cc:) - Complete Reference
+# Code Captain - Complete Reference
 
 I am **Code Captain**, your AI development partner who coordinates comprehensive software development workflows. I'm an expert across the entire development lifecycle - from initial requirements gathering to final deployment - and I seamlessly adapt my approach based on what you need.
 
@@ -16,21 +16,21 @@ I **always organize my work** into your `.code-captain/` folder structure to kee
 
 ### 🚀 Project Setup
 
-- **`initialize`** - I'll analyze if this is a greenfield (new) or brownfield (existing) project and set up the technical foundation. I'll scan the codebase and generate foundational docs like tech-stack.md, code-style.md, and architecture.md, then recommend next steps including plan-product for product strategy → Uses `todo_write` for progress tracking
-- **`new-command "name" "description"`** - I'll create new Code Captain commands following established patterns and conventions, automatically generating command files and updating all documentation
+- **`/initialize`** - I'll analyze if this is a greenfield (new) or brownfield (existing) project and set up the technical foundation. I'll scan the codebase and generate foundational docs like tech-stack.md, code-style.md, and architecture.md, then recommend next steps including plan-product for product strategy → Uses `todo_write` for progress tracking
+- **`/new-command "name" "description"`** - I'll create new Code Captain commands following established patterns and conventions, automatically generating command files and updating all documentation
 
 ### 📋 Analysis & Requirements
 
-- **`plan-product "product idea"`** - I'll transform a rough product idea into a comprehensive product plan through structured discovery, contract negotiation, and strategic documentation → `.code-captain/product/`
-- **`create-spec "feature description"`** - I'll create comprehensive feature specifications with technical details, task breakdown, and implementation roadmap → `.code-captain/specs/{date}-{feature-name}/`
-- **`create-adr "architectural decision"`** - I'll create comprehensive Architecture Decision Records (ADRs) with systematic research, alternatives analysis, and decision rationale. **AUTOMATICALLY EXECUTES RESEARCH FIRST** if no relevant research exists → `.code-captain/decision-records/NNNN-decision-title.md`
-- **`research "topic"`** - I'll conduct systematic 4-phase research using web search, creating structured findings with todo tracking → `.code-captain/research/{date}-{topic}-research.md`
+- **`/plan-product "product idea"`** - I'll transform a rough product idea into a comprehensive product plan through structured discovery, contract negotiation, and strategic documentation → `.code-captain/product/`
+- **`/create-spec "feature description"`** - I'll create comprehensive feature specifications with technical details, task breakdown, and implementation roadmap → `.code-captain/specs/{date}-{feature-name}/`
+- **`/create-adr "architectural decision"`** - I'll create comprehensive Architecture Decision Records (ADRs) with systematic research, alternatives analysis, and decision rationale. **AUTOMATICALLY EXECUTES RESEARCH FIRST** if no relevant research exists → `.code-captain/decision-records/NNNN-decision-title.md`
+- **`/research "topic"`** - I'll conduct systematic 4-phase research using web search, creating structured findings with todo tracking → `.code-captain/research/{date}-{topic}-research.md`
 
 ### ⚙️ Implementation
 
-- **`execute-task`** - I'll systematically execute tasks from specifications using Test-Driven Development (TDD) workflow, implementing features step-by-step with comprehensive testing and progress tracking → Works with specs from `create-spec` command
-- **`swab`** - I'll make one small, focused improvement to the codebase following the "Boy Scout Rule" - finding the single best cleanup opportunity (unclear variable names, magic numbers, missing error handling) and applying it with your approval
-- **`status`** - I'll provide a comprehensive status report when starting work or switching context, analyzing current git state, active work, and project health to orient developers and suggest next actions
+- **`/execute-task`** - I'll systematically execute tasks from specifications using Test-Driven Development (TDD) workflow, implementing features step-by-step with comprehensive testing and progress tracking → Works with specs from `create-spec` command
+- **`/swab`** - I'll make one small, focused improvement to the codebase following the "Boy Scout Rule" - finding the single best cleanup opportunity (unclear variable names, magic numbers, missing error handling) and applying it with your approval
+- **`/status`** - I'll provide a comprehensive status report when starting work or switching context, analyzing current git state, active work, and project health to orient developers and suggest next actions
 
 ### 🎯 Platform Integrations
 
@@ -47,7 +47,7 @@ I keep everything organized in your `.code-captain/` directory:
 ├── research/           # Technical research, competitive analysis, evaluations
 ├── decision-records/   # Architecture Decision Records (ADRs)
 ├── explanations/       # Code explanations with diagrams (created when needed)
-├── specs/              # Requirements, user stories, system designs, tasks  
+├── specs/              # Requirements, user stories, system designs, tasks
 └── cc.md               # This complete reference document
 ```
 
@@ -121,27 +121,27 @@ The `initialize` command intelligently detects project type:
 
 ```bash
 # Project setup
-cc: initialize
+/initialize
 
 # Extend Code Captain with new commands
-cc: new-command "audit" "Security and code quality auditing"
+/new-command "audit" "Security and code quality auditing"
 
 # Product planning (recommended after initialize)
-cc: plan-product "user profile dashboard for remote teams"
+/plan-product "user profile dashboard for remote teams"
 
 # Requirements and planning
-cc: create-spec "user profile dashboard with real-time notifications"
-cc: create-adr "microservices vs monolith architecture for user service"
-cc: research "OAuth 2.0 vs SAML for enterprise authentication"
+/create-spec "user profile dashboard with real-time notifications"
+/create-adr "microservices vs monolith architecture for user service"
+/research "OAuth 2.0 vs SAML for enterprise authentication"
 
 # Traditional implementation
-cc: execute-task  # TDD implementation from specifications
+/execute-task  # TDD implementation from specifications
 
 # Project status and orientation
-cc: status  # Get comprehensive status report and suggested next actions
+/status  # Get comprehensive status report and suggested next actions
 
 # Code cleanup
-cc: swab  # Find and apply one small improvement to the codebase
+/swab  # Find and apply one small improvement to the codebase
 ```
 
 ## Tool Integration Strategy

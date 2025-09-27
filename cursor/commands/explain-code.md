@@ -7,7 +7,7 @@ The `explain-code` command provides comprehensive, AI-powered explanations of co
 ## Command Syntax
 
 ```bash
-cc: explain-code [target]
+/explain-code [target]
 ```
 
 ## Parameters
@@ -31,19 +31,19 @@ The command automatically:
 
 ```bash
 # Explain a specific function
-cc: explain-code calculateUserDiscount
+/explain-code calculateUserDiscount
 
 # Explain a class
-cc: explain-code PaymentProcessor
+/explain-code PaymentProcessor
 
 # Explain entire file
-cc: explain-code src/auth/AuthService.js
+/explain-code src/auth/AuthService.js
 
 # Explain specific line range
-cc: explain-code "src/utils/helpers.js:45-78"
+/explain-code "src/utils/helpers.js:45-78"
 
 # Explain currently selected code in IDE
-cc: explain-code current-selection
+/explain-code current-selection
 ```
 
 ## Output Structure
@@ -166,9 +166,9 @@ If system clock access isn't available:
 ### With Other Commands
 ```bash
 # Saved explanations can be referenced by other commands
-cc: research authentication
-cc: create-spec payment-processing
-cc: execute-task "optimize the user search"
+/research authentication
+/create-spec payment-processing
+/execute-task "optimize the user search"
 
 # AI can access saved explanations from .code-captain/explanations/
 # to provide better context for other commands
@@ -184,16 +184,16 @@ cc: execute-task "optimize the user search"
 
 ```bash
 # List all saved explanations
-cc: list-explanations
+/list-explanations
 
 # Search explanations
-cc: search-explanations "authentication"
+/search-explanations "authentication"
 
 # Show explanation history
-cc: explanation-history calculateDiscount
+/explanation-history calculateDiscount
 
 # Update outdated explanations when code changes
-cc: refresh-explanations --check-code-changes
+/refresh-explanations --check-code-changes
 ```
 
 ## Diagram Types Generated

@@ -1,21 +1,8 @@
-# New Command Creator (cc: new-command)
+# New Command Creator (/new-command)
 
 ## Overview
 
 A meta command that creates new Code Captain commands following established patterns and conventions. This command generates properly structured command files, updates documentation, and ensures consistency across the Code Captain ecosystem.
-
-## Usage
-
-```bash
-cc: new-command "command-name" "brief description"
-```
-
-**Examples:**
-```bash
-cc: new-command "optimize" "Performance optimization for slow code sections"
-cc: new-command "deploy" "Deploy applications to various cloud platforms"
-cc: new-command "test-gen" "Generate comprehensive test suites from existing code"
-```
 
 ## Command Process
 
@@ -42,14 +29,14 @@ Ask clarifying questions to build complete command specification:
 **Generate Standard Command File Structure:**
 
 ```markdown
-# [Command Name] Command (cc: [command-name])
+# [Command Name] Command ([command-name])
 
 ## Overview
 [Generated from description and clarifying questions]
 
 ## Usage
 ```bash
-cc: [command-name] [arguments]
+/[command-name] [arguments]
 ```
 
 ## Command Process
@@ -137,7 +124,7 @@ cc: [command-name] [arguments]
   - README.md (updated)
 
 🚀 Command Ready:
-  Usage: cc: [command-name] [args]
+  Usage: /[command-name] [args]
   Documentation: .code-captain/commands/[command-name].md
 ```
 
@@ -169,7 +156,7 @@ COMMAND SPECIFICATION:
 - Workflow Steps: {workflow_phases}
 
 TEMPLATE STRUCTURE:
-1. Title: # [Command Name] Command (cc: [command-name])
+1. Title: # [Command Name] Command ([command-name])
 2. Overview: Purpose and capabilities
 3. Usage: Command syntax with examples
 4. Command Process: Detailed step-by-step workflow
@@ -287,7 +274,7 @@ Suggestions:
 - Ensure name doesn't conflict with existing commands
 - Verify all required inputs are provided
 
-Try: cc: new-command "valid-name" "clear description"
+Try: /new-command "valid-name" "clear description"
 ```
 
 ## Integration Notes

@@ -1,16 +1,8 @@
-# Code Captain Swab Command (cc: swab)
+# Code Captain Swab Command (swab)
 
 ## Overview
 
 A deck-cleaning agent that makes one small, focused improvement to the codebase, following the "Boy Scout Rule" - leave the code cleaner than you found it. This command identifies the single best small cleanup opportunity and applies it with your approval.
-
-## Usage
-
-```bash
-cc: swab
-```
-
-**Note:** No options, no flags, no complexity. Just simple deck cleaning.
 
 ## Command Process
 
@@ -259,9 +251,9 @@ This command integrates with the existing Code Captain ecosystem by:
 
 Potential future improvements (not in initial version):
 
-- **Directory targeting**: `cc: swab src/components/`
-- **File type filtering**: `cc: swab --js-only`
-- **Batch mode**: `cc: swab --batch` (apply multiple small changes)
+- **Directory targeting**: `/swab src/components/`
+- **File type filtering**: `/swab --js-only`
+- **Batch mode**: `/swab --batch` (apply multiple small changes)
 - **Learning**: Remember which types of cleanups user prefers
 - **Metrics**: Track improvements made over time
 

@@ -1,4 +1,4 @@
-# Code Captain Status Command (cc: status)
+# Code Captain Status Command (status)
 
 ## Overview
 A command that provides developers with a comprehensive status report when starting work or switching context. Analyzes current git state, active work, and project health to orient developers and suggest next actions.
@@ -6,7 +6,7 @@ A command that provides developers with a comprehensive status report when start
 ## Command Structure
 
 ```bash
-cc: status
+/status
 ```
 
 Simple, no parameters needed. Works in any git repository with optional Code Captain project structure.
@@ -52,10 +52,10 @@ Simple, no parameters needed. Works in any git repository with optional Code Cap
 
 ### 4. Contextual Command Suggestions
 **Based on Current State:**
-- If mid-task: Suggest `cc: execute-task`
-- If no active work: Suggest `cc: create-spec`
-- If specifications exist: Suggest implementation with `cc: execute-task`
-- Always suggest `cc: swab` for code cleanup
+- If mid-task: Suggest `/execute-task`
+- If no active work: Suggest `/create-spec`
+- If specifications exist: Suggest implementation with `/execute-task`
+- Always suggest `/swab` for code cleanup
 
 ## Output Format
 
@@ -84,10 +84,10 @@ Simple, no parameters needed. Works in any git repository with optional Code Cap
    • Review recent main branch changes (3 new commits)
 
 ⚡ QUICK COMMANDS
-   cc: execute-task     # Continue current task
-   cc: commit-wip       # Commit work in progress  
-   cc: sync-main        # Pull latest from main
-   cc: swab             # Quick code cleanup
+   /execute-task     # Continue current task
+   /commit-wip       # Commit work in progress  
+   /sync-main        # Pull latest from main
+   /swab             # Quick code cleanup
 
 ### Clean State Example
 
@@ -109,9 +109,9 @@ Simple, no parameters needed. Works in any git repository with optional Code Cap
    • Perform maintenance tasks
 
 ⚡ QUICK COMMANDS
-   cc: create-spec      # Plan new feature
-   cc: swab             # Clean up existing code
-   cc: review-specs     # Check previous specifications
+   /create-spec      # Plan new feature
+   /swab             # Clean up existing code
+   /review-specs     # Check previous specifications
 
 ### Problem State Example
 
@@ -142,8 +142,8 @@ Simple, no parameters needed. Works in any git repository with optional Code Cap
    • Continue or restart task 1.4
 
 ⚡ QUICK COMMANDS
-  cc: execute-task     # Continue current task
-  cc: swab            # Code cleanup
+  /execute-task     # Continue current task
+  /swab            # Code cleanup
 
 ## Implementation Details
 
@@ -282,7 +282,7 @@ pip check
 ### Morning Routine
 ```bash
 # Developer starts their day
-$ cc: status
+$ /status
 
 # Gets oriented on yesterday's work
 # Sees exactly what to do next
@@ -292,7 +292,7 @@ $ cc: status
 ### Context Switching
 ```bash
 # After meetings, interruptions, or breaks
-$ cc: status
+$ /status
 
 # Quick reminder of current state
 # Understand what changed while away
@@ -302,7 +302,7 @@ $ cc: status
 ### Project Handoff
 ```bash
 # When picking up someone else's work
-$ cc: status
+$ /status
 
 # Understand current project state
 # See what was being worked on
@@ -336,8 +336,8 @@ $ cc: status
    • Create first feature specification
 
 ⚡ QUICK COMMANDS
-   cc: init             # Initialize Code Captain
-   cc: create-spec      # Create first specification
+   /init             # Initialize Code Captain
+   /create-spec      # Create first specification
 ```
 
 ### Corrupted Project State
@@ -353,8 +353,8 @@ $ cc: status
    • Check build configuration
 
 ⚡ RECOVERY COMMANDS
-   cc: doctor           # Diagnose and fix common issues
-   cc: reset-deps       # Reinstall dependencies
+   /doctor           # Diagnose and fix common issues
+   /reset-deps       # Reinstall dependencies
 ```
 
 ## Security & Privacy
@@ -416,9 +416,9 @@ $ cc: status
 
 Based on project state analysis, suggest relevant next steps:
 
-- **No specs**: Suggest `cc: create-spec` or `cc: plan-product`
-- **Specs ready for implementation**: Suggest `cc: execute-task`
-- **Tasks ready**: Suggest `cc: execute-task`
-- **Code quality issues**: Suggest `cc: swab`
-- **Missing architecture**: Suggest `cc: create-adr`
-- **Research needed**: Suggest `cc: research`
+- **No specs**: Suggest `/create-spec` or `/plan-product`
+- **Specs ready for implementation**: Suggest `/execute-task`
+- **Tasks ready**: Suggest `/execute-task`
+- **Code quality issues**: Suggest `/swab`
+- **Missing architecture**: Suggest `/create-adr`
+- **Research needed**: Suggest `/research`

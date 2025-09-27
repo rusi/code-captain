@@ -109,21 +109,21 @@ After technical foundation is complete, provide clear next steps:
 
 Your development environment is now set up and documented:
 - Technology stack documented and configured
-- Development tools and standards established  
+- Development tools and standards established
 - Project structure and configuration ready
 
 ## Recommended Next Steps:
 
 ### For New Products:
-cc: plan-product "your product idea" - Define product vision, strategy, and roadmap
+/plan-product "your product idea" - Define product vision, strategy, and roadmap
 
 ### For Existing Products:
-cc: create-spec "feature description" - Create detailed feature specifications
-cc: execute-task - Implement features with TDD workflow
+/create-spec "feature description" - Create detailed feature specifications
+/execute-task - Implement features with TDD workflow
 
 ### For Research:
-cc: research "topic" - Conduct systematic technical research
-cc: create-adr "decision" - Document architectural decisions
+/research "topic" - Conduct systematic technical research
+/create-adr "decision" - Document architectural decisions
 
 Ready to define your product strategy and start building!
 ```
@@ -262,15 +262,15 @@ Your existing project has been analyzed and documented:
 ## Recommended Next Steps:
 
 ### For Product Strategy (Recommended First):
-cc: plan-product "enhanced product vision" - Define product strategy and roadmap
+/plan-product "enhanced product vision" - Define product strategy and roadmap
 
 ### For Feature Development:
-cc: create-spec "feature description" - Create detailed feature specifications
-cc: execute-task - Implement features following established patterns
+/create-spec "feature description" - Create detailed feature specifications
+/execute-task - Implement features following established patterns
 
 ### For Technical Improvements:
-cc: research "technical topic" - Research solutions for identified gaps
-cc: create-adr "technical decision" - Document architectural improvements
+/research "technical topic" - Research solutions for identified gaps
+/create-adr "technical decision" - Document architectural improvements
 
 Ready to define your product strategy and enhance your codebase!
 ```
@@ -284,26 +284,27 @@ Ready to define your product strategy and enhance your codebase!
 **MANDATORY**: The initialize command MUST end with a message that prominently recommends `plan-product` as the next logical step for both greenfield and brownfield projects. This is required because:
 
 1. Initialize handles ONLY technical foundation
-2. plan-product handles product strategy and vision  
+2. plan-product handles product strategy and vision
 3. Users need both for complete project setup
 4. plan-product should be the next step before feature development
 
 **Required message format**:
+
 ```
 🚀 Technical Foundation Complete! / 🔍 Technical Foundation Analysis Complete!
 
 ## Recommended Next Steps:
 
 ### For Product Strategy (Recommended First):
-cc: plan-product "your product idea/vision" - Define product strategy and roadmap
+/plan-product "your product idea/vision" - Define product strategy and roadmap
 
 ### For Feature Development:
-cc: create-spec "feature description" - Create detailed feature specifications
-cc: execute-task - Implement features
+/create-spec "feature description" - Create detailed feature specifications
+/execute-task - Implement features
 
 ### For Technical Improvements:
-cc: research "topic" - Research solutions for gaps
-cc: create-adr "decision" - Document architectural decisions
+/research "topic" - Research solutions for gaps
+/create-adr "decision" - Document architectural decisions
 ```
 
 ---

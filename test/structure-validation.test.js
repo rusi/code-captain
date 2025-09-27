@@ -228,14 +228,13 @@ describe("Structure Validation Tests", () => {
       for (const filePath of commandFiles) {
         const { content } = await parseMarkdownFile(filePath);
 
-        // Should use cc: syntax for command references
-        if (content.includes("cc:")) {
-          expect(content).toMatch(/cc:\s+[a-z-]+/i);
+        // Should use slash syntax for command references (Cursor's native command format)
+        if (content.match(/\/[a-z-]+/)) {
+          expect(content).toMatch(/\/[a-z-]+/i);
         }
 
-        // Should not use slash syntax (that's for other platforms)
-        // Only catch slash commands at line start or in command contexts, not compound words
-        expect(content).not.toMatch(/(?:^|\s|```[\w]*\n)\/[a-z-]+(?:\s|$)/im);
+        // Should not use cc: syntax (deprecated in favor of slash commands)
+        expect(content).not.toMatch(/cc:\s+[a-z-]+/i);
       }
     });
   });

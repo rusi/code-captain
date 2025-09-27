@@ -1,14 +1,8 @@
-# Create ADR Command (cc: create-adr)
+# Create ADR Command (create-adr)
 
 ## Overview
 
 Create comprehensive Architecture Decision Records (ADRs) that systematically document architectural decisions with clear rationale, alternatives considered, and consequences through a structured analysis and review process.
-
-## Usage
-
-```bash
-cc: create-adr "architectural decision description"
-```
 
 ## When to Use
 

@@ -1,14 +1,8 @@
-# Plan Product Command (cc: plan-product)
+# Plan Product Command (plan-product)
 
 ## Overview
 
 Generate comprehensive product planning documentation using a contract-first approach that establishes clear product vision, mission, and roadmap before creating any supporting files. This command eliminates assumptions by gathering complete product context through structured discovery, then creates a complete product planning package for AI-assisted development.
-
-## Usage
-
-```bash
-cc: plan-product "product idea description"
-```
 
 ## Command Process
 
@@ -386,9 +380,9 @@ Please review the planning documents and let me know:
 - Does the roadmap timeline align with your expectations?
 
 Once you're satisfied with the product plan, you can use:
-- `cc: create-spec` to detail specific features from the roadmap
-- `cc: execute-task` to begin implementing planned features
-- `cc: research` to investigate any market or product unknowns
+- `/create-spec` to detail specific features from the roadmap
+- `/execute-task` to begin implementing planned features
+- `/research` to investigate any market or product unknowns
 ```
 
 ## Key Improvements Over Basic Product Planning
@@ -436,9 +430,9 @@ Once you're satisfied with the product plan, you can use:
 - Integrates with established project patterns if present
 
 **Cross-command integration:**
-- Feeds into `cc: create-spec` for detailed feature planning
-- Supports `cc: execute-task` with clear product context
-- Can trigger `cc: research` for market or technical investigation
+- Feeds into `/create-spec` for detailed feature planning
+- Supports `/execute-task` with clear product context
+- Can trigger `/research` for market or technical investigation
 
 **Output integration:**
 - Product documents provide context for all future development

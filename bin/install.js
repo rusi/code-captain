@@ -1084,16 +1084,16 @@ class CodeCaptainInstaller {
           chalk.blue("2.") +
             " Access commands via " +
             chalk.cyan("/") +
-            " in chat or use " +
-            chalk.cyan("cc:") +
-            " prefix commands"
+            " in chat (e.g., " +
+            chalk.cyan("/initialize") +
+            ", " +
+            chalk.cyan("/create-spec") +
+            ")"
         );
         console.log(
           chalk.blue("3.") +
             " Try " +
             chalk.cyan("/initialize") +
-            " or " +
-            chalk.cyan("cc: initialize") +
             " to set up your project"
         );
         console.log(

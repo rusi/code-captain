@@ -1,21 +1,8 @@
-# Enhanced Edit Spec Command (cc: edit-spec)
+# Enhanced Edit Spec Command (edit-spec)
 
 ## Overview
 
 Modify existing feature specifications using a contract-first approach that ensures complete alignment between developer and AI before updating any supporting files. This command prevents assumptions by establishing a clear "modification contract" through structured clarification rounds.
-
-## Usage
-
-```bash
-cc: edit-spec [spec-identifier] "proposed changes description"
-```
-
-**Examples:**
-```bash
-cc: edit-spec "user-authentication" "add social login options"
-cc: edit-spec "2024-01-15-payment-gateway" "change from Stripe to PayPal"
-cc: edit-spec "latest" "remove the mobile app requirement"
-```
 
 ## Command Process
 
@@ -338,7 +325,7 @@ The original version is safely backed up in the backups folder. If you need to r
 ## Example Usage Flow
 
 ```
-Developer: cc: edit-spec "user-auth" "add biometric authentication"
+Developer: /edit-spec "user-auth" "add biometric authentication"
 
 Agent: I found your user authentication specification from 2024-01-15. Let me load the current state...
 
