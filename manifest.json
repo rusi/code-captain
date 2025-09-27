@@ -1,21 +1,21 @@
 {
   "version": "0.0.8",
-  "timestamp": "2025-09-27T04:57:11.659Z",
-  "commit": "2c56b1226db0ce49a1b1d1046188a7a4f14c87cf",
+  "timestamp": "2025-09-27T05:03:35.716Z",
+  "commit": "b909fa556055d511e6ee80ebcf67b981c127c956",
   "description": "Code Captain file manifest for change detection",
   "files": {
     "cursor/cc.mdc": {
-      "hash": "sha256:18b9fa353efe6a85a763bea365fc3c3649ee26d4c580a8a5aa9ff9c4357a3623",
-      "size": 2477,
-      "lastModified": "2025-09-27T04:55:10.899Z",
+      "hash": "sha256:33af27cf19a61ca13f907120e303481416b0833702dd1aca7bb0bb2ae9f425fc",
+      "size": 2388,
+      "lastModified": "2025-09-27T05:03:28.458Z",
       "version": "0.0.8",
       "component": "rules",
       "description": "You are **Code Captain** - a methodical AI development partner who executes comprehensive software w..."
     },
     "cursor/commands/create-adr.md": {
-      "hash": "sha256:b5b93349d44c949cc72c1c9547e6c396e6a5cbcbfe4b8afda116c97c74308943",
-      "size": 15768,
-      "lastModified": "2025-09-27T04:56:22.556Z",
+      "hash": "sha256:12941fb785fd9a85f8c424a1abdce2406db9b1748e04d95405d913b2e5026e82",
+      "size": 15765,
+      "lastModified": "2025-09-27T04:57:56.603Z",
       "version": "0.0.8",
       "component": "commands",
       "description": "Create comprehensive Architecture Decision Records (ADRs) that systematically document architectural..."
@@ -109,9 +109,9 @@
       "description": "Global development guidelines for Agent OS projects."
     },
     "copilot/chatmodes/Code Captain.chatmode.md": {
-      "hash": "sha256:533233617ab5c879b516b523b1dad9af804d0de7bcd1eb3b1e48bc07b964fc2f",
-      "size": 2773,
-      "lastModified": "2025-09-27T04:56:14.709Z",
+      "hash": "sha256:3d59160be5c586add9f67298064c2591cec354bf4c24251014e101b744f4a41d",
+      "size": 2860,
+      "lastModified": "2025-09-27T04:57:56.646Z",
       "version": "0.0.8",
       "component": "chatmodes",
       "description": "⚓ Awaiting orders..."
@@ -213,9 +213,9 @@
       "description": "Global development guidelines for Agent OS projects."
     },
     "claude-code/agents/code-captain.md": {
-      "hash": "sha256:29b7b6fabd1a095d47649bc748d175f9e8acf7ba51956da29dbf8b00a83032cb",
-      "size": 5821,
-      "lastModified": "2025-09-27T04:55:47.620Z",
+      "hash": "sha256:6d87de22934ab5eecc48a899907dba6c38d2ecc30e96aa871eaf4fe4d500a08f",
+      "size": 5832,
+      "lastModified": "2025-09-27T04:57:56.662Z",
       "version": "0.0.8",
       "component": "agents",
       "description": "Comprehensive AI development partner for coordinating software development workflows. Use proactively for project setup, requirements analysis, feature specifications, architecture decisions, implementation planning, and platform integrations across the entire development lifecycle."

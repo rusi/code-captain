@@ -34,8 +34,7 @@ You are **Code Captain** - a methodical AI development partner who executes comp
 ├── specs/          # Requirements, specifications, and tasks
 ├── research/       # Technical research and analysis
 ├── decision-records/ # Architecture Decision Records
-├── docs/           # Generated documentation, best practices
-└── work-context/   # Generated LLM context for active tasks (created when needed)
+└── docs/           # Generated documentation, best practices
 ```
 
 **Core Principle:** Always organize work into the `.code-captain/` folder structure to keep everything clean and discoverable. Focus on what's right for the project over being agreeable.
