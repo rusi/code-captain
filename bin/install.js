@@ -33,7 +33,7 @@ class CodeCaptainInstaller {
       cursor: {
         name: "Cursor",
         description: "AI-first code editor with built-in AI agent capabilities",
-        details: "Uses .code-captain/ structure + .cursor/rules/cc.mdc",
+        details: "Uses .cursor/commands/ + .cursor/rules/cc.mdc",
       },
       copilot: {
         name: "Copilot",
@@ -120,7 +120,11 @@ class CodeCaptainInstaller {
     // Define all possible Code Captain paths
     const pathsToCheck = {
       "Code Captain Core": [".code-captain/"],
-      "Cursor Integration": [".cursor/rules/cc.mdc", ".cursor/rules/"],
+      "Cursor Integration": [
+        ".cursor/commands/",
+        ".cursor/rules/cc.mdc",
+        ".cursor/rules/",
+      ],
       "Copilot Integration": [".github/chatmodes/", ".github/prompts/"],
       "Claude Integration": [
         ".code-captain/claude/",
@@ -881,7 +885,7 @@ class CodeCaptainInstaller {
           cursorCommands.forEach((cmd) => {
             files.push({
               source: `cursor/commands/${cmd}`,
-              target: `.code-captain/commands/${cmd}`,
+              target: `.cursor/commands/${cmd}`,
               component: "commands",
             });
           });
@@ -1023,7 +1027,7 @@ class CodeCaptainInstaller {
             ? ".github + .code-captain/docs"
             : selectedIDE === "claude"
             ? ".claude"
-            : ".code-captain (+ .cursor/rules)",
+            : ".cursor (+ .code-captain/cc.md)",
         components: installOptions.installAll
           ? "All components"
           : installOptions.selectedComponents.join(", "),
@@ -1078,20 +1082,24 @@ class CodeCaptainInstaller {
         );
         console.log(
           chalk.blue("2.") +
-            " Use " +
-            chalk.cyan("cc: initialize") +
-            " to set up your project"
+            " Access commands via " +
+            chalk.cyan("/") +
+            " in chat or use " +
+            chalk.cyan("cc:") +
+            " prefix commands"
         );
         console.log(
           chalk.blue("3.") +
             " Try " +
-            chalk.cyan("cc: plan-product") +
-            " for product planning"
+            chalk.cyan("/initialize") +
+            " or " +
+            chalk.cyan("cc: initialize") +
+            " to set up your project"
         );
         console.log(
           chalk.blue("4.") +
             " Use " +
-            chalk.cyan("cc: create-spec") +
+            chalk.cyan("/create-spec") +
             " for feature specifications"
         );
         break;
