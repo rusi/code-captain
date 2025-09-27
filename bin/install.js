@@ -862,12 +862,6 @@ class CodeCaptainInstaller {
 
         // Core commands and docs
         if (includeAll || selectedComponents.includes("commands")) {
-          files.push({
-            source: "cursor/cc.md",
-            target: ".code-captain/cc.md",
-            component: "commands",
-          });
-
           const cursorCommands = [
             "create-adr.md",
             "create-spec.md",
@@ -1027,7 +1021,7 @@ class CodeCaptainInstaller {
             ? ".github + .code-captain/docs"
             : selectedIDE === "claude"
             ? ".claude"
-            : ".cursor (+ .code-captain/cc.md)",
+            : ".cursor/",
         components: installOptions.installAll
           ? "All components"
           : installOptions.selectedComponents.join(", "),

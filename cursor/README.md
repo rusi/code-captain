@@ -20,9 +20,9 @@ The installer will auto-detect Cursor and install to:
 ### Manual Installation
 
 ```bash
-# Clone or download the cursor/ directory contents
+# Install Cursor rules and commands
 cp cursor/cc.mdc .cursor/rules/
-cp -r cursor/ .code-captain/
+cp cursor/commands/*.md .cursor/commands/
 ```
 
 ## 🎯 Command Syntax
@@ -97,20 +97,23 @@ Cursor integration creates this structure:
 
 ```
 .cursor/
+├── commands/              # Native Cursor command files
+│   ├── initialize.md
+│   ├── create-spec.md
+│   ├── execute-task.md
+│   └── ...
 └── rules/
-    └── cc.mdc              # Command recognition file
+    └── cc.mdc              # Code Captain identity & behavior rules
 
 .code-captain/
-├── commands/               # All available commands
 ├── docs/                   # Generated documentation
 ├── research/               # Technical research reports
 ├── decision-records/       # Architecture Decision Records
-├── specs/                  # Feature specifications
-│   └── YYYY-MM-DD-feature/
-│       ├── spec.md
-│       ├── user-stories/
-│       └── tasks.md
-└── cc.md                  # Complete reference guide
+└── specs/                  # Feature specifications
+    └── YYYY-MM-DD-feature/
+        ├── spec.md
+        ├── user-stories/
+        └── tasks.md
 ```
 
 ## 🎯 Cursor-Specific Features

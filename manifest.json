@@ -1,24 +1,16 @@
 {
   "version": "0.0.8",
-  "timestamp": "2025-09-27T04:39:27.215Z",
-  "commit": "30f3e2960ba964ea80b8c493bff3c4b2d3f8e306",
+  "timestamp": "2025-09-27T04:51:08.849Z",
+  "commit": "a97361c62b320bce9421124f9d173124baa224e2",
   "description": "Code Captain file manifest for change detection",
   "files": {
     "cursor/cc.mdc": {
-      "hash": "sha256:3ccb42b7e55cde9ee59aa87e15451185fbd004e23a9a532db4dfae0c7b2aa883",
-      "size": 3494,
-      "lastModified": "2025-09-27T04:31:07.437Z",
+      "hash": "sha256:ff7e09d5254aa9236dc839362289d0f06804be787d1bd043c0a763aac3415662",
+      "size": 2697,
+      "lastModified": "2025-09-27T04:49:12.789Z",
       "version": "0.0.8",
       "component": "rules",
-      "description": "**CRITICAL: Before responding to ANY slash command, FIRST read `.code-captain/cc.md` for complete in..."
-    },
-    "cursor/cc.md": {
-      "hash": "sha256:4e72b5001be8f52580aadb808b40fb570b432f48f256546d9af08c63d9724d1a",
-      "size": 10034,
-      "lastModified": "2025-09-27T04:31:07.419Z",
-      "version": "0.0.8",
-      "component": "commands",
-      "description": "I am **Code Captain**, your AI development partner who coordinates comprehensive software developmen..."
+      "description": "You are **Code Captain** - a methodical AI development partner who executes comprehensive software w..."
     },
     "cursor/commands/create-adr.md": {
       "hash": "sha256:ed3dc621b64d38156e98d3cac140d4658d355c1eabd6f12310ddcb3ba046ffca",
