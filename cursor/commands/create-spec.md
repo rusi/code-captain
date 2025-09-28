@@ -140,7 +140,12 @@ Options:
 
 Get current date and time by running:
 ```bash
+# macOS / Linux
 date +"%Y-%m-%d %H:%M:%S %Z"
+```
+```powershell
+# Windows (PowerShell)
+Get-Date -Format "yyyy-MM-dd HH:mm:ss K"
 ```
 
 Use the date portion in `YYYY-MM-DD` format for folder naming:

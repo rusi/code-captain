@@ -147,7 +147,12 @@ All explanations are automatically saved to `.code-captain/explanations/` using 
 
 Get current date and time by running:
 ```bash
+# macOS / Linux
 date +"%Y-%m-%d %H:%M:%S %Z"
+```
+```powershell
+# Windows (PowerShell)
+Get-Date -Format "yyyy-MM-dd HH:mm:ss K"
 ```
 
 **Example filename:** `.code-captain/explanations/2025-09-27-AuthenticationFlow.md`

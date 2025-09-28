@@ -232,7 +232,12 @@ For each alternative, evaluate against established criteria:
    **CRITICAL: Always check the current date and time before creating any date-related files.**
 
    ```bash
+   # macOS / Linux
    date +"%Y-%m-%d %H:%M:%S %Z"
+   ```
+   ```powershell
+   # Windows (PowerShell)
+   Get-Date -Format "yyyy-MM-dd HH:mm:ss K"
    ```
 
 2. **Determine ADR number:**
