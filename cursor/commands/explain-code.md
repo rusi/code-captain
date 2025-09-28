@@ -155,6 +155,8 @@ date +"%Y-%m-%d %H:%M:%S %Z"
 Get-Date -Format "yyyy-MM-dd HH:mm:ss K"
 ```
 
+**⚠️ For filename creation, use ONLY the date portion (YYYY-MM-DD) from the output above.**
+
 **Example filename:** `.code-captain/explanations/2025-09-27-AuthenticationFlow.md`
 
 ## Integration Points

@@ -148,7 +148,9 @@ date +"%Y-%m-%d %H:%M:%S %Z"
 Get-Date -Format "yyyy-MM-dd HH:mm:ss K"
 ```
 
-Use the date portion in `YYYY-MM-DD` format for folder naming:
+**⚠️ For filename creation, use ONLY the date portion (YYYY-MM-DD) from the output above.**
+
+Use this date format for folder naming:
 `.code-captain/specs/[DATE]-[feature-name]/`
 
 #### Step 2.3: Create Directory Structure

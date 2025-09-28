@@ -240,6 +240,8 @@ For each alternative, evaluate against established criteria:
    Get-Date -Format "yyyy-MM-dd HH:mm:ss K"
    ```
 
+   **⚠️ For filename creation, use ONLY the date portion (YYYY-MM-DD) from the output above.**
+
 2. **Determine ADR number:**
 
    - Check existing ADRs in `.code-captain/decision-records/` directory

@@ -133,7 +133,7 @@ date +"%Y-%m-%d %H:%M:%S %Z"
 Get-Date -Format "yyyy-MM-dd HH:mm:ss K"
 ```
 
-Use the date portion in `YYYY-MM-DD` format for folder naming.
+**⚠️ For filename creation, use ONLY the date portion (YYYY-MM-DD) from the output above.**
 
 ## Research Document Template
 
