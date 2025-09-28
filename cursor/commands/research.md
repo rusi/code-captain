@@ -86,9 +86,8 @@ Conduct systematic research on a topic using structured phases that build upon e
 2. Create recommendations based on research
 3. Identify next steps or areas requiring further investigation
 4. Document sources and evidence for claims
-5. Determine current date using robust file system method (see Date Determination Process below)
-6. Create research document in `.code-captain/research/` folder using the standardized format below
-7. Present findings in appropriate format (ADR, proposal, summary document)
+5. Create research document in `.code-captain/research/` folder using the standardized format below
+6. Present findings in appropriate format (ADR, proposal, summary document)
 
 **Deliverables:**
 
@@ -122,16 +121,18 @@ Conduct systematic research on a topic using structured phases that build upon e
 
 ## Date Determination
 
-Get current date by running: `npx @devobsessed/code-captain date`
+**CRITICAL: Always check the current date and time before creating any date-related files.**
 
-This returns the current date in `YYYY-MM-DD` format for folder naming:
-`.code-captain/research/[DATE]-[topic-name]-research.md`
+Get current date and time by running:
+```bash
+date +"%Y-%m-%d %H:%M:%S %Z"
+```
+
+Use the date portion in `YYYY-MM-DD` format for folder naming.
 
 ## Research Document Template
 
-**First, determine the current date using the process above.**
-
-Create a markdown file in `.code-captain/research/[DATE]-[topic-name]-research.md` where `[DATE]` is determined using the robust date process.
+Create a markdown file in `.code-captain/research/[DATE]-[topic-name]-research.md` where `[DATE]` is the current date determined above.
 
 **Example:** `.code-captain/research/2024-01-15-blockchain-supply-chain-research.md`
 
@@ -140,7 +141,7 @@ Use the following structure:
 ```markdown
 # [Topic Name] Research
 
-**Date:** [Use date from file system determination process]
+**Date:** [Use date from date determination process above]
 **Researcher:** [Name]
 **Status:** [In Progress/Complete]
 

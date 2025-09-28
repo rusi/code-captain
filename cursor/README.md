@@ -14,7 +14,8 @@ npx @devobsessed/code-captain
 
 The installer will auto-detect Cursor and install to:
 
-- `.cursor/rules/cc.mdc` - Command recognition and auto-completion
+- `.cursor/rules/cc.mdc` - Code Captain identity and behavior rules
+- `.cursor/commands/*.md` - Command definitions for native recognition
 - `.code-captain/` - Complete workflow system
 
 ### Manual Installation
@@ -22,7 +23,8 @@ The installer will auto-detect Cursor and install to:
 ```bash
 # Install Cursor rules and commands
 cp cursor/cc.mdc .cursor/rules/
-cp cursor/commands/*.md .cursor/commands/
+cp -r cursor/commands/ .cursor/
+cp -r cursor/docs/ .code-captain/
 ```
 
 ## 🎯 Command Syntax
@@ -95,7 +97,7 @@ Code Captain commands in Cursor use the `/` slash prefix:
 
 Cursor integration creates this structure:
 
-```
+```text
 .cursor/
 ├── commands/              # Native Cursor command files
 │   ├── initialize.md
@@ -106,14 +108,18 @@ Cursor integration creates this structure:
     └── cc.mdc              # Code Captain identity & behavior rules
 
 .code-captain/
-├── docs/                   # Generated documentation
+├── specs/                  # Feature specifications
+│   └── YYYY-MM-DD-feature/
+│       ├── spec.md
+│       ├── spec-lite.md
+│       ├── user-stories/
+│       └── sub-specs/
 ├── research/               # Technical research reports
 ├── decision-records/       # Architecture Decision Records
-└── specs/                  # Feature specifications
-    └── YYYY-MM-DD-feature/
-        ├── spec.md
-        ├── user-stories/
-        └── tasks.md
+└── docs/                   # All documentation and best practices
+    ├── tech-stack.md
+    ├── code-style.md
+    └── best-practices.md
 ```
 
 ## 🎯 Cursor-Specific Features
@@ -183,7 +189,7 @@ Cursor integration creates this structure:
 ### Command Not Recognized
 
 **Problem**: Cursor doesn't recognize `/` commands  
-**Solution**: Ensure `.cursor/commands/` and `.cursor/rules/cc.mdc` exist and restart Cursor
+**Solution**: Ensure `.cursor/commands/*.md` and `.cursor/rules/cc.mdc` are properly installed and restart Cursor
 
 ### Commands Execute But No Output
 

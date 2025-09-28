@@ -141,7 +141,14 @@ Files are named using the format: `[DATE]-[target-name].md` where DATE is YYYY-M
 
 All explanations are automatically saved to `.code-captain/explanations/` using the format `[DATE]-[target-name].md`.
 
-Get current date by running: `npx @devobsessed/code-captain date`
+**Date Determination:**
+
+**CRITICAL: Always check the current date and time before creating any date-related files.**
+
+Get current date and time by running:
+```bash
+date +"%Y-%m-%d %H:%M:%S %Z"
+```
 
 **Example filename:** `.code-captain/explanations/2025-09-27-AuthenticationFlow.md`
 

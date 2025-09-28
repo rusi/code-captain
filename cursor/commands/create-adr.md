@@ -227,10 +227,12 @@ For each alternative, evaluate against established criteria:
 
 **Preparation Actions:**
 
-1. **Get current date for document content:**
+1. **Determine current date:**
+
+   **CRITICAL: Always check the current date and time before creating any date-related files.**
 
    ```bash
-   npx @devobsessed/code-captain date
+   date +"%Y-%m-%d %H:%M:%S %Z"
    ```
 
 2. **Determine ADR number:**
@@ -251,7 +253,7 @@ Create markdown file: `.code-captain/decision-records/NNNN-decision-title.md`
 ```markdown
 # NNNN. [Decision Title]
 
-**Date:** [Use output from npx @devobsessed/code-captain date]
+**Date:** [Current date in YYYY-MM-DD format]
 
 **Status:** [Proposed/Accepted/Deprecated/Superseded]
 

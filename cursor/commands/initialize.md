@@ -85,7 +85,7 @@ The `.code-captain/` directory structure already exists from installation:
 
 - `.code-captain/docs/` - For technical documentation
 - `.code-captain/research/` - For research outputs
-- `.code-captain/commands/` - Pre-installed command definitions
+- `.cursor/commands/` - Pre-installed command definitions
 
 #### Configuration Files
 
@@ -104,7 +104,7 @@ The `.code-captain/` directory structure already exists from installation:
 
 After technical foundation is complete, provide clear next steps:
 
-```
+```text
 🚀 Technical Foundation Complete!
 
 Your development environment is now set up and documented:
@@ -251,7 +251,7 @@ Identify and document:
 
 After brownfield analysis is complete, provide clear next steps:
 
-```
+```text
 🔍 Technical Foundation Analysis Complete!
 
 Your existing project has been analyzed and documented:
@@ -324,11 +324,12 @@ Ready to define your product strategy and enhance your codebase!
 
 ```
 .code-captain/
-├── commands/                 # CC command definitions (pre-installed)
-└── docs/
-    ├── best-practices.md     # Development best practices (pre-installed)
-    ├── code-style.md         # Code conventions and patterns
+├── specs/                    # Feature specifications
+├── research/                 # Technical research and analysis
+├── decision-records/         # Architecture Decision Records  
+└── docs/                     # Generated documentation
     ├── tech-stack.md         # Technology decisions and rationale
+    ├── code-style.md         # Code conventions and patterns
     └── architecture.md       # System architecture (if complex)
 ```
 
@@ -345,9 +346,9 @@ Ready to define your product strategy and enhance your codebase!
 
 - Research outputs, technical analysis, and investigation results
 
-**Commands Directory** (`.code-captain/commands/`):
+**Commands Directory** (`.cursor/commands/`):
 
-- Pre-installed CC command definitions (managed by system)
+- Pre-installed Code Captain command definitions
 
 **Root Directory**:
 

@@ -136,14 +136,19 @@ Options:
 
 #### Step 2.2: Determine Current Date
 
-Get current date by running: `npx @devobsessed/code-captain date`
+**CRITICAL: Always check the current date and time before creating any date-related files.**
 
-This returns the current date in `YYYY-MM-DD` format for folder naming:
+Get current date and time by running:
+```bash
+date +"%Y-%m-%d %H:%M:%S %Z"
+```
+
+Use the date portion in `YYYY-MM-DD` format for folder naming:
 `.code-captain/specs/[DATE]-[feature-name]/`
 
 #### Step 2.3: Create Directory Structure
 
-**Generated folder (using determined date):**
+**Generated folder using current date in YYYY-MM-DD format:**
 
 ```
 .code-captain/specs/[DATE]-{feature-name}/
