@@ -226,6 +226,58 @@ Next steps:
 - Generate appropriate commit messages
 - Execute commits with user confirmation
 
+## Git Command Reference
+
+**Essential git commands used by `/commit` and helpful for debugging:**
+
+### Checking Status
+
+```bash
+git status                    # Overview of working directory
+git status --porcelain       # Clean format for script parsing
+```
+
+### Viewing Staged Changes (what will be committed)
+
+```bash
+git diff --cached                           # All staged changes (only if files are staged)
+git diff --cached -- cursor/commands/commit.md # Specific staged file (only if THIS file is staged)
+git diff --cached -- cursor/commands/      # All staged files in directory (only if files are staged)
+```
+
+**Note**: These commands only work if files are actually staged. If no files are staged, they show nothing or error.
+
+### Viewing Working Directory Changes (unstaged)
+
+```bash
+git diff                                    # All unstaged changes
+git diff cursor/commands/commit.md         # Specific unstaged file
+```
+
+### Viewing Committed Changes
+
+```bash
+git show HEAD                              # Last commit (full diff)
+git show --name-status HEAD               # Last commit (files only)
+git show HEAD:cursor/commands/commit.md   # Specific file from last commit
+```
+
+### File Path Guidelines
+
+- ✅ **Correct**: `cursor/commands/commit.md` (relative to repo root)
+- ❌ **Wrong**: `.cursor/commands/commit.md` (incorrect leading dot)
+- ❌ **Wrong**: `commit.` (incomplete filename)
+- Use `--` to separate paths from revisions when needed: `git diff HEAD -- cursor/commands/`
+
+### Common Scenarios
+
+- **View staged changes**: `git diff --cached`
+- **View what you just committed**: `git show HEAD cursor/commands/commit.md`
+- **Compare working file to last commit**: `git diff HEAD cursor/commands/commit.md`
+- **See file as it was committed**: `git show HEAD:cursor/commands/commit.md`
+- **Check if file is staged**: `git status --porcelain cursor/commands/commit.md`
+- **See commit history for a file**: `git log --oneline cursor/commands/commit.md`
+
 ## Commit Message Format Rules
 
 ### Plan Execution Commits
