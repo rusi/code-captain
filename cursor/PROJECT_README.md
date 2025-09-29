@@ -33,12 +33,14 @@ All commands use the `/` slash prefix in Cursor:
 
 - **`/create-spec "feature description"`** - Generate comprehensive feature specifications
 - **`/edit-spec [spec-identifier] "changes"`** - Modify existing specifications with impact analysis
+- **`/create-experiment "experiment description"`** - Create experiment specifications for prototypes and validation projects
 - **`/create-adr "architectural decision"`** - Create Architecture Decision Records with auto-research
 - **`/explain-code [target]`** - Generate code explanations with visual diagrams
 
 ### ⚙️ Implementation & Quality
 
 - **`/execute-task`** - Test-driven development workflow with progress tracking
+- **`/fix-bug "bug description"`** - Investigate issues, classify problems, and create fix plans
 - **`/commit`** - Intelligent git commit with standardized message generation
 - **`/swab`** - Apply one small improvement (Boy Scout Rule)
 - **`/new-command "name" "description"`** - Create custom Code Captain commands
@@ -48,12 +50,15 @@ All commands use the `/` slash prefix in Cursor:
 ### First Time Setup
 
 1. **Initialize your project:**
+
    ```text
    /initialize
    ```
+
    This analyzes your codebase and creates foundational documentation.
 
 2. **Plan your next feature:**
+
    ```text
    /plan-product "enhanced user dashboard"
    # OR
@@ -61,6 +66,7 @@ All commands use the `/` slash prefix in Cursor:
    ```
 
 3. **Check your project status:**
+
    ```text
    /status
    ```
@@ -106,7 +112,14 @@ Code Captain organizes all work in your project:
 │       ├── spec.md         # Main specification
 │       ├── spec-lite.md    # AI context summary
 │       ├── user-stories/   # Individual user story files
-│       └── sub-specs/      # Technical details
+│       ├── sub-specs/      # Technical details
+│       └── bugfixes/       # Bug fix documentation and plans
+├── experiments/            # Experimental work and prototypes
+│   └── YYYY-MM-DD-experiment/
+│       ├── experiment.md   # Main experiment specification
+│       ├── user-stories/   # Implementation tasks
+│       ├── findings/       # Learning capture and results
+│       └── research-links.md # Related research connections
 ├── research/               # Technical research reports
 ├── decision-records/       # Architecture Decision Records
 └── docs/                   # Project documentation
@@ -164,6 +177,44 @@ Code Captain organizes all work in your project:
 /research "modern React state management patterns"
 ```
 
+### Experimental Development
+
+```bash
+# Research technical approach
+/research "WebRTC feasibility for real-time collaboration"
+
+# Create experiment to validate approach
+/create-experiment "WebRTC real-time collaboration proof of concept"
+
+# Implement experimental code (in source tree)
+/execute-task
+
+# Document findings and learnings
+# (captured in .code-captain/experiments/[DATE]-experiment/findings/)
+
+# If successful, create production specification
+/create-spec "production real-time collaboration feature"
+```
+
+### Bug Investigation & Fixing
+
+```bash
+# Investigate reported issue
+/fix-bug "User login fails with social authentication"
+
+# Command will:
+# - Analyze the issue and related code
+# - Classify as missing spec, wrong spec, or true bug
+# - Create appropriate documentation and fix plan
+# - Update existing specs or create bugfix plans as needed
+
+# Implement the fix
+/execute-task
+
+# Commit with standardized message
+/commit
+```
+
 ## 🎯 Cursor-Specific Features
 
 ### Native Integration
@@ -184,15 +235,17 @@ Code Captain organizes all work in your project:
 
 ## 📊 Command Reference
 
-| Command        | Purpose                  | Output Location                           |
-| -------------- | ------------------------ | ----------------------------------------- |
-| `initialize`   | Project analysis & setup | `.code-captain/docs/`                     |
-| `plan-product` | Product planning         | `.code-captain/product/`                  |
-| `create-spec`  | Feature specification    | `.code-captain/specs/YYYY-MM-DD-feature/` |
-| `execute-task` | TDD implementation       | Source code + tests                       |
-| `commit`       | Intelligent git commits  | Git history with standardized messages    |
-| `research`     | Technical research       | `.code-captain/research/`                 |
-| `create-adr`   | Architectural decisions  | `.code-captain/decision-records/`         |
+| Command           | Purpose                     | Output Location                              |
+| ----------------- | --------------------------- | -------------------------------------------- |
+| `initialize`      | Project analysis & setup    | `.code-captain/docs/`                        |
+| `plan-product`    | Product planning            | `.code-captain/product/`                     |
+| `create-spec`     | Feature specification       | `.code-captain/specs/YYYY-MM-DD-feature/`    |
+| `create-experiment` | Experiment specification   | `.code-captain/experiments/YYYY-MM-DD-experiment/` |
+| `fix-bug`         | Bug investigation & plans   | Spec updates or `.../bugfixes/YYYY-MM-DD-bug/` |
+| `execute-task`    | TDD implementation          | Source code + tests                          |
+| `commit`          | Intelligent git commits     | Git history with standardized messages      |
+| `research`        | Technical research          | `.code-captain/research/`                    |
+| `create-adr`      | Architectural decisions     | `.code-captain/decision-records/`            |
 
 ## 🛠️ Troubleshooting
 

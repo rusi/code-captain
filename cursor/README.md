@@ -51,12 +51,15 @@ Code Captain commands in Cursor use the `/` slash prefix:
 
 - **`/create-spec "feature description"`** - Generate comprehensive feature specifications
 - **`/edit-spec [spec-identifier] "changes"`** - Modify existing specifications with impact analysis
+- **`/create-experiment "experiment description"`** - Create experiment specifications for prototypes and validation projects
 - **`/create-adr "architectural decision"`** - Create Architecture Decision Records (auto-research)
 - **`/explain-code [target]`** - Generate code explanations with visual diagrams
 
-### ⚙️ Implementation
+### ⚙️ Implementation & Quality
 
 - **`/execute-task`** - Test-driven development workflow with progress tracking
+- **`/fix-bug "bug description"`** - Investigate issues, classify problems, and create fix plans
+- **`/commit`** - Intelligent git commit with standardized message generation
 - **`/status`** - Comprehensive project status and next action recommendations
 - **`/swab`** - Apply one small improvement (Boy Scout Rule)
 
@@ -113,7 +116,14 @@ Cursor integration creates this structure:
 │       ├── spec.md
 │       ├── spec-lite.md
 │       ├── user-stories/
-│       └── sub-specs/
+│       ├── sub-specs/
+│       └── bugfixes/       # Bug fix documentation and plans
+├── experiments/            # Experimental work and prototypes
+│   └── YYYY-MM-DD-experiment/
+│       ├── experiment.md
+│       ├── user-stories/   # Implementation tasks
+│       ├── findings/       # Learning capture and results
+│       └── research-links.md # Related research connections
 ├── research/               # Technical research reports
 ├── decision-records/       # Architecture Decision Records
 └── docs/                   # All documentation and best practices
@@ -177,12 +187,17 @@ Cursor integration creates this structure:
 
 ## 📊 Command Reference
 
-| Command        | Purpose                  | Output Location                           |
-| -------------- | ------------------------ | ----------------------------------------- |
-| `initialize`   | Project analysis & setup | `.code-captain/docs/`                     |
-| `plan-product` | Product planning         | `.code-captain/product/`                  |
-| `create-spec`  | Feature specification    | `.code-captain/specs/YYYY-MM-DD-feature/` |
-| `execute-task` | TDD implementation       | Source code + tests                       |
+| Command           | Purpose                     | Output Location                              |
+| ----------------- | --------------------------- | -------------------------------------------- |
+| `initialize`      | Project analysis & setup    | `.code-captain/docs/`                        |
+| `plan-product`    | Product planning            | `.code-captain/product/`                     |
+| `create-spec`     | Feature specification       | `.code-captain/specs/YYYY-MM-DD-feature/`    |
+| `create-experiment` | Experiment specification   | `.code-captain/experiments/YYYY-MM-DD-experiment/` |
+| `fix-bug`         | Bug investigation & plans   | Spec updates or `.../bugfixes/YYYY-MM-DD-bug/` |
+| `execute-task`    | TDD implementation          | Source code + tests                          |
+| `commit`          | Intelligent git commits     | Git history with standardized messages      |
+| `research`        | Technical research          | `.code-captain/research/`                    |
+| `create-adr`      | Architectural decisions     | `.code-captain/decision-records/`            |
 
 ## 🛠️ Troubleshooting
 

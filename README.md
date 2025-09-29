@@ -81,12 +81,15 @@ _VS Code extension for Claude integration_
 
 - **`create-spec "feature"`** - Feature specifications with technical details
 - **`edit-spec [id] "changes"`** - Modify existing specifications
+- **`create-experiment "experiment"`** - Experiment specifications for prototypes and validation
 - **`create-adr "decision"`** - Architecture Decision Records with research
 - **`explain-code [target]`** - Code explanations with diagrams
 
 ### ⚙️ Implementation
 
 - **`execute-task`** - Test-driven development workflow
+- **`fix-bug "bug description"`** - Bug investigation and fix planning
+- **`commit`** - Intelligent git commits with standardized messages
 - **`status`** - Comprehensive project status
 - **`swab`** - Small code improvements
 
@@ -125,13 +128,14 @@ _Command syntax and execution varies by IDE - see platform-specific documentatio
 
 After installation, Code Captain creates an organized workspace:
 
-```
+```text
 .code-captain/
 ├── commands/            # All available commands
 ├── docs/               # Generated documentation
 ├── research/           # Technical research reports
 ├── decision-records/   # Architecture Decision Records
-├── specs/              # Feature specifications
+├── specs/              # Feature specifications with bugfix plans
+├── experiments/        # Experimental work and prototypes
 └── cc.md              # Complete reference guide
 ```
 
