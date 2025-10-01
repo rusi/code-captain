@@ -22,8 +22,10 @@ Conduct systematic research on a topic using structured phases that build upon e
 
 1. Create todos for the research phases using `todo_write`
 2. Define primary research question(s)
-3. Identify key stakeholders and their information needs
-4. Set success criteria for the research
+3. **CRITICAL: Capture detailed requirements** - extract ALL requirements from user discussions, not just research questions
+4. Identify key stakeholders and their information needs
+5. Set success criteria for the research
+6. **Document assumptions to challenge** - list current technology choices and architectural decisions for critical evaluation
 
 **Todo Structure:**
 
@@ -69,12 +71,16 @@ Conduct systematic research on a topic using structured phases that build upon e
    - Performance metrics and benchmarks
 3. Compare alternatives and trade-offs
 4. Validate claims from multiple sources
+5. **CRITICAL: Challenge ALL assumptions** - question existing technology choices and architectural decisions
+6. **Research comprehensive alternatives** - don't assume current approach is optimal
 
 **Search Strategy:**
 
 - Use specific terminology discovered in Phase 2
 - Search for: "[specific approach] vs [alternative]", "[topic] case study", "[topic] performance"
 - Look for criticism and limitations, not just benefits
+- **Challenge existing tech stack**: Research alternatives to current frameworks/tools
+- **Question assumptions**: Research multiple methods and options
 
 ### Phase 4: Synthesis and Recommendations
 
@@ -154,9 +160,29 @@ Use the following structure:
 
 [Primary questions this research aimed to answer]
 
+## Detailed Requirements
+
+**CRITICAL: Extract ALL requirements from user conversations, not just research questions**
+
+### Primary Requirements
+[Core functionality and constraints from user discussions]
+
+### Architecture Requirements  
+[System design, deployment, and operational requirements]
+
+### Technical Requirements
+[Performance, security, compatibility requirements]
+
+### Current Architecture (Subject to Change)
+[Document existing approach and assumptions to challenge]
+
 ## Executive Summary
 
-[2-3 paragraph overview of key findings and recommendations]
+**Critical Finding:** [Highlight assumption challenges and tradeoffs discovered]
+
+[Evidence-based overview that challenges assumptions rather than confirms them]
+
+**Recommendation Matrix:** [Multiple paths based on different priorities rather than single "best" solution]
 
 ## Background & Context
 
@@ -245,11 +271,14 @@ Use the following structure:
 
 ### Critical Thinking
 
-- Question assumptions and biases in sources
-- Look for evidence, not just opinions
-- Consider the source's credibility and potential conflicts of interest
-- Distinguish between correlation and causation
-- Identify what information is missing
+- **CRITICAL: Challenge ALL assumptions** - Question existing technology choices and architectural decisions
+- **Question biases** - Both in sources AND in current approach
+- **Look for evidence, not just opinions** - Especially evidence that contradicts current choices
+- **Consider source credibility** and potential conflicts of interest
+- **Distinguish correlation from causation**
+- **Identify missing information** - What alternatives weren't considered?
+- **Research comprehensive alternatives** - Don't assume current approach is optimal
+- **Be disagreeable when evidence warrants it** - Don't be overly agreeable if research shows problems
 
 ### Documentation
 
@@ -260,11 +289,14 @@ Use the following structure:
 
 ## Common Pitfalls to Avoid
 
-- Confirmation bias (only seeking information that supports preconceived notions)
-- Stopping research too early when findings seem obvious
-- Not considering implementation challenges
-- Ignoring edge cases or limitations
-- Failing to consider stakeholder perspectives beyond your own
+- **Being overly agreeable** - Don't automatically accept current approach without critical analysis
+- **Confirmation bias** - Only seeking information that supports preconceived notions OR current choices
+- **Stopping research too early** when findings seem obvious
+- **Not challenging tech stack assumptions** - Question framework/tool choices thoroughly
+- **Missing deployment alternatives** - Not researching alternative delivery methods
+- **Ignoring edge cases or limitations**
+- **Incomplete requirements capture** - Not extracting all requirements from user conversations
+- **Single "best" solution thinking** - Most problems have tradeoffs, not perfect solutions
 
 ## Example Todo Progression
 
