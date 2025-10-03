@@ -16,6 +16,20 @@ This command enforces strict test validation:
 
 If tests fail, the story remains "IN PROGRESS" until all failures are resolved.
 
+## Engineering Standards (MANDATORY)
+
+**All implementations must follow the engineering standards documented in `.code-captain/docs/best-practices.md`**
+
+Key principles that apply to every language and domain:
+- **Keep It Simple** - Fewest lines, avoid over-engineering  
+- **Optimize for Readability** - Clear code, meaningful names
+- **Fail Fast** - Validate early, don't handle unclear error conditions
+- **DRY** - Extract repeated code, use shared functions
+- **Clean Architecture** - Single responsibility, separate concerns
+- **Externalize Configuration** - Never hardcode environment values
+
+**Reference the complete standards:** `.code-captain/docs/best-practices.md`
+
 ## Command Process
 
 ### Step 1: Task Discovery & Selection
