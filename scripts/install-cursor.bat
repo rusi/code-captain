@@ -52,17 +52,5 @@ if not exist ".git" (
     echo [WARNING] No git repository found. Consider running 'git init' to track your changes.
 )
 
-echo [SUCCESS] Code Captain installation complete!
-echo.
-echo [INFO] Installation summary:
-echo   ✓ Cursor rules: .cursor\rules\cc.mdc
-echo   ✓ Commands: .cursor\commands\*.md
-echo   ✓ Documentation: .code-captain\docs\
-echo   ✓ Code Captain guide: CODE_CAPTAINS.md
-echo.
-echo [INFO] Next steps:
-echo   1. Restart Cursor IDE to recognize new commands
-echo   2. Try running: /initialize
-echo   3. Use /status to check your project state
-echo.
-echo [INFO] Available commands: /initialize, /create-spec, /execute-task, /research, /status, /swab, and more!
+REM Extract and display messages from config
+powershell -Command "$config = Get-Content '%CONFIG_FILE%' | ConvertFrom-Json; Write-Host '[SUCCESS]' $config.messages.success -ForegroundColor Green; Write-Host ''; Write-Host '[INFO] Installation summary:' -ForegroundColor Blue; $config.files | ForEach-Object { Write-Host '  ✓' $_.destination -ForegroundColor Green }; Write-Host ''; Write-Host '[INFO] Next steps:' -ForegroundColor Blue; $config.messages.nextSteps | ForEach-Object { Write-Host '  ' $_ }; Write-Host ''; Write-Host '[INFO]' $config.messages.availableCommands -ForegroundColor Blue"

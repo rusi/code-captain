@@ -29,18 +29,16 @@ print_error() {
     echo -e "${RED}[ERROR]${NC} $1"
 }
 
-# Function to extract directories from JSON config
+# Function to extract directories from JSON config using jq
 extract_directories() {
     local json="$1"
-    echo "$json" | sed -n '/"directories":\[/,/\]/p' | grep -o '"[^"]*"' | tr -d '"' | grep -v '^directories$'
+    echo "$json" | jq -r '.directories[]' 2>/dev/null || echo ""
 }
 
-# Function to extract file operations from JSON config
+# Function to extract file operations from JSON config using jq
 extract_files() {
     local json="$1"
-    echo "$json" | sed -n '/"files":\[/,/\]/p' | grep -E '"(source|destination|isDirectory)"' | while IFS= read -r line; do
-        echo "$line"
-    done
+    echo "$json" | jq -r '.files[] | "\(.source)|\(.destination)|\(.isDirectory // false)"' 2>/dev/null || echo ""
 }
 
 # Check if target directory is provided
@@ -77,6 +75,16 @@ if [ ! -f "$CONFIG_FILE" ]; then
     exit 1
 fi
 
+# Check if jq is available
+if ! command -v jq &> /dev/null; then
+    print_error "jq is required but not installed. Please install jq to continue."
+    print_status "Install jq with:"
+    print_status "  macOS: brew install jq"
+    print_status "  Ubuntu/Debian: sudo apt-get install jq"
+    print_status "  CentOS/RHEL: sudo yum install jq"
+    exit 1
+fi
+
 # Change to target directory
 cd "$TARGET_DIR"
 print_status "Working in: $(pwd)"
@@ -91,6 +99,7 @@ print_status "Creating directory structure..."
 while IFS= read -r dir; do
     if [ -n "$dir" ]; then
         mkdir -p "$dir"
+        print_success "Created directory: $dir"
     fi
 done <<< "$(extract_directories "$CONFIG_CONTENT")"
 
@@ -99,16 +108,9 @@ print_success "Directory structure created"
 # Install files based on configuration
 print_status "Installing files..."
 
-# Process files from config using sed
-echo "$CONFIG_CONTENT" | sed -n '/"files":\[/,/\]/p' | while IFS= read -r line; do
-    if echo "$line" | grep -q '"source"'; then
-        SOURCE=$(echo "$line" | sed 's/.*"source": *"\([^"]*\)".*/\1/')
-    elif echo "$line" | grep -q '"destination"'; then
-        DEST=$(echo "$line" | sed 's/.*"destination": *"\([^"]*\)".*/\1/')
-    elif echo "$line" | grep -q '"isDirectory"'; then
-        IS_DIR=$(echo "$line" | sed 's/.*"isDirectory": *\([^,}]*\).*/\1/')
-        
-        # Process the file/directory
+# Process files from config using jq
+while IFS='|' read -r SOURCE DEST IS_DIR; do
+    if [ -n "$SOURCE" ] && [ -n "$DEST" ]; then
         if [ "$IS_DIR" = "true" ]; then
             print_status "Installing directory: $SOURCE -> $DEST"
             if [ -d "$REPO_ROOT/$SOURCE" ]; then
@@ -127,7 +129,7 @@ echo "$CONFIG_CONTENT" | sed -n '/"files":\[/,/\]/p' | while IFS= read -r line; 
             fi
         fi
     fi
-done
+done <<< "$(extract_files "$CONFIG_CONTENT")"
 
 # Initialize git if not already initialized
 if [ ! -d ".git" ]; then
@@ -137,17 +139,35 @@ fi
 # Code Captain files should be tracked in version control as they represent
 # important project artifacts (specs, research, decisions)
 
-print_success "Code Captain installation complete!"
+# Extract messages from config
+SUCCESS_MSG=$(echo "$CONFIG_CONTENT" | jq -r '.messages.success // "Code Captain installation complete!"')
+NEXT_STEPS=$(echo "$CONFIG_CONTENT" | jq -r '.messages.nextSteps[]' 2>/dev/null || echo "")
+AVAILABLE_COMMANDS=$(echo "$CONFIG_CONTENT" | jq -r '.messages.availableCommands // "Available commands: /initialize, /create-spec, /execute-task, /research, /status, /swab, and more!"')
+
+print_success "$SUCCESS_MSG"
 echo ""
+
+# Show installation summary based on what was actually installed
 print_status "Installation summary:"
-echo "  ✓ Cursor rules: .cursor/rules/cc.mdc"
-echo "  ✓ Commands: .cursor/commands/*.md"
-echo "  ✓ Documentation: .code-captain/docs/"
-echo "  ✓ Code Captain guide: CODE_CAPTAINS.md"
+while IFS='|' read -r SOURCE DEST IS_DIR; do
+    if [ -n "$SOURCE" ] && [ -n "$DEST" ]; then
+        if [ "$IS_DIR" = "true" ]; then
+            echo "  ✓ Directory: $DEST"
+        else
+            echo "  ✓ File: $DEST"
+        fi
+    fi
+done <<< "$(extract_files "$CONFIG_CONTENT")"
+
 echo ""
-print_status "Next steps:"
-echo "  1. Restart Cursor IDE to recognize new commands"
-echo "  2. Try running: /initialize"
-echo "  3. Use /status to check your project state"
-echo ""
-print_status "Available commands: /initialize, /create-spec, /execute-task, /research, /status, /swab, and more!"
+if [ -n "$NEXT_STEPS" ]; then
+    print_status "Next steps:"
+    echo "$NEXT_STEPS" | while IFS= read -r step; do
+        if [ -n "$step" ]; then
+            echo "  $step"
+        fi
+    done
+    echo ""
+fi
+
+print_status "$AVAILABLE_COMMANDS"
