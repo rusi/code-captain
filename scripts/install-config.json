@@ -10,6 +10,10 @@
       "destination": ".cursor/rules/cc.mdc"
     },
     {
+      "source": "cursor/best-practices.mdc",
+      "destination": ".cursor/rules/best-practices.mdc"
+    },
+    {
       "source": "cursor/commands/",
       "destination": ".cursor/commands/",
       "isDirectory": true

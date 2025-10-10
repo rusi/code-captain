@@ -56,6 +56,11 @@ Use `todo_write` to track progress through technical setup:
       "id": "greenfield-readme",
       "content": "Generate technical README.md with setup instructions",
       "status": "pending"
+    },
+    {
+      "id": "greenfield-project-best-practices",
+      "content": "Update .code-captain/docs/best-practices.md with project-specific guidelines",
+      "status": "pending"
     }
   ]
 }
@@ -98,7 +103,18 @@ The `.code-captain/` directory structure already exists from installation:
 
 1. **`.code-captain/docs/tech-stack.md`** - Technology stack decisions and rationale
 2. **`.code-captain/docs/code-style.md`** - Coding standards and development patterns
-3. **`README.md`** - Technical overview and setup instructions
+3. **`.code-captain/docs/best-practices.md`** - Project-specific best practices and guidelines
+4. **`README.md`** - Technical overview and setup instructions
+
+#### Project-Specific Best Practices Update
+
+Update `.code-captain/docs/best-practices.md` with:
+
+- **Technology-specific patterns** based on detected tech stack
+- **Project-specific conventions** (naming, structure, etc.)
+- **Team workflows** and development practices
+- **Architecture decisions** and their rationale
+- **Environment-specific configurations** and requirements
 
 ### Phase 4: Next Steps Guidance
 
@@ -159,6 +175,11 @@ Use `todo_write` to track analysis progress:
     {
       "id": "brownfield-architecture",
       "content": "Document system architecture and technical decisions",
+      "status": "pending"
+    },
+    {
+      "id": "brownfield-project-best-practices",
+      "content": "Update .code-captain/docs/best-practices.md with project-specific guidelines",
       "status": "pending"
     }
   ]
@@ -247,7 +268,17 @@ Identify and document:
 - **Development workflow improvements**
 - **Architecture optimization opportunities**
 
-### Phase 4: Next Steps Guidance
+#### Brownfield Project-Specific Best Practices Update
+
+Update `.code-captain/docs/best-practices.md` with:
+
+- **Technology-specific patterns** based on existing codebase analysis
+- **Project-specific conventions** observed in the codebase
+- **Team workflows** and development practices currently in use
+- **Architecture decisions** and their rationale from existing code
+- **Environment-specific configurations** and requirements
+
+### Phase 4: Brownfield Next Steps Guidance
 
 After brownfield analysis is complete, provide clear next steps:
 
@@ -290,7 +321,7 @@ Ready to define your product strategy and enhance your codebase!
 
 **Required message format**:
 
-```
+```text
 🚀 Technical Foundation Complete! / 🔍 Technical Foundation Analysis Complete!
 
 ## Recommended Next Steps:
@@ -322,7 +353,7 @@ Ready to define your product strategy and enhance your codebase!
 
 #### Directory Structure (Created by Install Script)
 
-```
+```text
 .code-captain/
 ├── specs/                    # Feature specifications
 ├── research/                 # Technical research and analysis
@@ -337,7 +368,7 @@ Ready to define your product strategy and enhance your codebase!
 
 **Docs Directory** (`.code-captain/docs/`):
 
-- `best-practices.md` - Development best practices (pre-installed)
+- `best-practices.md` - Project-specific best practices and guidelines (updated during initialization)
 - `code-style.md` - Coding standards, naming conventions, patterns
 - `tech-stack.md` - Technology choices with justifications
 - `architecture.md` - System architecture and technical decisions (if complex)
