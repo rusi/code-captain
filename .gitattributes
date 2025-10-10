@@ -1,0 +1,37 @@
+# Set default behavior to automatically normalize line endings
+* text=auto
+
+# Windows batch files should use CRLF
+*.bat text eol=crlf
+
+# PowerShell scripts should use CRLF
+*.ps1 text eol=crlf
+
+# Shell scripts should use LF
+*.sh text eol=lf
+
+# JSON files should use LF
+*.json text eol=lf
+
+# Markdown files should use LF
+*.md text eol=lf
+
+# JavaScript/TypeScript files should use LF
+*.js text eol=lf
+*.ts text eol=lf
+
+# Configuration files should use LF
+*.yml text eol=lf
+*.yaml text eol=lf
+*.toml text eol=lf
+*.ini text eol=lf
+
+# Binary files
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.ico binary
+*.pdf binary
+*.zip binary
+*.tar.gz binary

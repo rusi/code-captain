@@ -1,0 +1,37 @@
+{
+  "directories": [
+    ".cursor/rules",
+    ".cursor/commands", 
+    ".code-captain/docs"
+  ],
+  "files": [
+    {
+      "source": "cursor/cc.mdc",
+      "destination": ".cursor/rules/cc.mdc"
+    },
+    {
+      "source": "cursor/commands/",
+      "destination": ".cursor/commands/",
+      "isDirectory": true
+    },
+    {
+      "source": "cursor/docs/",
+      "destination": ".code-captain/docs/",
+      "isDirectory": true
+    },
+    {
+      "source": "cursor/PROJECT_README.md",
+      "destination": "CODE_CAPTAINS.md"
+    }
+  ],
+  "messages": {
+    "welcome": "Installing Code Captain for Cursor...",
+    "success": "Code Captain installation complete!",
+    "nextSteps": [
+      "Restart Cursor IDE to recognize new commands",
+      "Try running: /initialize", 
+      "Use /status to check your project state"
+    ],
+    "availableCommands": "/initialize, /create-spec, /execute-task, /research, /status, /swab, and more!"
+  }
+}

@@ -29,6 +29,20 @@ print_error() {
     echo -e "${RED}[ERROR]${NC} $1"
 }
 
+# Function to extract directories from JSON config
+extract_directories() {
+    local json="$1"
+    echo "$json" | sed -n '/"directories":\[/,/\]/p' | grep -o '"[^"]*"' | tr -d '"' | grep -v '^directories$'
+}
+
+# Function to extract file operations from JSON config
+extract_files() {
+    local json="$1"
+    echo "$json" | sed -n '/"files":\[/,/\]/p' | grep -E '"(source|destination|isDirectory)"' | while IFS= read -r line; do
+        echo "$line"
+    done
+}
+
 # Check if target directory is provided
 if [ $# -eq 0 ]; then
     print_error "Usage: $0 <target_project_directory>"
@@ -39,6 +53,7 @@ fi
 TARGET_DIR="$1"
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 REPO_ROOT="$(dirname "$SCRIPT_DIR")"
+CONFIG_FILE="$SCRIPT_DIR/install-config.json"
 
 print_status "Installing Code Captain for Cursor..."
 print_status "Target directory: $TARGET_DIR"
@@ -56,35 +71,63 @@ if [ ! -f "$REPO_ROOT/cursor/cc.mdc" ]; then
     exit 1
 fi
 
+# Verify config file exists
+if [ ! -f "$CONFIG_FILE" ]; then
+    print_error "Configuration file not found: $CONFIG_FILE"
+    exit 1
+fi
+
 # Change to target directory
 cd "$TARGET_DIR"
 print_status "Working in: $(pwd)"
 
+# Load configuration
+CONFIG_CONTENT=$(cat "$CONFIG_FILE")
+
 # Create directory structure
 print_status "Creating directory structure..."
 
-mkdir -p .cursor/rules
-mkdir -p .cursor/commands
-mkdir -p .code-captain/docs
+# Create directories from config
+while IFS= read -r dir; do
+    if [ -n "$dir" ]; then
+        mkdir -p "$dir"
+    fi
+done <<< "$(extract_directories "$CONFIG_CONTENT")"
 
 print_success "Directory structure created"
 
-# Copy cursor rules
-print_status "Installing cursor rules..."
-cp "$REPO_ROOT/cursor/cc.mdc" .cursor/rules/
-print_success "Cursor rules installed (.cursor/rules/cc.mdc)"
+# Install files based on configuration
+print_status "Installing files..."
 
-# Copy cursor commands
-print_status "Installing cursor commands..."
-cp -r "$REPO_ROOT/cursor/commands/"* .cursor/commands/
-print_success "Cursor commands installed (.cursor/commands/)"
-
-# Copy documentation
-print_status "Installing documentation..."
-cp -r "$REPO_ROOT/cursor/docs/"* .code-captain/docs/
-cp "$REPO_ROOT/cursor/PROJECT_README.md" CODE_CAPTAINS.md
-print_success "Documentation installed (.code-captain/docs/)"
-print_success "Code Captain guide installed (CODE_CAPTAINS.md)"
+# Process files from config using sed
+echo "$CONFIG_CONTENT" | sed -n '/"files":\[/,/\]/p' | while IFS= read -r line; do
+    if echo "$line" | grep -q '"source"'; then
+        SOURCE=$(echo "$line" | sed 's/.*"source": *"\([^"]*\)".*/\1/')
+    elif echo "$line" | grep -q '"destination"'; then
+        DEST=$(echo "$line" | sed 's/.*"destination": *"\([^"]*\)".*/\1/')
+    elif echo "$line" | grep -q '"isDirectory"'; then
+        IS_DIR=$(echo "$line" | sed 's/.*"isDirectory": *\([^,}]*\).*/\1/')
+        
+        # Process the file/directory
+        if [ "$IS_DIR" = "true" ]; then
+            print_status "Installing directory: $SOURCE -> $DEST"
+            if [ -d "$REPO_ROOT/$SOURCE" ]; then
+                cp -r "$REPO_ROOT/$SOURCE"* "$DEST"
+                print_success "Directory copied: $SOURCE -> $DEST"
+            else
+                print_warning "Source directory not found: $REPO_ROOT/$SOURCE"
+            fi
+        else
+            print_status "Installing file: $SOURCE -> $DEST"
+            if [ -f "$REPO_ROOT/$SOURCE" ]; then
+                cp "$REPO_ROOT/$SOURCE" "$DEST"
+                print_success "File copied: $SOURCE -> $DEST"
+            else
+                print_warning "Source file not found: $REPO_ROOT/$SOURCE"
+            fi
+        fi
+    fi
+done
 
 # Initialize git if not already initialized
 if [ ! -d ".git" ]; then
